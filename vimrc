@@ -36,6 +36,7 @@ call plug#begin('~/.vim/vim-plug')
 Plug 'tomasr/molokai'
 
 " 记住fcitx在插入模式的中英状态
+" 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
 Plug 'lilydjwg/fcitx.vim'
     " 以下设置一些超时时间(超过这个时间后才不在等待后续按键)
     " 这样可以避免使用此插件从插入模式退出后带来的一点延迟
@@ -50,6 +51,18 @@ Plug 'lilydjwg/fcitx.vim'
     " 设置键码超时时间(默认是负数也就是关闭,关闭时由timeoutlen的值管理键码超时)
     set ttimeoutlen=100
 
+" 一个多功能的自动补全插件
+" 支持c系列,python,go,TypeScript,JavaScript,rust语言补全,
+" 支持文件目录/文件名补全
+" 支持从vim的omnifunc接收数据补全
+" 支持上下文变量以及tags文件补全
+" 支持UltiSnips的snippet补全(一个快速插入整块代码的插件)
+" 异常强大,但需要手动编译,编译的时候可以选择性的编译上述特性
+" 需要注意的是如果vim-plug更新了YCM,那么就需要重新编译
+" 更多介绍参见此项目主页(https://github.com/Valloric/YouCompleteMe)
+Plug 'Valloric/YouCompleteMe'
+    " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
+    let g:ycm_global_ycm_extra_conf = '~/.vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
 " 结束插件加载
 call plug#end()
