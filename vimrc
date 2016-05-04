@@ -63,6 +63,30 @@ Plug 'lilydjwg/fcitx.vim'
 Plug 'Valloric/YouCompleteMe'
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
     let g:ycm_global_ycm_extra_conf = '~/.vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+    " 使用ctrl-j或下键或ctrl-n在补全菜单中向下移动
+    let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']
+    " 使用ctrl-k或上键或ctrl-p在补全菜单中向上移动
+    let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']
+
+" 快速插入代码片段
+" 会在ycm弹出的补全菜单中包含又<snip>字样的补全项
+" 这些补全项可以插入一段代码,要插入这种补全项需要输入这一项在补全菜单中的完整文字,
+" 或者使用上面ycm定义的上下移动键移动到要使用的代码段,然后按<tab>键
+" 引擎
+Plug 'SirVer/ultisnips'
+" 代码片段
+Plug 'honza/vim-snippets'
+    " 使用tab键展开在补全菜单中选中的补全项的代码片段
+    let g:UltiSnipsExpandTrigger="<tab>"
+    " 在展开代码片段后使用tab键跳转需要修改的关键部分(如果右的话),跟eclipse中的自动补全后按tab键很像
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    " 类似上面的定义,但是反向移动
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    " 可以使用:UltiSnipsEdit命令自定义供补全的代码片段,其保存到下面指定的目录下
+    let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+    " 当使用:UltiSnipsEdit命令时在一个垂直新建的窗口中编写
+    let g:UltiSnipsEditSplit="vertical"
+
 
 " 结束插件加载
 call plug#end()
