@@ -32,8 +32,8 @@ set nocp
 " 每个插件下面的是对这个插件的设置
 call plug#begin('~/.vim/vim-plug')
 
-" molokai颜色主题
-Plug 'tomasr/molokai'
+"  hybrid颜色主题
+Plug 'w0ng/vim-hybrid'
 
 " 记住fcitx在插入模式的中英状态
 " 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
@@ -131,7 +131,7 @@ set background=dark
 set t_Co=256
 
 " 颜色主题
-colorscheme molokai
+colorscheme hybrid
 
 " 检测文件类型,载入文件类型插件,载入文件类型缩进
 " :filetype
