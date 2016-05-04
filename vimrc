@@ -6,7 +6,7 @@ set nocp
 
 
 
-" ##########################安装/加载插件##########################
+"###########################安装/加载插件##########################
 " 使用vim-plug插件管理器
 " vim-plug的简要使用方法:
 " 命令:
@@ -32,9 +32,13 @@ set nocp
 " 每个插件下面的是对这个插件的设置
 call plug#begin('~/.vim/vim-plug')
 
-"  hybrid颜色主题
+"##############
+" hybrid颜色主题
 Plug 'w0ng/vim-hybrid'
 
+
+"##########
+" fcitx.vim
 " 记住fcitx在插入模式的中英状态
 " 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
 Plug 'lilydjwg/fcitx.vim'
@@ -51,6 +55,9 @@ Plug 'lilydjwg/fcitx.vim'
     " 设置键码超时时间(默认是负数也就是关闭,关闭时由timeoutlen的值管理键码超时)
     set ttimeoutlen=100
 
+
+"##############
+" YouCompleteMe
 " 一个多功能的自动补全插件
 " 支持c系列,python,go,TypeScript,JavaScript,rust语言补全,
 " 支持文件目录/文件名补全
@@ -68,6 +75,9 @@ Plug 'Valloric/YouCompleteMe'
     " 使用ctrl-k或上键或ctrl-p在补全菜单中向上移动
     let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']
 
+
+"##########
+" ultisnips
 " 快速插入代码片段
 " 会在ycm弹出的补全菜单中包含又<snip>字样的补全项
 " 这些补全项可以插入一段代码,要插入这种补全项需要输入这一项在补全菜单中的完整文字,
@@ -86,6 +96,45 @@ Plug 'honza/vim-snippets'
     let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
     " 当使用:UltiSnipsEdit命令时在一个垂直新建的窗口中编写
     let g:UltiSnipsEditSplit="vertical"
+
+
+" #################
+" vim-javacomplete2
+" java自动补全,可配合ycm实现自动补全,javacomplete2是javacomplete的增强版
+" 第一次打开比较慢,是因为要在~/.cache下生成缓存文件
+" 提供了一系列:JC开头的命令,更能基本对应下面定义的快捷键,
+" 详细介绍可以使用:h javacomplete.txt查看
+" 只有在打开java类型的文件时才加载本插件
+Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+    " 自动设置java类型文件为omnifunc补全
+    autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    " 插件会自动设置一些在插入模式下<c-j>的映射,导致使用<c-j>选择ycm
+    " 的补全菜单有问题,所以禁止插件自动映射按键
+    let g:JavaComplete_EnableDefaultMappings = 0
+    " 当打开java类型文件时设置如下按键映射:
+    " ,jA   打开一个新窗口,包含了光标所在类的所有变量的setter和getter方法
+    "	    手动删除不需要的方法后按s键生成到正在编辑的java文件中,按q退出
+    " ,js   生成光标所在附近变量的setter方法
+    " ,jg   生成光标所在附近变量的getter方法
+    " ,ja   生成光标所在附近变量的setter和getter方法
+    " ,ji   为光标下或光标前的类名增加import语句
+    " ,jI   为所有类增加缺失的import语句
+    " ,jR   移除所有未使用的import语句
+    " ,jM   从implement的接口来增加需要实现的方法
+    function! s:MyJavaMappings()
+	nmap <buffer> <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+	vmap <buffer> <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+	nmap <buffer> <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+	vmap <buffer> <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+	nmap <buffer> <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+	vmap <buffer> <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+	nmap <buffer> <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+	nmap <buffer> <leader>ji <Plug>(JavaComplete-Imports-Add)
+	nmap <buffer> <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+	nmap <buffer> <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+	nmap <buffer> <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+    endfunction
+    autocmd BufEnter *.java call s:MyJavaMappings()
 
 
 " 结束插件加载
