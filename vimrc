@@ -32,11 +32,6 @@ set nocp
 " 每个插件下面的是对这个插件的设置
 call plug#begin('~/.vim/vim-plug')
 
-"##############
-" hybrid颜色主题
-Plug 'w0ng/vim-hybrid'
-
-
 "##########
 " fcitx.vim
 " 记住fcitx在插入模式的中英状态
@@ -196,16 +191,6 @@ set wrap
 " number
 set nu
 
-" 设置背景色模式为暗色
-" background
-set background=dark
-
-" 终端颜色数目为256(兼容更多的颜色主题)
-set t_Co=256
-
-" 颜色主题
-colorscheme hybrid
-
 " 检测文件类型,载入文件类型插件,载入文件类型缩进
 " :filetype
 filetype on
@@ -215,6 +200,24 @@ filetype indent on
 " 语法高亮
 " :syntax
 syntax on
+
+" 设置背景色模式为暗色
+" background
+set background=dark
+
+" 终端颜色数目为256(兼容更多的颜色主题)
+set t_Co=256
+
+" 颜色主题
+" 主题的设置应在语法高亮和类型检测后面,否则会出现一些问题
+colorscheme molokai
+" 设置主题背景为空,就会使用终端的背景色
+" 若终端背景色透明,则vim透明
+highlight Normal ctermbg=none
+" 同上,但设置的是左边的行数背景
+highlight LineNr ctermbg=none
+" 修改底部状态栏背景色
+highlight StatusLine ctermfg=0 ctermbg=250
 
 " 高亮搜索时匹配到的搜过结果
 " hlsearch
