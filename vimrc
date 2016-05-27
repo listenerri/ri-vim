@@ -69,6 +69,10 @@ Plug 'Valloric/YouCompleteMe'
     let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']
     " 使用ctrl-k或上键或ctrl-p在补全菜单中向上移动
     let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']
+    " 编辑注释时也自动补全
+    let g:ycm_complete_in_comments = 1
+    " 从注释和字符串中收集可补全关键字
+    let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
 
 "##########
@@ -356,11 +360,8 @@ let mapleader = ","
 " 将";"映射为":"
 nnoremap ; :
 
-" 默认的V选择整行不好用
-nnoremap V ^v$
-
 " 快速移动到行尾航首
-" 全局不适用H,L的原功能
+" 直接使用map命令从而全局不适用H,L的原功能
 map H ^
 map L $
 

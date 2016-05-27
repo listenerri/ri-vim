@@ -1,2 +1,3 @@
 # 忽略vim-plug插件管理器安装插件的目录
 vim-plug/
+.netrwhist
