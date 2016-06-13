@@ -282,11 +282,11 @@ set si
 " autoread
 set ar
 
-" 自动写入
+" 自动写入(不包含"edit","quit"等命令,如需包含参见autowriteall)
 " 当在执行一些跳转,离开本缓冲区的命令时自动写入文件,如:
 " :next,:last,:stop,:suspend,CTRL-],CTRL-O,'{A-Z0-9}等
-" autowriteall
-set awa
+" autowrite
+set aw
 
 " 命令行补全菜单
 " 在命令行按tab键补全命令时,在命令行上方出现可能的匹配
