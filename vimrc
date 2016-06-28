@@ -135,6 +135,14 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
     endfunction
     autocmd BufEnter *.java call s:MyJavaMappings()
 
+" #################
+" vim-instant-markdown
+" 在浏览器中实时预览所编写的markdown文件
+" 需要另外安装node.js的一个名叫"instant-markdown-d"模块
+" 而且要求以全局方式安装这个模块,具体命令是:
+" sudo npm -g install instant-markdown-d
+" 如果出现问题请到(https://github.com/suan/vim-instant-markdown)
+Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 
 " 结束插件加载
 call plug#end()
