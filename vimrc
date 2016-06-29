@@ -385,22 +385,28 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 
 " 保存和退出
-nnoremap <leader>q :q<cr>
-nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>w :w<CR>
 
 " 保证搜索结果高亮,避免下面取消高亮后在此搜索没有高亮
-nnoremap / :set hlsearch<cr>/
-nnoremap n :set hlsearch<cr>nzz
-nnoremap N :set hlsearch<cr>Nzz
+nnoremap / :set hlsearch<CR>/
+nnoremap n :set hlsearch<CR>nzz
+nnoremap N :set hlsearch<CR>Nzz
 
 " 取消搜索的高亮
-nnoremap <leader>/ :set nohlsearch<cr>
+nnoremap <leader><Space> :set nohlsearch<cr>
+
+" 快速搜索光标下的单词
+" 向下搜索
+nnoremap <leader>/ :set hlsearch<CR>viwy/<C-R>"<CR>
+" 向上搜索
+nnoremap <leader>? :set hlsearch<CR>viwy?<C-R>"<CR>
 
 " 窗口切换
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
 
 
 
