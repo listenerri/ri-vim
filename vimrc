@@ -366,11 +366,11 @@ endif
 " i:插入模式
 " c:命令行模式
 
-" 设置<leader>为","
-let mapleader = ","
+" 设置<leader>为空格键
+let mapleader = "\<Space>"
 
-" 将";"映射为":"
-nnoremap ; :
+" 更方便的进入命令模式
+nnoremap <leader>; :
 
 " 快速移动到行尾航首
 " 直接使用map命令从而全局不适用H,L的原功能
