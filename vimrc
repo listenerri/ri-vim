@@ -380,6 +380,9 @@ map L $
 " 复制到系统剪切板
 noremap <leader>y "+y
 
+" 剪切到系统剪切板
+noremap <leader>d "+d
+
 " 从系统剪切板粘贴
 noremap <leader>p "+p
 noremap <leader>P "+P
