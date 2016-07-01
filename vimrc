@@ -143,6 +143,9 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 " sudo npm -g install instant-markdown-d
 " 如果出现问题请到(https://github.com/suan/vim-instant-markdown)
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
+" 取消自动启动预览,需要启动预览时使用命令:InstantMarkdownPreview
+" 如需自动启动则注销掉下面的配置即可
+let g:instant_markdown_autostart = 0
 
 " 结束插件加载
 call plug#end()
