@@ -147,6 +147,11 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 " 如需自动启动则注销掉下面的配置即可
 let g:instant_markdown_autostart = 0
 
+" #################
+" vim-minimap
+" 为当前窗口显示小地图,也就是把当前文件缩小到一个窗口显示
+Plug 'severin-lemaignan/vim-minimap'
+
 " 结束插件加载
 call plug#end()
 
@@ -164,7 +169,8 @@ set ww=b,s,h,l,<,>
 
 " 禁止跳转时光标移动到非空字符
 " 默认当跳转时光标会移动到那一行的非空字符处
-" startofline
+"sdf;jlka
+";jklstartofline
 set nosol
 
 " 输入搜索关键字时跳转到匹配的结果
@@ -407,6 +413,12 @@ nnoremap <leader><Space> :set nohlsearch<cr>
 nnoremap <leader>/ :set hlsearch<CR>viwy/<C-R>"<CR>
 " 向上搜索
 nnoremap <leader>? :set hlsearch<CR>viwy?<C-R>"<CR>
+
+" 快速可视模式下搜索高亮的内容
+" 向下搜索
+vnoremap / y:set hlsearch<CR>/<C-R>"<CR>
+" 向上搜索
+vnoremap ? y:set hlsearch<CR>?<C-R>"<CR>
 
 " 窗口切换
 nnoremap <C-H> <C-W>h
