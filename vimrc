@@ -147,10 +147,6 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 " 如需自动启动则注销掉下面的配置即可
 let g:instant_markdown_autostart = 0
 
-" #################
-" vim-minimap
-" 为当前窗口显示小地图,也就是把当前文件缩小到一个窗口显示
-Plug 'severin-lemaignan/vim-minimap'
 
 " 结束插件加载
 call plug#end()
