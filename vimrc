@@ -147,14 +147,6 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 " 如需自动启动则注销掉下面的配置即可
 let g:instant_markdown_autostart = 0
 
-" vim-minimap
-" 就像subline那样的代码小地图
-" 默认的按键映射为:
-" let g:minimap_show='<leader>mm'
-" let g:minimap_update='<leader>mu'
-" let g:minimap_close='<leader>mc'
-" let g:minimap_toggle='<leader>mt'
-Plug 'severin-lemaignan/vim-minimap'
 
 " 结束插件加载
 call plug#end()
