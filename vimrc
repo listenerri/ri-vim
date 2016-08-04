@@ -53,6 +53,7 @@ Plug 'lilydjwg/fcitx.vim'
 
 "##############
 " YouCompleteMe
+" 条件加载
 " 一个多功能的自动补全插件
 " 支持c系列,python,go,TypeScript,JavaScript,rust语言补全,
 " 支持文件目录/文件名补全
@@ -62,7 +63,7 @@ Plug 'lilydjwg/fcitx.vim'
 " 异常强大,但需要手动编译,编译的时候可以选择性的编译上述特性
 " 需要注意的是如果vim-plug更新了YCM,那么就需要重新编译
 " 更多介绍参见此项目主页(https://github.com/Valloric/YouCompleteMe)
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh'] }
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
     let g:ycm_global_ycm_extra_conf = '~/.vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
     " 使用ctrl-j或下键或ctrl-n在补全菜单中向下移动
@@ -80,14 +81,17 @@ Plug 'Valloric/YouCompleteMe'
 " 快速插入代码片段
 " 会在ycm弹出的补全菜单中包含又<snip>字样的补全项
 " 这些补全项可以插入一段代码,要插入这种补全项需要输入这一项在补全菜单中的完整文字,
-" 或者使用上面ycm定义的上下移动键移动到要使用的代码段,然后按<tab>键
-" 引擎
+" 或者使用上面ycm定义的上下移动键移动到要使用的代码段,然后按<tab>键,即可展开片段
+" 代码引擎
 Plug 'SirVer/ultisnips'
 " 代码片段
 Plug 'honza/vim-snippets'
-    " 使用tab键展开在补全菜单中选中的补全项的代码片段
+    " 很多虚拟终端不会发送<c-tab>以及<s-tab>到程序,所以应该避免映射这种按键
+    " 插入模式下使用tab键插入代码片段
     let g:UltiSnipsExpandTrigger="<tab>"
-    " 在展开代码片段后使用tab键跳转需要修改的关键部分(如果右的话),跟eclipse中的自动补全后按tab键很像
+    " 插入模式下使用s-tab键列出所有的可选片段供选择
+    let g:UltiSnipsListSnippets="<s-tab>"
+    " 在展开代码片段后使用tab键跳转需要修改的关键部分(如果有的话)
     let g:UltiSnipsJumpForwardTrigger="<tab>"
     " 类似上面的定义,但是反向移动
     let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -99,6 +103,7 @@ Plug 'honza/vim-snippets'
 
 " #################
 " vim-javacomplete2
+" 条件加载
 " java自动补全,可配合ycm实现自动补全,javacomplete2是javacomplete的增强版
 " 第一次打开比较慢,是因为要在~/.cache下生成缓存文件
 " 提供了一系列:JC开头的命令,更能基本对应下面定义的快捷键,
@@ -137,6 +142,7 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 
 " #################
 " vim-instant-markdown
+" 条件加载
 " 在浏览器中实时预览所编写的markdown文件
 " 需要另外安装node.js的一个名叫"instant-markdown-d"模块
 " 而且要求以全局方式安装这个模块,具体命令是:
