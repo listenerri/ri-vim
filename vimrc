@@ -121,18 +121,19 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
     " ,js   生成光标所在附近变量的setter方法
     " ,jg   生成光标所在附近变量的getter方法
     " ,ja   生成光标所在附近变量的setter和getter方法
+    " ,jc   生成默认的构造方法
+    " ,jC   同,jA但生成的是有参数的构造方法
     " ,ji   为光标下或光标前的类名增加import语句
     " ,jI   为所有类增加缺失的import语句
     " ,jR   移除所有未使用的import语句
     " ,jM   从implement的接口来增加需要实现的方法
     function! s:MyJavaMappings()
 	nmap <buffer> <leader>jA <Plug>(JavaComplete-Generate-Accessors)
-	vmap <buffer> <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
 	nmap <buffer> <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-	vmap <buffer> <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
 	nmap <buffer> <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-	vmap <buffer> <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 	nmap <buffer> <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+	nmap <buffer> <leader>jc <Plug>(JavaComplete-Generate-DefaultConstructor)
+	nmap <buffer> <leader>jC <Plug>(JavaComplete-Generate-Constructor)
 	nmap <buffer> <leader>ji <Plug>(JavaComplete-Imports-Add)
 	nmap <buffer> <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
 	nmap <buffer> <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
