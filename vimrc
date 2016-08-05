@@ -136,8 +136,8 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 	nmap <buffer> <leader>jC <Plug>(JavaComplete-Generate-Constructor)
 	nmap <buffer> <leader>ji <Plug>(JavaComplete-Imports-Add)
 	nmap <buffer> <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
-	nmap <buffer> <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
-	nmap <buffer> <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+	nmap <buffer> <leader>jr <Plug>(JavaComplete-Imports-RemoveUnused)
+	nmap <buffer> <leader>jm <Plug>(JavaComplete-Generate-AbstractMethods)
     endfunction
     autocmd BufEnter *.java call s:MyJavaMappings()
 
