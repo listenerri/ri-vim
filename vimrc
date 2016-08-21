@@ -384,6 +384,16 @@ let mapleader = "\<Space>"
 " 更方便的进入命令模式
 nnoremap <leader>; :
 
+" 插入模式下快速移动光标
+inoremap <C-H> <Left>
+inoremap <C-J> <Down>
+inoremap <C-K> <Up>
+inoremap <C-L> <Right>
+
+" 插入二合字符
+" 默认是<C-K>,但已被上面的定义所占用
+inoremap <Insert> <C-K>
+
 " 快速移动到行尾航首
 " 直接使用map命令从而全局不适用H,L的原功能
 map H ^
