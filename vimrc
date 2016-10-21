@@ -355,6 +355,28 @@ set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin1
 
 
 
+" ##########################netrw自带的文件浏览器##########################
+" 在文件浏览窗口具体的用法请使用:h netrw-quickmap命令查看
+" 按o键在文件列表窗口下边新建水平窗口打开光标下的文件或目录
+" 值为零时，在上面新建水平窗口
+let g:netrw_alto=1
+" 按v键在文件列表窗口右边新建水平窗口打开光标下的文件或目录
+" 值为零时，在左边新建垂直窗口
+let g:netrw_altv=1
+" 默认以树状形式显示文件列表
+let g:netrw_liststyle=3
+" 关闭鼠标功能(容易出错)
+let g:netrw_mousemaps=0
+" 设置在文件列表窗口使用o或者v打开的窗口的大小(百分比)
+" 同时也设置了使用:Explore,:Sexplore,:Vexplore,:Hexplore系列命令打开文件列表窗口的大小
+let g:netrw_winsize=80
+" <F2>打开当前目录文件列表窗口
+noremap <F2> :20Sexplore!<CR>
+
+
+
+
+
 " ##########################GUI##########################
 if has("gui_running")
     "gui窗口宽高
