@@ -154,6 +154,15 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 " 如需自动启动则注销掉下面的配置即可
 let g:instant_markdown_autostart = 0
 
+" #################
+" vim-quickrun
+" 条件加载
+" 快速运行当前文件或选中的行
+Plug 'thinca/vim-quickrun', { 'for': ['java','c','cpp'] }
+" 按F5按默认配置快速启动
+map <F5> <Plug>(quickrun)
+
+
 
 " 结束插件加载
 call plug#end()
