@@ -63,7 +63,7 @@ call plug#begin('~/.vim/vim-plug')
 " 异常强大,但需要手动编译,编译的时候可以选择性的编译上述特性
 " 需要注意的是如果vim-plug更新了YCM,那么就需要重新编译
 " 更多介绍参见此项目主页(https://github.com/Valloric/YouCompleteMe)
-Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh'] }
+Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','python'] }
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
     let g:ycm_global_ycm_extra_conf = '~/.vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
     " 使用ctrl-j或下键或ctrl-n在补全菜单中向下移动
@@ -158,9 +158,17 @@ let g:instant_markdown_autostart = 0
 " vim-quickrun
 " 条件加载
 " 快速运行当前文件或选中的行
-Plug 'thinca/vim-quickrun', { 'for': ['java','c','cpp'] }
+Plug 'thinca/vim-quickrun', { 'for': ['java','c','cpp','python'] }
 " 按F5按默认配置快速启动
 map <F5> <Plug>(quickrun)
+
+" #################
+" tagbar
+" 条件加载
+" 以对象的方式显示当前文件中的类，变量，方法，等
+Plug 'majutsushi/tagbar', { 'for': ['java','c','cpp','python'] }
+" 按<F8>开关tag窗口
+noremap <F8> :TagbarToggle<CR>
 
 
 
