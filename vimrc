@@ -37,18 +37,6 @@ call plug#begin('~/.vim/vim-plug')
 " 记住fcitx在插入模式的中英状态
 " 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
 "Plug 'lilydjwg/fcitx.vim'
-"    " 以下设置一些超时时间(超过这个时间后才不在等待后续按键)
-"    " 这样可以避免使用此插件从插入模式退出后带来的一点延迟
-"    " 其实如果按照默认设置,本来就有一点延迟,只是无关紧要,
-"    " 使用此插件后就这点延迟就变得非常明显了
-"    " 开启映射超迟(默认是开启):自己定义的按键映射比如<leader>y
-"    set timeout
-"    " 设置映射超迟时间(默认是1000)
-"    set timeoutlen=3000
-"    " 开启键码超迟(默认是关闭):比如按ESC键退出插入,命令,可视模式的超时
-"    set ttimeout
-"    " 设置键码超时时间(默认是负数也就是关闭,关闭时由timeoutlen的值管理键码超时)
-"    set ttimeoutlen=100
 
 
 "##############
@@ -141,6 +129,7 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
     endfunction
     autocmd BufEnter *.java call s:MyJavaMappings()
 
+
 " #################
 " vim-instant-markdown
 " 条件加载
@@ -154,6 +143,7 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 " 如需自动启动则注销掉下面的配置即可
 let g:instant_markdown_autostart = 0
 
+
 " #################
 " vim-quickrun
 " 条件加载
@@ -161,6 +151,7 @@ let g:instant_markdown_autostart = 0
 Plug 'thinca/vim-quickrun', { 'for': ['java','c','cpp','python'] }
 " 按F5按默认配置快速启动
 map <F5> <Plug>(quickrun)
+
 
 " #################
 " tagbar
@@ -189,8 +180,6 @@ set ww=b,s,h,l,<,>
 
 " 禁止跳转时光标移动到非空字符
 " 默认当跳转时光标会移动到那一行的非空字符处
-"sdf;jlka
-";jklstartofline
 set nosol
 
 " 输入搜索关键字时跳转到匹配的结果
@@ -350,6 +339,17 @@ cnoremap <Right> <Space><BS><Right>
 set enc=utf-8
 set tenc=utf-8
 set fencs=ucs-bom,utf-8,gbk,gb2312,default,latin1
+
+" 以下设置一些超时时间(超过这个时间后才不在等待后续按键)
+" 这样可以避免状态栏提示信息的一点延迟
+" 开启映射超迟(默认是开启):自己定义的按键映射比如<leader>y
+set timeout
+" 设置映射超迟时间(默认是1000)
+set timeoutlen=3000
+" 开启键码超迟(默认是关闭):比如按ESC键退出插入,命令,可视模式的超时
+set ttimeout
+" 设置键码超时时间(默认是负数也就是关闭,关闭时由timeoutlen的值管理键码超时)
+set ttimeoutlen=100
 
 
 
