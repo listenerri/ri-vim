@@ -370,8 +370,42 @@ let g:netrw_mousemaps=0
 " 设置在文件列表窗口使用o或者v打开的窗口的大小(百分比)
 " 同时也设置了使用:Explore,:Sexplore,:Vexplore,:Hexplore系列命令打开文件列表窗口的大小
 let g:netrw_winsize=80
-" <F2>打开当前目录文件列表窗口
-noremap <F2> :20Sexplore!<CR>
+" 使用<F2>开关当前目录文件列表窗口
+" 如果要分析下面的方法，需要留意缓冲区编号和窗口编号的区别
+function! ToggleVExplorer()
+    "如果netrw缓冲区号存在
+    if exists("t:expl_buf_num")
+	"由netrw缓冲区号获取已打开的netrw窗口编号
+	let expl_win_num = bufwinnr(t:expl_buf_num)
+	"如果netrw窗口编号不是-1(说明窗口处于打开状态)
+	if expl_win_num != -1
+	    "获取当前窗口(非netrw)编号
+	    let cur_win_nr = winnr()
+	    "切换到netrw窗口
+	    exec expl_win_num . 'wincmd w'
+	    "关闭netrw窗口
+	    close
+	    "切换到之前的窗口
+	    exec cur_win_nr . 'wincmd w'
+	    "删除记录的netrw缓冲区号
+	    unlet t:expl_buf_num
+	"如果netrw窗口编号不存在(关闭netrw没有使用<F2>键时的情况)
+	else
+	    "删除记录的netrw缓冲区号
+	    unlet t:expl_buf_num
+	    "打开netrw窗口
+	    20Vexplore
+	    "记录netrw缓冲区号
+	    let t:expl_buf_num = bufnr("%")
+	endif
+    else
+	"打开netrw窗口
+	20Vexplore
+	"记录netrw缓冲区号
+	let t:expl_buf_num = bufnr("%")
+    endif
+endfunction
+noremap <F2> :call ToggleVExplorer()<CR>
 
 
 
