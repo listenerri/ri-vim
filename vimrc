@@ -6,6 +6,85 @@ set nocp
 
 
 
+" ##########################按键映射设置##########################
+" map:全局的映射,映射之后的按键可以递归(被再次映射)
+" noremap:全局的映射,但映射后的按键不可递归(多用于定义一个命令)
+" unmap:删除一个映射
+" mapclear:删除所有映射
+" 映射也区分模式,如果上述命令前有如下字符,则该命令只对该模式生效:
+" n:normal(正常)模式下
+" v:可视模式
+" i:插入模式
+" c:命令行模式
+
+" 设置<leader>为空格键
+let mapleader = "\<Space>"
+
+" 更方便的进入命令模式
+nnoremap <leader>; :
+
+" 插入模式下快速移动光标
+inoremap <C-H> <Left>
+inoremap <C-J> <Down>
+inoremap <C-K> <Up>
+inoremap <C-L> <Right>
+
+" 插入二合字符
+" 默认是<C-K>,但已被上面的定义所占用
+inoremap <Insert> <C-K>
+
+" 快速移动到行尾航首
+" 直接使用map命令从而全局不适用H,L的原功能
+map H ^
+map L $
+
+" 复制到系统剪切板
+noremap <leader>y "+y
+
+" 复制行到系统剪切板
+noremap <leader>Y "+yy
+
+" 剪切到系统剪切板
+noremap <leader>d "+d
+
+" 从系统剪切板粘贴
+noremap <leader>p "+p
+noremap <leader>P "+P
+
+" 保存和退出
+nnoremap <leader>q :q<CR>
+nnoremap <leader>w :w<CR>
+
+" 保证搜索结果高亮,避免下面取消高亮后在此搜索没有高亮
+nnoremap / :set hlsearch<CR>/
+nnoremap n :set hlsearch<CR>nzz
+nnoremap N :set hlsearch<CR>Nzz
+
+" 取消搜索的高亮
+nnoremap <leader><Space> :set nohlsearch<cr>
+
+" 快速搜索光标下的单词
+" 向下搜索
+nnoremap <leader>/ :set hlsearch<CR>viwy/<C-R>"<CR>
+" 向上搜索
+nnoremap <leader>? :set hlsearch<CR>viwy?<C-R>"<CR>
+
+" 快速可视模式下搜索高亮的内容
+" 向下搜索
+vnoremap / y:set hlsearch<CR>/<C-R>"<CR>
+" 向上搜索
+vnoremap ? y:set hlsearch<CR>?<C-R>"<CR>
+
+" 窗口切换
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+
+
+
+
+
 "###########################安装/加载插件##########################
 " 使用vim-plug插件管理器
 " vim-plug的简要使用方法:
@@ -62,6 +141,24 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     let g:ycm_complete_in_comments = 1
     " 从注释和字符串中收集可补全关键字
     let g:ycm_collect_identifiers_from_comments_and_strings = 1
+    " 以下功能是:YcmCompleter命令的一些子命令提供的
+    " 命令生效的对象一般是光标下的变量或者方法
+    " 跳转到头文件(c, cpp, objc, objcpp)
+    nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
+    " 跳转到声明(c, cpp, objc, objcpp, cs, go, python, rust)
+    nnoremap <leader>gdc :YcmCompleter GoToDeclaration<CR>
+    " 跳转到定义(c, cpp, objc, objcpp, cs, go, javascript, python, rust, typescript)
+    nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
+    " 跳转到声明或定义(c, cpp, objc, objcpp, cs, go, javascript, python, rust)
+    nnoremap <leader>gg :YcmCompleter GoTo<CR>
+    " 获取类型信息(c, cpp, objc, objcpp, javascript, typescript)
+    nnoremap <leader>gt :YcmCompleter GetType<CR>
+    " 获取父类信息(c, cpp, objc, objcpp)
+    nnoremap <leader>gp :YcmCompleter GetParent<CR>
+    " 获取相关文档(c, cpp, objc, objcpp, cs, python, typescript, javascript)
+    nnoremap <leader>go :YcmCompleter GetDoc<CR>
+    " 快速修复功能
+    nnoremap <leader>gf :YcmCompleter FixIt<CR>
 
 
 "##########
@@ -150,7 +247,7 @@ let g:instant_markdown_autostart = 0
 " 快速运行当前文件或选中的行
 Plug 'thinca/vim-quickrun', { 'for': ['java','c','cpp','python'] }
 " 按F5按默认配置快速启动
-map <F5> <Plug>(quickrun)
+nmap <F5> <Plug>(quickrun)
 
 
 " #################
@@ -159,7 +256,7 @@ map <F5> <Plug>(quickrun)
 " 以对象的方式显示当前文件中的类，变量，方法，等
 Plug 'majutsushi/tagbar', { 'for': ['java','c','cpp','python'] }
 " 按<F8>开关tag窗口
-noremap <F8> :TagbarToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
 
 
 
@@ -405,7 +502,7 @@ function! ToggleVExplorer()
 	let t:expl_buf_num = bufnr("%")
     endif
 endfunction
-noremap <F2> :call ToggleVExplorer()<CR>
+nnoremap <F2> :call ToggleVExplorer()<CR>
 
 
 
@@ -435,85 +532,6 @@ if has("gui_running")
     set go-=l
     set go-=b
 endif
-
-
-
-
-
-" ##########################按键映射设置##########################
-" map:全局的映射,映射之后的按键可以递归(被再次映射)
-" noremap:全局的映射,但映射后的按键不可递归(多用于定义一个命令)
-" unmap:删除一个映射
-" mapclear:删除所有映射
-" 映射也区分模式,如果上述命令前有如下字符,则该命令只对该模式生效:
-" n:normal(正常)模式下
-" v:可视模式
-" i:插入模式
-" c:命令行模式
-
-" 设置<leader>为空格键
-let mapleader = "\<Space>"
-
-" 更方便的进入命令模式
-nnoremap <leader>; :
-
-" 插入模式下快速移动光标
-inoremap <C-H> <Left>
-inoremap <C-J> <Down>
-inoremap <C-K> <Up>
-inoremap <C-L> <Right>
-
-" 插入二合字符
-" 默认是<C-K>,但已被上面的定义所占用
-inoremap <Insert> <C-K>
-
-" 快速移动到行尾航首
-" 直接使用map命令从而全局不适用H,L的原功能
-map H ^
-map L $
-
-" 复制到系统剪切板
-noremap <leader>y "+y
-
-" 复制行到系统剪切板
-noremap <leader>Y "+yy
-
-" 剪切到系统剪切板
-noremap <leader>d "+d
-
-" 从系统剪切板粘贴
-noremap <leader>p "+p
-noremap <leader>P "+P
-
-" 保存和退出
-nnoremap <leader>q :q<CR>
-nnoremap <leader>w :w<CR>
-
-" 保证搜索结果高亮,避免下面取消高亮后在此搜索没有高亮
-nnoremap / :set hlsearch<CR>/
-nnoremap n :set hlsearch<CR>nzz
-nnoremap N :set hlsearch<CR>Nzz
-
-" 取消搜索的高亮
-nnoremap <leader><Space> :set nohlsearch<cr>
-
-" 快速搜索光标下的单词
-" 向下搜索
-nnoremap <leader>/ :set hlsearch<CR>viwy/<C-R>"<CR>
-" 向上搜索
-nnoremap <leader>? :set hlsearch<CR>viwy?<C-R>"<CR>
-
-" 快速可视模式下搜索高亮的内容
-" 向下搜索
-vnoremap / y:set hlsearch<CR>/<C-R>"<CR>
-" 向上搜索
-vnoremap ? y:set hlsearch<CR>?<C-R>"<CR>
-
-" 窗口切换
-nnoremap <C-H> <C-W>h
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
 
 
 
