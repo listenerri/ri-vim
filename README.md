@@ -53,6 +53,30 @@ ln -s ~/ri-vim ~/.vim
 |\<C-K\>	    |插入模式下向上移动光标              |
 |\<C-L\>	    |插入模式下向右移动光标              |
 |\<Insert\>	    |插入模式下输入二合字符              |
-|\<F2\>	    |打开netrw文件管理                   |
-|\<F5\>	    |运行quickrun                        |
-|\<F8\>	    |运行tagbar                          |
+
+# 插件相关快捷键
+- 需要注意的部分请看上面“主要快捷键的部分”
+
+|按键		    |功能                                |
+|:----:		    |:----:                              |
+|\<F2\>		    |打开netrw文件管理                   |
+|\<F5\>	    	    |运行quickrun                        |
+|\<F8\>	    	    |运行tagbar                          |
+|\<Space\>gi        |跳转到头文件(ycm)                   |
+|\<Space\>gdc       |跳转到声明(ycm)                     |
+|\<Space\>gdf       |跳转到定义(ycm)                     |
+|\<Space\>gg        |跳转到声明或定义(ycm)               |
+|\<Space\>gt        |获取类型信息(ycm)                   |
+|\<Space\>gp        |获取父类信息(ycm)                   |
+|\<Space\>go        |获取相关文档(ycm)                   |
+|\<Space\>gf        |快速修复功能(ycm)                   |
+|\<Space\>jA        |为所有变量生成setter和getter(java)  |
+|\<Space\>js        |为光标下变量生成setter(java)        |
+|\<Space\>jg        |为光标下变量生成getter(java)        |
+|\<Space\>ja        |为光标下变量生成setter和getter(java)|
+|\<Space\>jc        |生成默认构造方法(java)              |
+|\<Space\>jC        |同jA但生成有参数的构造方法(java)    |
+|\<Space\>ji        |为光标下的类名增加import(java)      |
+|\<Space\>jI        |增加所有缺失的import(java)          |
+|\<Space\>jr        |移除所有未使用的import(java)        |
+|\<Space\>jm        |增加未实现的接口的方法(java)        |
