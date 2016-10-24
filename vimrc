@@ -541,17 +541,3 @@ endif
 
 "打开文件后自动跳转到上次离开的位置
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-
-"离开插入模式后使ibus使用英文输入法
-function! s:IbusInsertLeave()
-    let g:ibus_running = system("ps -e | grep -o ibus-daemon")
-    if g:ibus_running != ""
-	let g:ibus_engine = system("ibus engine")
-	if strpart(g:ibus_engine,4,2) != "us"
-	    :silent !ibus engine xkb:us::eng
-	endif
-    endif
-endfunction
-if exists("$DISPLAY")
-    au InsertLeave * call s:IbusInsertLeave()
-endif
