@@ -70,6 +70,8 @@ ln -s ~/ri-vim ~/.vim
 |\<Space\>gp        |获取父类信息(ycm)                   |
 |\<Space\>go        |获取相关文档(ycm)                   |
 |\<Space\>gf        |快速修复功能(ycm)                   |
+|\<Space\>gx        |强制在左侧显示出错或警告标记(ycm)   |
+|\<Space\>ga        |包含所有出错或警告的新窗口(ycm)     |
 |\<Space\>jA        |为所有变量生成setter和getter(java)  |
 |\<Space\>js        |为光标下变量生成setter(java)        |
 |\<Space\>jg        |为光标下变量生成getter(java)        |

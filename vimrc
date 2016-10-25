@@ -141,8 +141,8 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     let g:ycm_complete_in_comments = 1
     " 从注释和字符串中收集可补全关键字
     let g:ycm_collect_identifiers_from_comments_and_strings = 1
-    " 以下功能是:YcmCompleter命令的一些子命令提供的
-    " 命令生效的对象一般是光标下的变量或者方法
+
+    " 以下映射对应命令生效的对象一般是光标下的变量或者方法
     " 跳转到头文件(c, cpp, objc, objcpp)
     nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
     " 跳转到声明(c, cpp, objc, objcpp, cs, go, python, rust)
@@ -159,6 +159,12 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     nnoremap <leader>go :YcmCompleter GetDoc<CR>
     " 快速修复功能
     nnoremap <leader>gf :YcmCompleter FixIt<CR>
+
+    " 强制在左侧显示出错或警告标记
+    nnoremap <leader>gx :YcmForceCompileAndDiagnostics<CR>
+    " 在一个新窗口显示相关文件内所有出错或警告的行
+    " 在这个窗口内可以按回车键快速定位到具体文件的具体出错或警告的行
+    nnoremap <leader>ga :YcmDiags<CR>
 
 
 "##########
