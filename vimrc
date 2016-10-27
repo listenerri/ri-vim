@@ -364,6 +364,13 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     let g:ycm_complete_in_comments = 1
     " 从注释和字符串中收集可补全关键字
     let g:ycm_collect_identifiers_from_comments_and_strings = 1
+    " 定义当ycm检测到c系列文件中的语法错误或警告时使用的提示字符
+    let g:ycm_error_symbol = ">>"
+    let g:ycm_warning_symbol = "??"
+    " 定义上述提示字符的颜色(默认的看着不舒服)
+    " 此处没有重新定义颜色组,而是使用了已定义好的"ErrorMsg"和"WarningMsg"组
+    highlight link YcmErrorSign ErrorMsg
+    highlight link YcmWarningSign WarningMsg
 
     " 以下映射对应命令生效的对象一般是光标下的变量或者方法
     " 跳转到头文件(c, cpp, objc, objcpp)
