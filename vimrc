@@ -357,9 +357,9 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
     let g:ycm_global_ycm_extra_conf = '~/.vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
     " 使用ctrl-j或下键或ctrl-n在补全菜单中向下移动
-    let g:ycm_key_list_select_completion = ['<c-j>', '<Down>']
+    let g:ycm_key_list_select_completion = ['<C-N>', '<Down>']
     " 使用ctrl-k或上键或ctrl-p在补全菜单中向上移动
-    let g:ycm_key_list_previous_completion = ['<c-k>', '<Up>']
+    let g:ycm_key_list_previous_completion = ['<C-P>', '<Up>']
     " 编辑注释时也自动补全
     let g:ycm_complete_in_comments = 1
     " 从注释和字符串中收集可补全关键字
@@ -371,6 +371,10 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     " 此处没有重新定义颜色组,而是使用了已定义好的"ErrorMsg"和"WarningMsg"组
     highlight link YcmErrorSign ErrorMsg
     highlight link YcmWarningSign WarningMsg
+    " 当离开插入模式后,自动关闭用于显示补全项详细信息的预览窗口
+    let g:ycm_autoclose_preview_window_after_insertion = 1
+    " 当使用下面定义的GoTo*系列快捷键时使用垂直分割打开新窗口显示数据
+    let g:ycm_goto_buffer_command = 'vertical-split'
 
     " 以下映射对应命令生效的对象一般是光标下的变量或者方法
     " 跳转到头文件(c, cpp, objc, objcpp)
