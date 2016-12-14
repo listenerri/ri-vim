@@ -307,6 +307,15 @@ nmap ][ /}<CR>b99]}
 nmap ]] j0[[%/{<CR>
 nmap [] k$][%?}<CR>
 
+" 打开当前窗口的位置列表
+nnoremap <leader>lo :lopen<cr>
+" 跳转到当前窗口位置列表的下一项和前一项
+" 当syntastic或ycm检测到语法错误时可使用此映射跳转下一个或前一个错误
+nnoremap <leader>ln :lnext<cr>
+nnoremap <leader>lp :lprevious<cr>
+
+
+
 
 "###########################安装/加载插件##########################
 " 使用vim-plug插件管理器
@@ -333,6 +342,33 @@ nmap [] k$][%?}<CR>
 " 开始插件加载,括号中的是插件的安装和加载目录
 " 每个插件下面的是对这个插件的设置
 call plug#begin('~/.vim/vim-plug')
+
+"##########
+" syntastic
+" 支持大量编程语言的语法检查
+" 但只在执行写入命令后才自动检查语法,也可以手动执行检查命令
+" 当打开c系列的文件时,不加载本插件,因为ycm插件会禁用本插件,
+" ycm插件已经包含有c系列的语法检查功能而且更好用,详细看ycm配置部分
+Plug 'vim-syntastic/syntastic', { 'for': ['java','dosbatch','sh','python'] }
+    " 打开文件时就执行语法检查
+    let g:syntastic_check_on_open = 1
+    " 执行:wq命令时不执行语法检查
+    let g:syntastic_check_on_wq = 0
+    " 错误及警告标志
+    let g:syntastic_error_symbol = ">>"
+    let g:syntastic_warning_symbol = "??"
+    let g:syntastic_style_error_symbol = "S>"
+    let g:syntastic_style_warning_symbol = "S?"
+    " 警告标志的颜色
+    highlight link SyntasticErrorSign ErrorMsg
+    highlight link SyntasticWarningSign ErrorMsg
+    " 自动将错误信息放入位置列表
+    let g:syntastic_always_populate_loc_list = 1
+    " 打开错误位置列表窗口
+    nnoremap <leader>se :Errors<cr>
+    " 强制进行语法检查
+    nnoremap <leader>sc :SyntasticCheck<cr>
+
 
 "##########
 " fcitx.vim
@@ -364,13 +400,6 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     let g:ycm_complete_in_comments = 1
     " 从注释和字符串中收集可补全关键字
     let g:ycm_collect_identifiers_from_comments_and_strings = 1
-    " 定义当ycm检测到c系列文件中的语法错误或警告时使用的提示字符
-    let g:ycm_error_symbol = ">>"
-    let g:ycm_warning_symbol = "??"
-    " 定义上述提示字符的颜色(默认的看着不舒服)
-    " 此处没有重新定义颜色组,而是使用了已定义好的"ErrorMsg"和"WarningMsg"组
-    highlight link YcmErrorSign ErrorMsg
-    highlight link YcmWarningSign WarningMsg
     " 当离开插入模式后,自动关闭用于显示补全项详细信息的预览窗口
     let g:ycm_autoclose_preview_window_after_insertion = 1
     " 当使用下面定义的GoTo*系列快捷键时使用垂直分割打开新窗口显示数据
@@ -391,14 +420,27 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     nnoremap <leader>gp :YcmCompleter GetParent<CR>
     " 获取相关文档(c, cpp, objc, objcpp, cs, python, typescript, javascript)
     nnoremap <leader>go :YcmCompleter GetDoc<CR>
-    " 快速修复功能
-    nnoremap <leader>gf :YcmCompleter FixIt<CR>
 
-    " 强制在左侧显示出错或警告标记
-    nnoremap <leader>gx :YcmForceCompileAndDiagnostics<CR>
-    " 在一个新窗口显示相关文件内所有出错或警告的行
-    " 在这个窗口内可以按回车键快速定位到具体文件的具体出错或警告的行
-    nnoremap <leader>ga :YcmDiags<CR>
+    " ycm语法检查相关的功能,此功能只支持c系列的语言
+    " ycm会禁用syntastic插件关于c系列语言的代码检查
+    " 如果要关闭ycm对c系列语言的语法检查就取消注释下面这行配置
+    " 并注释掉下面这行配置之后缩进的那部分ycm配置就可以只使用syntastic插件了
+    "let g:ycm_show_diagnostics_ui = 0
+	" 自动将错误信息放入位置列表
+	let g:ycm_always_populate_location_list = 1
+	" 语法错误或警告时使用的提示字符
+	let g:ycm_error_symbol = ">>"
+	let g:ycm_warning_symbol = "??"
+	" 定义上述提示字符的颜色(默认的看着不舒服)
+	" 此处没有重新定义颜色组,而是使用了已定义好的"ErrorMsg"和"WarningMsg"组
+	highlight link YcmErrorSign ErrorMsg
+	highlight link YcmWarningSign WarningMsg
+	" 快速修复检测到的语法错误
+	nnoremap <leader>gf :YcmCompleter FixIt<CR>
+	" 强制进行语法检查
+	nnoremap <leader>gc :YcmForceCompileAndDiagnostics<CR>
+	" 打开错误位置列表窗口
+	nnoremap <leader>ge :YcmDiags<CR>
 
 
 "##########
@@ -497,8 +539,6 @@ nmap <F5> <Plug>(quickrun)
 Plug 'majutsushi/tagbar', { 'for': ['java','c','cpp','python'] }
 " 按<F8>开关tag窗口
 nnoremap <F8> :TagbarToggle<CR>
-
-
 
 " 结束插件加载
 call plug#end()

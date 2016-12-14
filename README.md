@@ -70,8 +70,8 @@ ln -s ~/ri-vim ~/.vim
 |\<Space\>gp        |获取父类信息(ycm)                   |
 |\<Space\>go        |获取相关文档(ycm)                   |
 |\<Space\>gf        |快速修复功能(ycm)                   |
-|\<Space\>gx        |强制在左侧显示出错或警告标记(ycm)   |
-|\<Space\>ga        |包含所有出错或警告的新窗口(ycm)     |
+|\<Space\>gc        |强制检查c系列语言语法错误(ycm)      |
+|\<Space\>ge        |c系列语言语法错误的位置列表窗口(ycm)|
 |\<Space\>jA        |为所有变量生成setter和getter(java)  |
 |\<Space\>js        |为光标下变量生成setter(java)        |
 |\<Space\>jg        |为光标下变量生成getter(java)        |
@@ -82,3 +82,5 @@ ln -s ~/ri-vim ~/.vim
 |\<Space\>jI        |增加所有缺失的import(java)          |
 |\<Space\>jr        |移除所有未使用的import(java)        |
 |\<Space\>jm        |增加未实现的接口的方法(java)        |
+|\<Space\>sc        |强制检查语法错误(syntastic)         |
+|\<Space\>se        |语法错误的位置列表窗口(syntastic)   |
