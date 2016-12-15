@@ -25,7 +25,7 @@ set nosol
 set is
 
 " 搜索不区分大小写
-" ignorecase 
+" ignorecase
 set ic
 
 " 搜索智能区分大小写
@@ -51,7 +51,7 @@ set siso=4
 
 " 是否把超出编辑区显示范围的行,按多行显示
 " wrap
-set wrap 
+set wrap
 
 " 显示行数
 " number
@@ -342,6 +342,46 @@ nnoremap <leader>lp :lprevious<cr>
 " 开始插件加载,括号中的是插件的安装和加载目录
 " 每个插件下面的是对这个插件的设置
 call plug#begin('~/.vim/vim-plug')
+
+"##########
+" vim-airline
+" 高度可定制的状态栏
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+    " 主题
+    let g:airline_theme='molokai'
+    " 自定义unicode符号
+    if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+    endif
+    let g:airline_left_sep = '▶'
+    let g:airline_right_sep = '◀'
+    let g:airline_symbols.crypt = '🔒'
+    let g:airline_symbols.linenr = ''
+    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.branch = '⎇'
+    let g:airline_symbols.paste = '∥'
+    let g:airline_symbols.spell = 'Ꞩ'
+    let g:airline_symbols.notexists = '∄'
+    let g:airline_symbols.whitespace = 'Ξ'
+    let g:airline_symbols.space = ' '
+    let g:airline_symbols.readonly = 'RO'
+    let g:airline_symbols.modified = '+'
+    " 编辑下列文件类型的文件时显示文字总数
+    " 多个文件类型用'|'号隔开
+    let g:airline#extensions#wordcount#filetypes = '\vtext|mail'
+    " 显示ycm检查到的错误和警告的数量
+    let g:airline#extensions#ycm#enabled = 1
+    let g:airline#extensions#ycm#error_symbol = 'YCM: Ec:'
+    let g:airline#extensions#ycm#warning_symbol = 'YCM: Wc:'
+    " 开关airline
+    nnoremap <leader>at :AirlineToggle<cr>
+    " 重新加载airline
+    nnoremap <leader>ar :AirlineRefresh<cr>
+    " 开关whitespace检查(默认关闭该检查功能)
+    let g:airline#extensions#whitespace#enabled = 0
+    nnoremap <leader>aw :AirlineToggleWhitespace<cr>
+
 
 "##########
 " syntastic

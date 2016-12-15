@@ -84,3 +84,6 @@ ln -s ~/ri-vim ~/.vim
 |\<Space\>jm        |增加未实现的接口的方法(java)        |
 |\<Space\>sc        |强制检查语法错误(syntastic)         |
 |\<Space\>se        |语法错误的位置列表窗口(syntastic)   |
+|\<Space\>at        |开关airline(airline)                |
+|\<Space\>ar        |重新加载airline(airline)            |
+|\<Space\>aw        |开关whitespace检查(airline)         |
