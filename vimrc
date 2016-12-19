@@ -356,7 +356,6 @@ Plug 'vim-airline/vim-airline-themes'
     endif
     let g:airline_left_sep = '▶'
     let g:airline_right_sep = '◀'
-    let g:airline_symbols.crypt = '🔒'
     let g:airline_symbols.linenr = ''
     let g:airline_symbols.maxlinenr = ''
     let g:airline_symbols.branch = '⎇'
