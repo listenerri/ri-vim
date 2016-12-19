@@ -414,7 +414,7 @@ Plug 'vim-syntastic/syntastic', { 'for': ['java','dosbatch','sh','python'] }
 " fcitx.vim
 " 记住fcitx在插入模式的中英状态
 " 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
-"Plug 'lilydjwg/fcitx.vim'
+Plug 'lilydjwg/fcitx.vim'
 
 
 "##############
