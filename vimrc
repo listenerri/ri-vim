@@ -344,6 +344,46 @@ nnoremap <leader>lp :lprevious<cr>
 call plug#begin('~/.vim/vim-plug')
 
 "##########
+" fcitx.vim
+" 记住fcitx在插入模式的中英状态
+" 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
+Plug 'lilydjwg/fcitx.vim'
+
+
+"##############
+" vim-signature
+" 实现并扩展了vim自身所有的mark功能,每行可以放置多个标记
+" 在最左边显示当前行的标记,超过两个标记只显示后两个
+Plug 'kshenoy/vim-signature'
+" 下面是这个插件的一些按键:
+" mx           切换当前行的'x'标记,'x'属于a-zA-Z
+" dmx          不管当前光标在哪儿,删除'x'这个标记
+" m,           放置下一个可用的标记在当前行
+" m.           同上,但如果当前行已存在标记就删除它,如果存在多个就删除第一个
+" m-           删除当前行的所有标记
+" m<Space>     删除当前buffer的所有标记
+" ]`           跳转到下一个标记
+" ]'           跳转到下一个标记的行首
+" [`           跳转到上一个标记
+" ['           跳转到上一个标记的行首
+" `]           按标记的字母顺序跳转到下一个标记
+" ']           按标记的字母顺序跳转到下一个标记的行首
+" `[           按标记的字母顺序跳转到上一个标记
+" '[           按标记的字母顺序跳转到上一个标记的行首
+" m/           打开一个本地列表窗口来显示当前buffer的所有标记
+" 以下为类型标记按键,不同行可以是同一种类型标记,同一行可以既有类型标记又有字母标记
+" 其中的数字分别对应:'!@#$%^&*()',每一个符号都是一种类型
+" m[0-9]       切换当前行的类型标记
+" m<S-[0-9]>   不管光标在哪儿,删除对应的所有此类标记
+" ]-           跳转到下一个同类型的标记
+" [-           跳转到上一个同类型的标记
+" ]=           跳转到下一个类型标记,不管哪种类型
+" [=           跳转到上一个类型标记,不管哪种类型
+" m?           打开一个本地列表窗口来显示当前buffer的所有类型标记
+" m<BS>        删除当前buffer的所有类型标记
+
+
+"############
 " vim-airline
 " 高度可定制的状态栏
 Plug 'vim-airline/vim-airline'
@@ -383,6 +423,31 @@ Plug 'vim-airline/vim-airline-themes'
 
 
 "##########
+" ultisnips
+" 快速插入代码片段
+" 会在ycm弹出的补全菜单中包含又<snip>字样的补全项
+" 这些补全项可以插入一段代码,要插入这种补全项需要输入这一项在补全菜单中的完整文字,
+" 或者使用上面ycm定义的上下移动键移动到要使用的代码段,然后按<tab>键,即可展开片段
+" 代码引擎
+Plug 'SirVer/ultisnips'
+" 代码片段
+Plug 'honza/vim-snippets'
+    " 很多虚拟终端不会发送<c-tab>以及<s-tab>到程序,所以应该避免映射这种按键
+    " 插入模式下使用tab键插入代码片段
+    let g:UltiSnipsExpandTrigger="<tab>"
+    " 插入模式下使用s-tab键列出所有的可选片段供选择
+    let g:UltiSnipsListSnippets="<s-tab>"
+    " 在展开代码片段后使用tab键跳转需要修改的关键部分(如果有的话)
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    " 类似上面的定义,但是反向移动
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    " 可以使用:UltiSnipsEdit命令自定义供补全的代码片段,其保存到下面指定的目录下
+    let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+    " 当使用:UltiSnipsEdit命令时在一个垂直新建的窗口中编写
+    let g:UltiSnipsEditSplit="vertical"
+
+
+"##########
 " syntastic
 " 支持大量编程语言的语法检查
 " 但只在执行写入命令后才自动检查语法,也可以手动执行检查命令
@@ -414,13 +479,6 @@ Plug 'vim-syntastic/syntastic', { 'for': ['java','dosbatch','sh','python'] }
     nnoremap <leader>se :Errors<cr>
     " 强制进行语法检查
     nnoremap <leader>sc :SyntasticCheck<cr>
-
-
-"##########
-" fcitx.vim
-" 记住fcitx在插入模式的中英状态
-" 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
-Plug 'lilydjwg/fcitx.vim'
 
 
 "##############
@@ -489,32 +547,7 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
 	nnoremap <leader>ge :YcmDiags<CR>
 
 
-"##########
-" ultisnips
-" 快速插入代码片段
-" 会在ycm弹出的补全菜单中包含又<snip>字样的补全项
-" 这些补全项可以插入一段代码,要插入这种补全项需要输入这一项在补全菜单中的完整文字,
-" 或者使用上面ycm定义的上下移动键移动到要使用的代码段,然后按<tab>键,即可展开片段
-" 代码引擎
-Plug 'SirVer/ultisnips'
-" 代码片段
-Plug 'honza/vim-snippets'
-    " 很多虚拟终端不会发送<c-tab>以及<s-tab>到程序,所以应该避免映射这种按键
-    " 插入模式下使用tab键插入代码片段
-    let g:UltiSnipsExpandTrigger="<tab>"
-    " 插入模式下使用s-tab键列出所有的可选片段供选择
-    let g:UltiSnipsListSnippets="<s-tab>"
-    " 在展开代码片段后使用tab键跳转需要修改的关键部分(如果有的话)
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    " 类似上面的定义,但是反向移动
-    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-    " 可以使用:UltiSnipsEdit命令自定义供补全的代码片段,其保存到下面指定的目录下
-    let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-    " 当使用:UltiSnipsEdit命令时在一个垂直新建的窗口中编写
-    let g:UltiSnipsEditSplit="vertical"
-
-
-" #################
+"#################
 " vim-javacomplete2
 " 条件加载
 " java自动补全,可配合ycm实现自动补全,javacomplete2是javacomplete的增强版
@@ -555,7 +588,7 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
     autocmd BufEnter *.java call s:MyJavaMappings()
 
 
-" #################
+"####################
 " vim-instant-markdown
 " 条件加载
 " 在浏览器中实时预览所编写的markdown文件
@@ -569,7 +602,7 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 let g:instant_markdown_autostart = 0
 
 
-" ############
+"############
 " vim-quickrun
 " 条件加载
 " 快速运行当前文件或选中的行
@@ -578,7 +611,7 @@ Plug 'thinca/vim-quickrun', { 'for': ['java','c','cpp','python'] }
 nmap <F5> <Plug>(quickrun)
 
 
-" ######
+"######
 " tagbar
 " 条件加载
 " 以对象的方式显示当前文件中的类，变量，方法，等
