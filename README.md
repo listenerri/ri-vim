@@ -22,12 +22,16 @@ git clone git@github.com:ListenerRi/ri-vim.git
 ln -s ~/ri-vim ~/.vim
 ```
 
-# 主要快捷键(不是全部)
+# 以下介绍部分按键
+
+**注意:**
 - 映射\<leader\>为\<Space\>
 - `<Space>`是空格键
 - `<C-J>`是CTRL加j键,`<C-K>`是CTRL加k键,其他类似
 - 类似这种`<C-J>`时不区分大小写
 - 其他内容注意区分大小写
+
+## 一般按键
 
 |按键		    |功能                                |
 |:----:		    |:----:                              |
@@ -53,37 +57,48 @@ ln -s ~/ri-vim ~/.vim
 |\<C-K\>	    |插入模式下向上移动光标              |
 |\<C-L\>	    |插入模式下向右移动光标              |
 |\<Insert\>	    |插入模式下输入二合字符              |
+|\<Space\>lo        |打开本地窗口列表(一般包含错误信息)  |
+|\<Space\>lc        |关闭本地窗口列表                    |
+|\<Space\>ln        |跳转到下一个错误(本地窗口列表)      |
+|\<Space\>lp        |跳转到上一个错误(本地窗口列表)      |
 
-# 插件相关快捷键
-- 需要注意的东西请看上面“主要快捷键”的部分
+## 简单插件相关
 
 |按键		    |功能                                |
 |:----:		    |:----:                              |
-|\<F2\>		    |打开netrw文件管理                   |
+|\<F2\>		    |切换netrw文件管理                   |
 |\<F5\>	    	    |运行quickrun                        |
-|\<F8\>	    	    |运行tagbar                          |
-|\<Space\>gi        |跳转到头文件(ycm)                   |
-|\<Space\>gdc       |跳转到声明(ycm)                     |
-|\<Space\>gdf       |跳转到定义(ycm)                     |
-|\<Space\>gg        |跳转到声明或定义(ycm)               |
-|\<Space\>gt        |获取类型信息(ycm)                   |
-|\<Space\>gp        |获取父类信息(ycm)                   |
-|\<Space\>go        |获取相关文档(ycm)                   |
-|\<Space\>gf        |快速修复功能(ycm)                   |
-|\<Space\>gc        |强制检查c系列语言语法错误(ycm)      |
-|\<Space\>ge        |c系列语言语法错误的位置列表窗口(ycm)|
-|\<Space\>jA        |为所有变量生成setter和getter(java)  |
-|\<Space\>js        |为光标下变量生成setter(java)        |
-|\<Space\>jg        |为光标下变量生成getter(java)        |
-|\<Space\>ja        |为光标下变量生成setter和getter(java)|
-|\<Space\>jc        |生成默认构造方法(java)              |
-|\<Space\>jC        |同jA但生成有参数的构造方法(java)    |
-|\<Space\>ji        |为光标下的类名增加import(java)      |
-|\<Space\>jI        |增加所有缺失的import(java)          |
-|\<Space\>jr        |移除所有未使用的import(java)        |
-|\<Space\>jm        |增加未实现的接口的方法(java)        |
-|\<Space\>sc        |强制检查语法错误(syntastic)         |
-|\<Space\>se        |语法错误的位置列表窗口(syntastic)   |
-|\<Space\>at        |开关airline(airline)                |
-|\<Space\>ar        |重新加载airline(airline)            |
-|\<Space\>aw        |开关whitespace检查(airline)         |
+|\<F8\>	    	    |切换tagbar                          |
+
+## YouCompleteMe相关
+|\<Space\>gi        |跳转到头文件                        |
+|\<Space\>gdc       |跳转到声明                          |
+|\<Space\>gdf       |跳转到定义                          |
+|\<Space\>gg        |跳转到声明或定义                    |
+|\<Space\>gt        |获取类型信息                        |
+|\<Space\>gp        |获取父类信息                        |
+|\<Space\>go        |获取相关文档                        |
+|\<Space\>gf        |快速修复功能                        |
+|\<Space\>gc        |强制检查c系列语言语法错误           |
+|\<Space\>ge        |c系列语言语法错误的位置列表窗口     |
+
+## JavaComplete2相关
+|\<Space\>jA        |为所有变量生成setter和getter        |
+|\<Space\>js        |为光标下变量生成setter              |
+|\<Space\>jg        |为光标下变量生成getter              |
+|\<Space\>ja        |为光标下变量生成setter和getter      |
+|\<Space\>jc        |生成默认构造方法                    |
+|\<Space\>jC        |同jA但生成有参数的构造方法          |
+|\<Space\>ji        |为光标下的类名增加import            |
+|\<Space\>jI        |增加所有缺失的import                |
+|\<Space\>jr        |移除所有未使用的import              |
+|\<Space\>jm        |增加未实现的接口的方法              |
+
+## Syntastic相关
+|\<Space\>sc        |强制检查语法错误                    |
+|\<Space\>se        |语法错误的位置列表窗口              |
+
+## Airline相关
+|\<Space\>at        |开关airline                         |
+|\<Space\>ar        |重新加载airline                     |
+|\<Space\>aw        |开关whitespace检查                  |
