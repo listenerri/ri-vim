@@ -309,6 +309,8 @@ nmap [] k$][%?}<CR>
 
 " 打开当前窗口的位置列表
 nnoremap <leader>lo :lopen<cr>
+" 关闭当前窗口的位置列表
+nnoremap <leader>lc :lclose<cr>
 " 跳转到当前窗口位置列表的下一项和前一项
 " 当syntastic或ycm检测到语法错误时可使用此映射跳转下一个或前一个错误
 nnoremap <leader>ln :lnext<cr>
