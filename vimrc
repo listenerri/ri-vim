@@ -463,6 +463,10 @@ Plug 'honza/vim-snippets'
 "   例如包为:com.test,而com目录在src目录下,即完整路径为:src/com/test/foo.java
 "   那么就需要先cd到src目录,再打开foo.java
 Plug 'vim-syntastic/syntastic', { 'for': ['java','dosbatch','sh','python'] }
+    " 如果打开的文件时python类型,
+    " 就设置python的语法检查工具,以方便切换版本
+    " 如修改pylint为pylint2就是用python2的语法检查工具
+    autocmd FileType python let g:syntastic_python_checkers = ["pylint"]
     " 打开文件时就执行语法检查
     let g:syntastic_check_on_open = 1
     " 执行:wq命令时不执行语法检查
@@ -687,4 +691,4 @@ nnoremap <F2> :call ToggleVExplorer()<CR>
 " ##########################自动命令设置##########################
 
 "打开文件后自动跳转到上次离开的位置
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
