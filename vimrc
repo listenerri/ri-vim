@@ -514,6 +514,10 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     let g:ycm_autoclose_preview_window_after_insertion = 1
     " 当使用下面定义的GoTo*系列快捷键时使用垂直分割打开新窗口显示数据
     let g:ycm_goto_buffer_command = 'vertical-split'
+    " 指定ycmd使用的python版本
+    let g:ycm_server_python_interpreter = '/usr/bin/python3'
+    " 指定ycm client使用的python版本(也是jedi使用的python版本)
+    let g:ycm_python_binary_path = '/usr/bin/python3'
 
     " 以下映射对应命令生效的对象一般是光标下的变量或者方法
     " 跳转到头文件(c, cpp, objc, objcpp)
