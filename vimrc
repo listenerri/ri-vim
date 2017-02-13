@@ -121,17 +121,19 @@ set sc
 " confirm
 set cf
 
-" 制表键代表的空格数
+" 以下四个选项设置了使用4个空格代替tab制表符
+" 文件里制表键代表的空格数
 " tabstop
-set ts=8
-
-" 输入制表键时混合输入制表键和空格
-" softtabstop
-set sts=4
-
-" 自动缩进时的空格数目
+set ts=4
+" (自动)缩进时的空格数目
 " shiftwidth
 set sw=4
+" 行首一次性插入或删除sw所设置的空格数
+" smarttab
+set sta
+" 输入制表键时以空格代替
+" expandtab
+set et
 
 " 自动缩进
 " autoindent
