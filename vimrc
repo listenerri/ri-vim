@@ -272,7 +272,6 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>w :w<CR>
 
 " 保证搜索结果高亮,避免下面取消高亮后在此搜索没有高亮
-nnoremap / :set hlsearch<CR>/
 nnoremap n :set hlsearch<CR>nzz
 nnoremap N :set hlsearch<CR>Nzz
 
