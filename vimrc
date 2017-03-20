@@ -506,7 +506,7 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     " 指定ycmd使用的python版本
     let g:ycm_server_python_interpreter = '/usr/bin/python3'
     " 指定ycm client使用的python版本(也是jedi使用的python版本)
-    let g:ycm_python_binary_path = '/usr/bin/python3'
+    let g:ycm_python_binary_path = '/usr/bin/python2'
 
     " 以下映射对应命令生效的对象一般是光标下的变量或者方法
     " 跳转到头文件(c, cpp, objc, objcpp)
