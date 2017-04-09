@@ -625,62 +625,6 @@ call plug#end()
 
 
 
-" ##########################netrw自带的文件浏览器##########################
-" 在文件浏览窗口具体的用法请使用:h netrw-quickmap命令查看
-" 按o键在文件列表窗口下边新建水平窗口打开光标下的文件或目录
-" 值为零时，在上面新建水平窗口
-let g:netrw_alto=1
-" 按v键在文件列表窗口右边新建水平窗口打开光标下的文件或目录
-" 值为零时，在左边新建垂直窗口
-let g:netrw_altv=1
-" 默认以树状形式显示文件列表
-let g:netrw_liststyle=3
-" 关闭鼠标功能(容易出错)
-let g:netrw_mousemaps=0
-" 设置在文件列表窗口使用o或者v打开的窗口的大小(百分比)
-" 同时也设置了使用:Explore,:Sexplore,:Vexplore,:Hexplore系列命令打开文件列表窗口的大小
-let g:netrw_winsize=80
-" 使用<F2>开关当前目录文件列表窗口
-" 如果要分析下面的方法，需要留意缓冲区编号和窗口编号的区别
-function! ToggleVExplorer()
-    "如果netrw缓冲区号存在
-    if exists("t:expl_buf_num")
-	"由netrw缓冲区号获取已打开的netrw窗口编号
-	let expl_win_num = bufwinnr(t:expl_buf_num)
-	"如果netrw窗口编号不是-1(说明窗口处于打开状态)
-	if expl_win_num != -1
-	    "获取当前窗口(非netrw)编号
-	    let cur_win_nr = winnr()
-	    "切换到netrw窗口
-	    exec expl_win_num . 'wincmd w'
-	    "关闭netrw窗口
-	    close
-	    "切换到之前的窗口
-	    exec cur_win_nr . 'wincmd w'
-	    "删除记录的netrw缓冲区号
-	    unlet t:expl_buf_num
-	"如果netrw窗口编号不存在(关闭netrw没有使用<F2>键时的情况)
-	else
-	    "删除记录的netrw缓冲区号
-	    unlet t:expl_buf_num
-	    "打开netrw窗口
-	    20Vexplore
-	    "记录netrw缓冲区号
-	    let t:expl_buf_num = bufnr("%")
-	endif
-    else
-	"打开netrw窗口
-	20Vexplore
-	"记录netrw缓冲区号
-	let t:expl_buf_num = bufnr("%")
-    endif
-endfunction
-nnoremap <F2> :call ToggleVExplorer()<CR>
-
-
-
-
-
 " ##########################自动命令设置##########################
 
 "打开文件后自动跳转到上次离开的位置
