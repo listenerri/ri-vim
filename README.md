@@ -64,6 +64,7 @@ ln -s ~/ri-vim ~/.vim
 ## 简单插件相关
 |按键		        |功能                                |
 |:----:		        |:----:                              |
+|\<F2\>	    	    |运行nerdtree                        |
 |\<F5\>	    	    |运行quickrun                        |
 |\<F8\>	    	    |切换tagbar                          |
 

@@ -12,7 +12,7 @@ set nocp
 
 " 允许跨行移动的按键
 " whichwrap
-set ww=b,s,h,l,<,>
+set ww=b,s,h,l,<,>,[,]
 
 " 禁止跳转时光标移动到非空字符
 " 默认当跳转时光标会移动到那一行的非空字符处
@@ -617,6 +617,18 @@ nmap <F5> <Plug>(quickrun)
 Plug 'majutsushi/tagbar', { 'for': ['java','c','cpp','python'] }
 " 按<F8>开关tag窗口
 nnoremap <F8> :TagbarToggle<CR>
+
+
+"###########
+" nerdtree
+" 文件管理
+Plug 'scrooloose/nerdtree'
+" 显示隐藏文件(dotfiles)
+let NERDTreeShowHidden=1
+" 按<F2>开关nerdtree
+nnoremap <F2> :NERDTreeToggle<CR>
+inoremap <F2> :NERDTreeToggle<CR>
+
 
 " 结束插件加载
 call plug#end()
