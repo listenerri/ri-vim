@@ -628,7 +628,7 @@ Plug 'scrooloose/nerdtree'
 let NERDTreeShowHidden=1
 " 按<F2>开关nerdtree
 nnoremap <F2> :NERDTreeToggle<CR>
-inoremap <F2> :NERDTreeToggle<CR>
+inoremap <F2> <ESC>:NERDTreeToggle<CR>
 
 
 " 结束插件加载
