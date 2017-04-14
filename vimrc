@@ -454,10 +454,10 @@ Plug 'honza/vim-snippets'
 Plug 'vim-syntastic/syntastic', { 'for': ['java','dosbatch','sh','python'] }
     " 如果打开的文件时python类型,
     " 就设置python的语法检查工具,以方便切换版本
-    " 如修改pylint为pylint2就是用python2的语法检查工具
+    " 使用pylint对python2进行语法检查工具, pylint3对python3(需要具实际系统而言)
     autocmd FileType python let g:syntastic_python_checkers = ["pylint"]
-    " 打开文件时就执行语法检查
-    let g:syntastic_check_on_open = 1
+    " 打开文件时是否执行语法检查
+    let g:syntastic_check_on_open = 0
     " 执行:wq命令时不执行语法检查
     let g:syntastic_check_on_wq = 0
     " 错误及警告标志
@@ -503,31 +503,32 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     let g:ycm_autoclose_preview_window_after_insertion = 1
     " 当使用下面定义的GoTo*系列快捷键时使用垂直分割打开新窗口显示数据
     let g:ycm_goto_buffer_command = 'vertical-split'
-    " 指定ycmd使用的python版本
+    " 指定ycmd使用的py版本, 必须是编译ycm时所用的以及vim支持的py版本
     let g:ycm_server_python_interpreter = '/usr/bin/python3'
     " 指定ycm client使用的python版本(也是jedi使用的python版本)
     let g:ycm_python_binary_path = '/usr/bin/python2'
 
     " 以下映射对应命令生效的对象一般是光标下的变量或者方法
-    " 跳转到头文件(c, cpp, objc, objcpp)
+    " 以下'c*'代表c系列语言
+    " 跳转到头文件(c*)
     nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
-    " 跳转到声明(c, cpp, objc, objcpp, cs, go, python, rust)
+    " 跳转到声明(c*, go, py, rust)
     nnoremap <leader>gdc :YcmCompleter GoToDeclaration<CR>
-    " 跳转到定义(c, cpp, objc, objcpp, cs, go, javascript, python, rust, typescript)
+    " 跳转到定义(c* go, js, py, rust, typescript)
     nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
-    " 跳转到声明或定义(c, cpp, objc, objcpp, cs, go, javascript, python, rust)
+    " 跳转到声明或定义(c* go, js, py, rust)
     nnoremap <leader>gg :YcmCompleter GoTo<CR>
-    " 获取类型信息(c, cpp, objc, objcpp, javascript, typescript)
+    " 获取类型信息(c* js, typescript)
     nnoremap <leader>gt :YcmCompleter GetType<CR>
-    " 获取父类信息(c, cpp, objc, objcpp)
+    " 获取父类信息(c*)
     nnoremap <leader>gp :YcmCompleter GetParent<CR>
-    " 获取相关文档(c, cpp, objc, objcpp, cs, python, typescript, javascript)
+    " 获取相关文档(c* py, typescript, js)
     nnoremap <leader>go :YcmCompleter GetDoc<CR>
 
     " ycm语法检查相关的功能,此功能只支持c系列的语言
     " ycm会禁用syntastic插件关于c系列语言的代码检查
-    " 如果要关闭ycm对c系列语言的语法检查就取消注释下面这行配置
-    " 并注释掉下面这行配置之后缩进的那部分ycm配置就可以只使用syntastic插件了
+    " 如果要关闭ycm对c*的语法检查, 只使用syntastic,
+    " 就取消注释下面这行配置
     "let g:ycm_show_diagnostics_ui = 0
 	" 自动将错误信息放入位置列表
 	let g:ycm_always_populate_location_list = 1
@@ -535,9 +536,9 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
 	let g:ycm_error_symbol = ">>"
 	let g:ycm_warning_symbol = "??"
 	" 定义上述提示字符的颜色(默认的看着不舒服)
-	" 此处没有重新定义颜色组,而是使用了已定义好的"ErrorMsg"和"WarningMsg"组
+	" 此处没有重新定义颜色组,而是使用了已定义好的"ErrorMsg"或"WarningMsg"组
 	highlight link YcmErrorSign ErrorMsg
-	highlight link YcmWarningSign WarningMsg
+	highlight link YcmWarningSign ErrorMsg
 	" 快速修复检测到的语法错误
 	nnoremap <leader>gf :YcmCompleter FixIt<CR>
 	" 强制进行语法检查
