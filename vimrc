@@ -438,6 +438,16 @@ Plug 'honza/vim-snippets'
     let g:UltiSnipsEditSplit="vertical"
 
 
+"##############
+" ale
+" 异步检查代码插件
+Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','python'] }
+    " 修改默认的提示符颜色
+    " 使用:highlight-link查看link子命令的帮助
+    hi link ALEErrorSign ErrorMsg
+    hi link ALEWarningSign WarningMsg
+    " 强制ale进行语法检查(没什么必要)
+    nnoremap <leader>ac :ALELint<cr>
 
 
 "##############
@@ -452,7 +462,7 @@ Plug 'honza/vim-snippets'
 " 异常强大,但需要手动编译,编译的时候可以选择性的编译上述特性
 " 需要注意的是如果vim-plug更新了YCM,那么就需要重新编译
 " 更多介绍参见此项目主页(https://github.com/Valloric/YouCompleteMe)
-Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','python'] }
+Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','python','html'] }
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
     let g:ycm_global_ycm_extra_conf = '~/.vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
     " 使用ctrl-j或下键或ctrl-n在补全菜单中向下移动
