@@ -438,42 +438,6 @@ Plug 'honza/vim-snippets'
     let g:UltiSnipsEditSplit="vertical"
 
 
-"##########
-" syntastic
-" 支持大量编程语言的语法检查
-" 但只在执行写入命令后才自动检查语法,也可以手动执行检查命令
-"
-" 当打开c系列的文件时,不加载本插件,因为ycm插件会禁用本插件,
-" ycm插件已经包含有c系列的语法检查功能而且更好用,详细看ycm配置部分
-"
-" 当编辑java文件时,有两点需要注意:
-" 1:需要进入java文件所在的目录，然后打开文件,否则提示找不到类
-" 2:如果有pacage语句,则需要在包的父目录打开java文件才能正常检查语法,否则提示找不到类
-"   例如包为:com.test,而com目录在src目录下,即完整路径为:src/com/test/foo.java
-"   那么就需要先cd到src目录,再打开foo.java
-Plug 'vim-syntastic/syntastic', { 'for': ['java','dosbatch','sh','python'] }
-    " 如果打开的文件时python类型,
-    " 就设置python的语法检查工具,以方便切换版本
-    " 使用pylint对python2进行语法检查工具, pylint3对python3(需要具实际系统而言)
-    autocmd FileType python let g:syntastic_python_checkers = ["pylint"]
-    " 打开文件时是否执行语法检查
-    let g:syntastic_check_on_open = 0
-    " 执行:wq命令时不执行语法检查
-    let g:syntastic_check_on_wq = 0
-    " 错误及警告标志
-    let g:syntastic_error_symbol = ">>"
-    let g:syntastic_warning_symbol = "??"
-    let g:syntastic_style_error_symbol = "S>"
-    let g:syntastic_style_warning_symbol = "S?"
-    " 警告标志的颜色
-    highlight link SyntasticErrorSign ErrorMsg
-    highlight link SyntasticWarningSign ErrorMsg
-    " 自动将错误信息放入位置列表
-    let g:syntastic_always_populate_loc_list = 1
-    " 打开错误位置列表窗口
-    nnoremap <leader>se :Errors<cr>
-    " 强制进行语法检查
-    nnoremap <leader>sc :SyntasticCheck<cr>
 
 
 "##############
