@@ -96,11 +96,10 @@ ln -s ~/ri-vim ~/.vim
 |\<Space\>jr        |移除所有未使用的import              |
 |\<Space\>jm        |增加未实现的接口的方法              |
 
-## Syntastic相关
+## ALE相关
 |按键		        |功能                                |
 |:----:		        |:----:                              |
-|\<Space\>sc        |强制检查语法错误                    |
-|\<Space\>se        |语法错误的位置列表窗口              |
+|\<Space\>ac        |ale强制检查语法错误                 |
 
 ## Airline相关
 |按键		        |功能                                |
