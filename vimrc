@@ -438,6 +438,17 @@ Plug 'honza/vim-snippets'
     let g:UltiSnipsEditSplit="vertical"
 
 
+"###########
+" nerdtree
+" 文件管理
+Plug 'scrooloose/nerdtree'
+" 显示隐藏文件(dotfiles)
+let NERDTreeShowHidden=1
+" 按<F2>开关nerdtree
+nnoremap <F2> :NERDTreeToggle<CR>
+inoremap <F2> <ESC>:NERDTreeToggle<CR>
+
+
 "##############
 " ale
 " 异步检查代码插件
@@ -462,7 +473,9 @@ Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','python'] }
 " 异常强大,但需要手动编译,编译的时候可以选择性的编译上述特性
 " 需要注意的是如果vim-plug更新了YCM,那么就需要重新编译
 " 更多介绍参见此项目主页(https://github.com/Valloric/YouCompleteMe)
-Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','python','html'] }
+Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','python','html','xhtml'] }
+    " 只需要输入一个字符就触发补全
+    let g:ycm_min_num_of_chars_for_completion = 1
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
     let g:ycm_global_ycm_extra_conf = '~/.vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
     " 使用ctrl-j或下键或ctrl-n在补全菜单中向下移动
@@ -592,17 +605,6 @@ nmap <F5> <Plug>(quickrun)
 Plug 'majutsushi/tagbar', { 'for': ['java','c','cpp','python'] }
 " 按<F8>开关tag窗口
 nnoremap <F8> :TagbarToggle<CR>
-
-
-"###########
-" nerdtree
-" 文件管理
-Plug 'scrooloose/nerdtree'
-" 显示隐藏文件(dotfiles)
-let NERDTreeShowHidden=1
-" 按<F2>开关nerdtree
-nnoremap <F2> :NERDTreeToggle<CR>
-inoremap <F2> <ESC>:NERDTreeToggle<CR>
 
 
 " 结束插件加载
