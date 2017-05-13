@@ -453,6 +453,10 @@ inoremap <F2> <ESC>:NERDTreeToggle<CR>
 " ale
 " 异步检查代码插件
 Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','python'] }
+    " 用于检查python的工具, pylint
+    " python2:pylint, python3:pylint3
+    let g:ale_python_pylint_executable = 'pylint3'
+
     " 修改默认的提示符颜色
     " 使用:highlight-link查看link子命令的帮助
     hi link ALEErrorSign ErrorMsg
@@ -491,9 +495,9 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     " 当使用下面定义的GoTo*系列快捷键时使用垂直分割打开新窗口显示数据
     let g:ycm_goto_buffer_command = 'vertical-split'
     " 指定ycmd使用的py版本, 必须是编译ycm时所用的以及vim支持的py版本
-    let g:ycm_server_python_interpreter = '/usr/bin/python3'
+    let g:ycm_server_python_interpreter = 'python3'
     " 指定ycm client使用的python版本(也是jedi使用的python版本)
-    let g:ycm_python_binary_path = '/usr/bin/python2'
+    let g:ycm_python_binary_path = 'python3'
 
     " 以下映射对应命令生效的对象一般是光标下的变量或者方法
     " 以下'c*'代表c系列语言
