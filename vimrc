@@ -455,7 +455,7 @@ inoremap <F2> <ESC>:NERDTreeToggle<CR>
 Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','python'] }
     " 用于检查python的工具, pylint
     " python2:pylint, python3:pylint3
-    let g:ale_python_pylint_executable = 'pylint3'
+    let g:ale_python_pylint_executable = 'pylint2'
 
     " 修改默认的提示符颜色
     " 使用:highlight-link查看link子命令的帮助
