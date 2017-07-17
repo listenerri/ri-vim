@@ -211,11 +211,8 @@ if has("gui_running")
     " b 底部的水平滚动条,大小为当前文件中的最长行
     " h 限制水平滚动条的长度为当前光标所在行,可减少计算量
     " 每个选项都可以使用加号"+"和减号"-"来开关
-    set go-=m
     set go-=T
-    set go-=r
-    set go-=l
-    set go-=b
+    set go-=L
 endif
 
 
