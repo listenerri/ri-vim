@@ -597,6 +597,13 @@ let g:instant_markdown_autostart = 0
 Plug 'thinca/vim-quickrun', { 'for': ['java','c','cpp','python'] }
 " 按F5按默认配置快速启动
 nmap <F5> <Plug>(quickrun)
+" 为了避免运行时无法进行交互
+" 所以设置runner为shell, 默认为system
+let g:quickrun_config = {
+\   "_" : {
+\       "runner" : "shell",
+\   },
+\}
 
 
 "######
