@@ -241,6 +241,10 @@ inoremap <C-H> <Left>
 inoremap <C-J> <Down>
 inoremap <C-K> <Up>
 inoremap <C-L> <Right>
+inoremap <Left> <Esc>^i
+inoremap <Down> <Esc>o
+inoremap <Up> <Esc>O
+inoremap <Right> <Esc>$a
 
 " 插入二合字符
 " 默认是<C-K>,但已被上面的定义所占用
@@ -451,8 +455,8 @@ inoremap <F2> <ESC>:NERDTreeToggle<CR>
 " 异步检查代码插件
 Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','python'] }
     " 用于检查python的工具, pylint
-    " python2:pylint, python3:pylint3
-    let g:ale_python_pylint_executable = 'pylint2'
+    " python2:pylint2, python3:pylint3
+    let g:ale_python_pylint_executable = 'pylint3'
 
     " 修改默认的提示符颜色
     " 使用:highlight-link查看link子命令的帮助
@@ -612,7 +616,7 @@ let g:quickrun_config = {
 " 以对象的方式显示当前文件中的类，变量，方法，等
 Plug 'majutsushi/tagbar', { 'for': ['java','c','cpp','python'] }
 " 按<F8>开关tag窗口
-nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F8> :TagbarToggle<CR><C-W>b
 
 
 " 结束插件加载
