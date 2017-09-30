@@ -619,6 +619,12 @@ Plug 'majutsushi/tagbar', { 'for': ['java','c','cpp','python'] }
 nnoremap <F8> :TagbarToggle<CR><C-W>b
 
 
+"############
+" indentline
+" 显示缩进对齐线
+Plug 'yggdroot/indentline'
+
+
 " 结束插件加载
 call plug#end()
 
