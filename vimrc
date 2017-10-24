@@ -213,6 +213,15 @@ if has("gui_running")
     " 每个选项都可以使用加号"+"和减号"-"来开关
     set go-=T
     set go-=L
+
+    "for mac osx
+    if has('mac')
+        "gui字体
+        set guifont=Monaco:h14
+        set lines=25
+        set columns=100
+    endif
+
 endif
 
 
