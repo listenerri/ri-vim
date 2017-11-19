@@ -491,7 +491,7 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     " 只需要输入一个字符就触发补全
     let g:ycm_min_num_of_chars_for_completion = 1
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
-    let g:ycm_global_ycm_extra_conf = '~/.vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+    let g:ycm_global_ycm_extra_conf = '~/dotfiles/ycm_extra_conf.py'
     " 使用ctrl-j或下键或ctrl-n在补全菜单中向下移动
     let g:ycm_key_list_select_completion = ['<C-N>', '<Down>']
     " 使用ctrl-k或上键或ctrl-p在补全菜单中向上移动
@@ -505,9 +505,9 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     " 当使用下面定义的GoTo*系列快捷键时使用垂直分割打开新窗口显示数据
     let g:ycm_goto_buffer_command = 'vertical-split'
     " 指定ycmd使用的py版本, 必须是编译ycm时所用的以及vim支持的py版本
-    let g:ycm_server_python_interpreter = 'python3'
+    let g:ycm_server_python_interpreter = 'python2'
     " 指定ycm client使用的python版本(也是jedi使用的python版本)
-    let g:ycm_python_binary_path = 'python3'
+    let g:ycm_python_binary_path = 'python2'
 
     " 以下映射对应命令生效的对象一般是光标下的变量或者方法
     " 以下'c*'代表c系列语言
