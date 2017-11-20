@@ -189,6 +189,10 @@ set ttimeout
 " 设置键码超时时间(默认是负数也就是关闭,关闭时由timeoutlen的值管理键码超时)
 set ttimeoutlen=100
 
+" 当打开文件时切换当前的工作目录到文件所在的目录下
+" 当前工作目录可以通过:pwd命令查看
+set autochdir
+
 
 
 
