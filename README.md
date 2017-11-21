@@ -27,7 +27,7 @@ vim -c PlugUpdate
 #插件安装完之后除了youcompleteme插件不能直接使用以外，
 #其他插件都可以直接使用，youcompleteme插件需要编译后才能使用，
 #编译方法见youcompleteme插件的README介绍：
-[https://github.com/Valloric/YouCompleteMe#installation](https://github.com/Valloric/YouCompleteMe#installation)
+https://github.com/Valloric/YouCompleteMe#installation
 ```
 
 # 以下介绍部分按键
