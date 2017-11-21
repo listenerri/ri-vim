@@ -20,9 +20,18 @@ git clone git@github.com:ListenerRi/ri-vim.git
 
 #链接本位置目录到.vim
 ln -s ~/ri-vim ~/.vim
+
+#打开vim并安装插件
+vim -c PlugUpdate
+
+#插件安装完之后除了youcompleteme插件不能直接使用以外，
+#其他插件都可以直接使用，youcompleteme插件需要编译后才能使用，
+#编译方法见youcompleteme插件的README介绍：
+[https://github.com/Valloric/YouCompleteMe#installation](https://github.com/Valloric/YouCompleteMe#installation)
 ```
 
 # 以下介绍部分按键
+这些按键都是本配置相对于vim默认新增的(修改的)按键操作
 
 **注意:**
 - 映射`<leader>`为`<Space>`,也就是空格键
@@ -40,7 +49,8 @@ ln -s ~/ri-vim ~/.vim
 |\<Space\>Y	        |复制整行到系统剪切板                |
 |\<Space\>p	        |从系统剪切板粘贴到光标之后          |
 |\<Space\>P	        |从系统剪切板粘贴到光标之前          |
-|\<Space\>q	        |退出当前窗口                        |
+|\<Space\>qq        |退出当前窗口                        |
+|\<Space\>q!        |取消保存并退出当前窗口              |
 |\<Space\>w	        |保存当前缓冲区                      |
 |\<Space\>\<Space\> |取消搜索高亮                        |
 |\<Space\>/	        |向下搜索光标下的单词                |
@@ -64,6 +74,10 @@ ln -s ~/ri-vim ~/.vim
 |\<Space\>lc        |关闭位置列表窗口                    |
 |\<Space\>ln        |跳转到位置列表窗口中的下一个错误    |
 |\<Space\>lp        |跳转到位置列表窗口中的上一个错误    |
+|\<Space\>qo        |打开quickfix列表窗口                |
+|\<Space\>qc        |关闭quickfix列表窗口                |
+|\<Space\>qn        |跳转到quickfix列表窗口中的下一个错误|
+|\<Space\>qp        |跳转到quickfix列表窗口中的上一个错误|
 
 ## 简单插件相关
 |按键		        |功能                                |
@@ -72,7 +86,7 @@ ln -s ~/ri-vim ~/.vim
 |\<F5\>	    	    |运行quickrun                        |
 |\<F8\>	    	    |切换tagbar                          |
 
-## YouCompleteMe相关
+## YouCompleteMe插件相关
 |按键		        |功能                                |
 |:----:		        |:----:                              |
 |\<Space\>gi        |跳转到头文件                        |
@@ -86,7 +100,7 @@ ln -s ~/ri-vim ~/.vim
 |\<Space\>gc        |强制检查c系列语言语法错误           |
 |\<Space\>ge        |c系列语言语法错误的位置列表窗口     |
 
-## JavaComplete2相关
+## JavaComplete2插件相关
 |按键		        |功能                                |
 |:----:		        |:----:                              |
 |\<Space\>jA        |为所有变量生成setter和getter        |
@@ -100,12 +114,12 @@ ln -s ~/ri-vim ~/.vim
 |\<Space\>jr        |移除所有未使用的import              |
 |\<Space\>jm        |增加未实现的接口的方法              |
 
-## ALE相关
+## ALE插件相关
 |按键		        |功能                                |
 |:----:		        |:----:                              |
 |\<Space\>ac        |ale强制检查语法错误                 |
 
-## Airline相关
+## Airline插件相关
 |按键		        |功能                                |
 |:----:		        |:----:                              |
 |\<Space\>at        |开关airline                         |
