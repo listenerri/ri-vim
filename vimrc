@@ -282,8 +282,10 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 
 " 保存和退出
-nnoremap <leader>q :q<CR>
 nnoremap <leader>w :w<CR>
+nnoremap <leader>qq :q<CR>
+" 取消保存并退出
+nnoremap <leader>q! :q!<CR>
 
 " 保证搜索结果高亮,避免下面取消高亮后在此搜索没有高亮
 nnoremap n :set hlsearch<CR>nzz
@@ -318,6 +320,14 @@ nnoremap <leader>lc :lclose<cr>
 " 当syntastic或ycm检测到语法错误时可使用此映射跳转下一个或前一个错误
 nnoremap <leader>ln :lnext<cr>
 nnoremap <leader>lp :lprevious<cr>
+
+" 打开当前窗口的quickfix列表
+nnoremap <leader>qo :copen<cr>
+" 关闭当前窗口的quickfix列表
+nnoremap <leader>qc :cclose<cr>
+" 跳转到当前窗口quickfix列表的下一项和前一项
+nnoremap <leader>qn :cnext<cr>
+nnoremap <leader>qp :cprevious<cr>
 
 
 
