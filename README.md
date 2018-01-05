@@ -49,8 +49,7 @@ https://github.com/Valloric/YouCompleteMe#installation
 |\<Space\>Y	        |复制整行到系统剪切板                |
 |\<Space\>p	        |从系统剪切板粘贴到光标之后          |
 |\<Space\>P	        |从系统剪切板粘贴到光标之前          |
-|\<Space\>qq        |退出当前窗口                        |
-|\<Space\>q!        |取消保存并退出当前窗口              |
+|\<Space\>q         |退出当前窗口                        |
 |\<Space\>w	        |保存当前缓冲区                      |
 |\<Space\>\<Space\> |取消搜索高亮                        |
 |\<Space\>/	        |向下搜索光标下的单词                |
@@ -74,10 +73,10 @@ https://github.com/Valloric/YouCompleteMe#installation
 |\<Space\>lc        |关闭位置列表窗口                    |
 |\<Space\>ln        |跳转到位置列表窗口中的下一个错误    |
 |\<Space\>lp        |跳转到位置列表窗口中的上一个错误    |
-|\<Space\>qo        |打开quickfix列表窗口                |
-|\<Space\>qc        |关闭quickfix列表窗口                |
-|\<Space\>qn        |跳转到quickfix列表窗口中的下一个错误|
-|\<Space\>qp        |跳转到quickfix列表窗口中的上一个错误|
+|\<Space\>fo        |打开quickfix列表窗口                |
+|\<Space\>fc        |关闭quickfix列表窗口                |
+|\<Space\>fn        |跳转到quickfix列表窗口中的下一个错误|
+|\<Space\>fp        |跳转到quickfix列表窗口中的上一个错误|
 
 ## 简单插件相关
 |按键		        |功能                                |
