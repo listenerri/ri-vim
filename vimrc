@@ -522,9 +522,9 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
     let g:ycm_global_ycm_extra_conf = '~/ri-vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
     " 使用ctrl-j或下键或ctrl-n在补全菜单中向下移动
-    let g:ycm_key_list_select_completion = ['<C-N>', '<Down>']
+    let g:ycm_key_list_select_completion = ['<C-N>']
     " 使用ctrl-k或上键或ctrl-p在补全菜单中向上移动
-    let g:ycm_key_list_previous_completion = ['<C-P>', '<Up>']
+    let g:ycm_key_list_previous_completion = ['<C-P>']
     " 编辑注释时也自动补全
     let g:ycm_complete_in_comments = 1
     " 从注释和字符串中收集可补全关键字
