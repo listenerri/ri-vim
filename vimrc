@@ -519,6 +519,8 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','pytho
     let g:ycm_min_num_of_chars_for_completion = 1
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
     let g:ycm_global_ycm_extra_conf = '~/ri-vim/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+    " 加载自定义'.ycm_extra_conf.py'不再询问
+    let g:ycm_confirm_extra_conf = 0
     " 使用ctrl-j或下键或ctrl-n在补全菜单中向下移动
     let g:ycm_key_list_select_completion = ['<C-N>']
     " 使用ctrl-k或上键或ctrl-p在补全菜单中向上移动
