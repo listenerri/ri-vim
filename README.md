@@ -84,6 +84,7 @@ https://github.com/Valloric/YouCompleteMe#installation
 |\<F2\>	    	    |运行nerdtree                        |
 |\<F5\>	    	    |运行quickrun                        |
 |\<F8\>	    	    |切换tagbar                          |
+|\\	    	        |调用easymotion                      |
 
 ## YouCompleteMe插件相关
 |按键		        |功能                                |
