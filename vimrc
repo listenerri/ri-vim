@@ -416,24 +416,43 @@ Plug 'kshenoy/vim-signature'
 " 高度可定制的状态栏
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+    " 标签栏
+    let g:airline#extensions#tabline#enabled = 1
+    " 显示标签栏序号以及标签内有多少窗口
+    let g:airline#extensions#tabline#tab_nr_type = 2
+    " 标签栏符号
+    let g:airline#extensions#tabline#left_sep = ''
+    let g:airline#extensions#tabline#left_alt_sep = ''
+    let g:airline#extensions#tabline#right_sep = ''
+    let g:airline#extensions#tabline#right_alt_sep = ''
+    " 标签栏切换按键(当只有buffer时也可用于切换buffer)
+    let g:airline#extensions#tabline#buffer_idx_mode = 1
+    nmap <leader>1 <Plug>AirlineSelectTab1
+    nmap <leader>2 <Plug>AirlineSelectTab2
+    nmap <leader>3 <Plug>AirlineSelectTab3
+    nmap <leader>4 <Plug>AirlineSelectTab4
+    nmap <leader>5 <Plug>AirlineSelectTab5
+    nmap <leader>6 <Plug>AirlineSelectTab6
+    nmap <leader>7 <Plug>AirlineSelectTab7
+    nmap <leader>8 <Plug>AirlineSelectTab8
+    nmap <leader>9 <Plug>AirlineSelectTab9
+    nmap <leader>- <Plug>AirlineSelectPrevTab
+    nmap <leader>= <Plug>AirlineSelectNextTab
     " 主题
     let g:airline_theme='molokai'
-    " 自定义unicode符号
+    " 自定义符号
     if !exists('g:airline_symbols')
       let g:airline_symbols = {}
     endif
-    let g:airline_left_sep = '▶'
-    let g:airline_right_sep = '◀'
-    let g:airline_symbols.linenr = ''
-    let g:airline_symbols.maxlinenr = ''
-    let g:airline_symbols.branch = '⎇'
-    let g:airline_symbols.paste = '∥'
-    let g:airline_symbols.spell = 'Ꞩ'
-    let g:airline_symbols.notexists = '∄'
-    let g:airline_symbols.whitespace = 'Ξ'
-    let g:airline_symbols.space = ' '
-    let g:airline_symbols.readonly = 'RO'
-    let g:airline_symbols.modified = '+'
+    " powerline符号
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.readonly = ''
+    let g:airline_symbols.linenr = '☰'
+    let g:airline_symbols.maxlinenr = ''
     " 编辑下列文件类型的文件时显示文字总数
     " 多个文件类型用'|'号隔开
     let g:airline#extensions#wordcount#filetypes = '\vtext|mail'
