@@ -16,6 +16,7 @@ set ww=b,s,h,l,<,>,[,]
 
 " 禁止跳转时光标移动到非空字符
 " 默认当跳转时光标会移动到那一行的非空字符处
+" nostartofline
 set nosol
 
 " 输入搜索关键字时跳转到匹配的结果
@@ -204,8 +205,8 @@ set autochdir
 " ##########################GUI##########################
 if has("gui_running")
     "gui窗口宽高
-    set lines=30
-    set columns=84
+    set lines=28
+    set columns=120
     " gui选项
     " guioptions
     " m 菜单栏
@@ -662,7 +663,7 @@ let g:instant_markdown_autostart = 0
 " vim-quickrun
 " 条件加载
 " 快速运行当前文件或选中的行
-Plug 'thinca/vim-quickrun', { 'for': ['java','c','cpp','python'] }
+Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python'] }
 " 按F5按默认配置快速启动
 nmap <F5> <Plug>(quickrun)
 " 为了避免运行时无法进行交互
