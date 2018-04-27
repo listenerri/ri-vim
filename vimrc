@@ -261,8 +261,6 @@ inoremap <C-K> <Up>
 inoremap <C-L> <Right>
 inoremap <Left> <Esc>^i
 inoremap <Down> <Esc>o
-inoremap <Up> <Esc>O
-inoremap <Right> <Esc>$a
 
 " 插入二合字符
 " 默认是<C-K>,但已被上面的定义所占用
