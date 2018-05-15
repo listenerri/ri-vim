@@ -198,6 +198,10 @@ set ttimeoutlen=100
 " 当前工作目录可以通过:pwd命令查看
 set autochdir
 
+" 隐藏已经被:bdelete的buffer
+" airline的tabline就不会再显示已经被delete的buffer
+set hidden
+
 
 
 
@@ -327,6 +331,15 @@ nnoremap <leader>fc :cclose<cr>
 " 跳转到当前窗口quickfix列表的下一项和前一项
 nnoremap <leader>fn :cnext<cr>
 nnoremap <leader>fp :cprevious<cr>
+
+" 删除当前buffer
+nnoremap <leader>bd :bd<cr>
+" 切换到上一个buffer并当前buffer
+nnoremap <leader>bc :bp<cr>:bw #<cr>
+" 切换到上一个buffer并当前buffer
+nnoremap <leader>bp :bp<cr>
+" 切换到下一个buffer并当前buffer
+nnoremap <leader>bn :bn<cr>
 
 
 
