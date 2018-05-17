@@ -268,10 +268,12 @@ inoremap <C-L> <Right>
 " 默认是<C-K>,但已被上面的定义所占用
 inoremap <Insert> <C-K>
 
-" 快速移动到行尾航首
-" 直接使用map命令从而全局不适用H,L的原功能
+" 快速移动到行首行尾
+" 直接使用map命令从而全局不使用H,L的原功能
 map H ^
 map L $
+" 可视模式下移动到行尾(不包含换行符)
+vnoremap L $h
 
 " 复制到系统剪切板
 noremap <leader>y "+y
