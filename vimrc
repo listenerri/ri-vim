@@ -437,6 +437,8 @@ Plug 'vim-airline/vim-airline-themes'
     let g:airline#extensions#tabline#left_alt_sep = ''
     let g:airline#extensions#tabline#right_sep = ''
     let g:airline#extensions#tabline#right_alt_sep = ''
+    " 只显示文件名,不显示路径(:h :p查看相关帮助)
+    let g:airline#extensions#tabline#fnamemod = ':t'
     " 标签栏切换按键(当只有buffer时也可用于切换buffer)
     let g:airline#extensions#tabline#buffer_idx_mode = 1
     nmap <leader>1 <Plug>AirlineSelectTab1
