@@ -543,6 +543,13 @@ Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','python'] }
 
 
 "##############
+" vim-fswitch
+" c/cpp头文件切换
+Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
+    map <f4> :FSHere<cr>
+
+
+"##############
 " YouCompleteMe
 " 条件加载
 " 一个多功能的自动补全插件
