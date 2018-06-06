@@ -524,6 +524,10 @@ inoremap <F2> <ESC>:NERDTreeToggle<CR>
 " 快速移动到某一位置
 Plug 'easymotion/vim-easymotion'
 map \ <Plug>(easymotion-prefix)
+map f <Plug>(easymotion-prefix)f
+map F <Plug>(easymotion-prefix)F
+map t <Plug>(easymotion-prefix)t
+map T <Plug>(easymotion-prefix)T
 
 
 "##############
