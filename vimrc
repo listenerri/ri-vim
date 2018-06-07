@@ -512,22 +512,22 @@ Plug 'honza/vim-snippets'
 " nerdtree
 " 文件管理
 Plug 'scrooloose/nerdtree'
-" 显示隐藏文件(dotfiles)
-let NERDTreeShowHidden=1
-" 按<F2>开关nerdtree
-nnoremap <F2> :NERDTreeToggle<CR>
-inoremap <F2> <ESC>:NERDTreeToggle<CR>
+    " 显示隐藏文件(dotfiles)
+    let NERDTreeShowHidden=1
+    " 按<F2>开关nerdtree
+    nnoremap <F2> :NERDTreeToggle<CR>
+    inoremap <F2> <ESC>:NERDTreeToggle<CR>
 
 
 "###########
 " easymotion
 " 快速移动到某一位置
 Plug 'easymotion/vim-easymotion'
-map \ <Plug>(easymotion-prefix)
-map f <Plug>(easymotion-prefix)f
-map F <Plug>(easymotion-prefix)F
-map t <Plug>(easymotion-prefix)t
-map T <Plug>(easymotion-prefix)T
+    map \ <Plug>(easymotion-prefix)
+    map f <Plug>(easymotion-prefix)f
+    map F <Plug>(easymotion-prefix)F
+    map t <Plug>(easymotion-prefix)t
+    map T <Plug>(easymotion-prefix)T
 
 
 "##############
@@ -678,9 +678,9 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 " 而且要求以全局方式安装这个模块,具体命令是:
 " sudo npm -g install instant-markdown-d
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
-" 取消自动启动预览,需要启动预览时使用命令:InstantMarkdownPreview
-" 如需自动启动则注销掉下面的配置即可
-let g:instant_markdown_autostart = 0
+    " 取消自动启动预览,需要启动预览时使用命令:InstantMarkdownPreview
+    " 如需自动启动则注销掉下面的配置即可
+    let g:instant_markdown_autostart = 0
 
 
 "############
@@ -688,15 +688,15 @@ let g:instant_markdown_autostart = 0
 " 条件加载
 " 快速运行当前文件或选中的行
 Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python'] }
-" 按F5按默认配置快速启动
-nmap <F5> <Plug>(quickrun)
-" 为了避免运行时无法进行交互
-" 所以设置runner为shell, 默认为system
-let g:quickrun_config = {
-\   "_" : {
-\       "runner" : "shell",
-\   },
-\}
+    " 按F5按默认配置快速启动
+    nmap <F5> <Plug>(quickrun)
+    " 为了避免运行时无法进行交互
+    " 所以设置runner为shell, 默认为system
+    let g:quickrun_config = {
+    \   "_" : {
+    \       "runner" : "shell",
+    \   },
+    \}
 
 
 "######
@@ -704,14 +704,21 @@ let g:quickrun_config = {
 " 条件加载
 " 以对象的方式显示当前文件中的类，变量，方法，等
 Plug 'majutsushi/tagbar', { 'for': ['java','c','cpp','python'] }
-" 按<F8>开关tag窗口
-nnoremap <F8> :TagbarToggle<CR><C-W>b
+    " 按<F8>开关tag窗口
+    nnoremap <F8> :TagbarToggle<CR><C-W>b
 
 
 "############
 " indentline
 " 显示缩进对齐线
 Plug 'yggdroot/indentline'
+    " 启用水平缩进提示
+    let g:indentLine_leadingSpaceEnabled = 1
+    let g:indentLine_leadingSpaceChar = '·'
+    " 总开关
+    nnoremap <leader>ilt :IndentLinesToggle<CR>
+    " 水平缩进提示开关
+    nnoremap <leader>ist :LeadingSpaceToggle<CR>
 
 
 " 结束插件加载
