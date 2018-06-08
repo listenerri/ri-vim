@@ -196,7 +196,7 @@ set ttimeoutlen=100
 
 " 当打开文件时切换当前的工作目录到文件所在的目录下
 " 当前工作目录可以通过:pwd命令查看
-set autochdir
+"set autochdir
 
 " 隐藏已经被:bdelete的buffer
 " airline的tabline就不会再显示已经被delete的buffer
