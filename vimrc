@@ -336,12 +336,14 @@ nnoremap <leader>fp :cprevious<cr>
 
 " 删除当前buffer
 nnoremap <leader>bd :bd<cr>
-" 切换到上一个buffer并当前buffer
+" 切换到上一个buffer并清除当前buffer
 nnoremap <leader>bc :bp<cr>:bw #<cr>
-" 切换到上一个buffer并当前buffer
+" 切换到上一个buffer并清除当前buffer
 nnoremap <leader>bp :bp<cr>
-" 切换到下一个buffer并当前buffer
+" 切换到下一个buffer并清除当前buffer
 nnoremap <leader>bn :bn<cr>
+" 切换到之前的buffer
+nnoremap <leader>0 :b#<cr>
 
 
 
