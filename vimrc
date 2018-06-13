@@ -337,7 +337,11 @@ nnoremap <leader>fp :cprevious<cr>
 " 删除当前buffer
 nnoremap <leader>bd :bd<cr>
 " 切换到上一个buffer并清除当前buffer
-nnoremap <leader>bc :bp<cr>:bw #<cr>
+nnoremap <leader>bw :bp<cr>:bw #<cr>
+" 清除所有buffer
+nnoremap <leader>bc :%bw<cr>
+" 删除所有buffer,除了当前的
+nnoremap <leader>bo :%bd \| e#<cr>
 " 切换到上一个buffer并清除当前buffer
 nnoremap <leader>bp :bp<cr>
 " 切换到下一个buffer并清除当前buffer
