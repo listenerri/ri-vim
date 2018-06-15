@@ -290,7 +290,25 @@ noremap <leader>P "+P
 
 " 保存和退出
 nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
+"nnoremap <leader>q :q<CR>
+nnoremap <leader>q :call CloseCurrentBuffer()<CR>
+
+function! CloseCurrentBuffer()
+    let l:bufsInfo = getbufinfo()
+    let l:bufsNrListed = []
+    for l:bufInfo in l:bufsInfo
+        if get(l:bufInfo, "listed") == 1
+            call add(l:bufsNrListed, get(l:bufInfo, "bufnr"))
+        endif
+    endfor
+    let l:bufsNrListedCount = len(l:bufsNrListed)
+    if l:bufsNrListedCount <= 1
+        bd
+        NERDTreeFocus
+    else
+        bp | bd #
+    endif
+endfunction
 
 " 保证搜索结果高亮,避免下面取消高亮后在此搜索没有高亮
 nnoremap n :set hlsearch<CR>nzz
@@ -334,7 +352,7 @@ nnoremap <leader>fc :cclose<cr>
 nnoremap <leader>fn :cnext<cr>
 nnoremap <leader>fp :cprevious<cr>
 
-" 删除当前buffer
+" 删除当前buffer(并关闭当前window)
 nnoremap <leader>bd :bd<cr>
 " 切换到上一个buffer并清除当前buffer
 nnoremap <leader>bw :bp<cr>:bw #<cr>
