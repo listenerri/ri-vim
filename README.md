@@ -49,7 +49,7 @@ https://github.com/Valloric/YouCompleteMe#installation
 |\<Space\>Y	        |复制整行到系统剪切板                |
 |\<Space\>p	        |从系统剪切板粘贴到光标之后          |
 |\<Space\>P	        |从系统剪切板粘贴到光标之前          |
-|\<Space\>q         |退出当前窗口                        |
+|\<Space\>q         |删除当前缓冲区                      |
 |\<Space\>w	        |保存当前缓冲区                      |
 |\<Space\>\<Space\> |取消搜索高亮                        |
 |\<Space\>/	        |向下搜索光标下的单词                |
@@ -64,10 +64,6 @@ https://github.com/Valloric/YouCompleteMe#installation
 |\<C-J\>	        |插入模式-向下移动光标               |
 |\<C-K\>	        |插入模式-向上移动光标               |
 |\<C-L\>	        |插入模式-向右移动光标               |
-|\<Left\>	        |插入模式-移动光标到行首             |
-|\<Down\>	        |插入模式-向下新建一行               |
-|\<Up\>	            |插入模式-向上新建一行               |
-|\<Right\>	        |插入模式-移动光标到行尾             |
 |\<Insert\>	        |插入模式-输入二合字符               |
 |\<Space\>lo        |打开位置列表窗口(一般包含错误信息)  |
 |\<Space\>lc        |关闭位置列表窗口                    |
@@ -77,6 +73,11 @@ https://github.com/Valloric/YouCompleteMe#installation
 |\<Space\>fc        |关闭quickfix列表窗口                |
 |\<Space\>fn        |跳转到quickfix列表窗口中的下一个错误|
 |\<Space\>fp        |跳转到quickfix列表窗口中的上一个错误|
+|\<Space\>bc        |删除所有buffer                      |
+|\<Space\>bo        |删除所有buffer,除了当前的           |
+|\<Space\>bp        |切换到上一个buffer                  |
+|\<Space\>bn        |切换到下一个buffer                  |
+|\<Space\>b0        |切换到之前的buffer                  |
 
 ## 简单插件相关
 |按键		        |功能                                |
@@ -125,3 +126,8 @@ https://github.com/Valloric/YouCompleteMe#installation
 |\<Space\>at        |开关airline                         |
 |\<Space\>ar        |重新加载airline                     |
 |\<Space\>aw        |开关whitespace检查                  |
+
+## EasyMotion插件相关
+|按键		        |功能                                |
+|:----:		        |:----:                              |
+|f,F,t,T            |增强默认的这些功能                  |
