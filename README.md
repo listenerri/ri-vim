@@ -49,8 +49,9 @@ https://github.com/Valloric/YouCompleteMe#installation
 |\<Space\>Y	        |复制整行到系统剪切板                |
 |\<Space\>p	        |从系统剪切板粘贴到光标之后          |
 |\<Space\>P	        |从系统剪切板粘贴到光标之前          |
-|\<Space\>q         |删除当前缓冲区                      |
+|\<Space\>q         |删除当前缓冲区(并开始编辑上一个)    |
 |\<Space\>w	        |保存当前缓冲区                      |
+|\<Space\>x	        |关闭当前窗口                        |
 |\<Space\>\<Space\> |取消搜索高亮                        |
 |\<Space\>/	        |向下搜索光标下的单词                |
 |\<Space\>?	        |向上搜索光标下的单词                |

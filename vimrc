@@ -290,6 +290,8 @@ noremap <leader>P "+P
 
 " 保存
 nnoremap <leader>w :w<CR>
+" 关闭窗口
+nnoremap <leader>x :q<CR>
 
 " 保证搜索结果高亮,避免下面取消高亮后在此搜索没有高亮
 nnoremap n :set hlsearch<CR>nzz
@@ -351,7 +353,10 @@ function! CloseCurrentBuffer()
         bd
         NERDTreeFocus
     else
-        bp | bd #
+        bp
+        if bufloaded(bufnr("#"))
+            bd #
+        endif
     endif
 endfunction
 
@@ -365,6 +370,7 @@ nnoremap <leader>bp :bp<cr>
 nnoremap <leader>bn :bn<cr>
 " 切换到之前的buffer
 nnoremap <leader>0 :b#<cr>
+
 
 
 
@@ -742,6 +748,13 @@ Plug 'yggdroot/indentline'
     nnoremap <leader>ilt :IndentLinesToggle<CR>
     " 水平缩进提示开关
     nnoremap <leader>ist :LeadingSpaceToggle<CR>
+
+
+"##############
+" vim-fswitch
+" c/cpp头文件切换
+Plug 'listenerri/vim-qt-assistant', { 'for': ['cpp'] }
+    noremap <f3> :call GetDocFromAssistant()<cr>
 
 
 " 结束插件加载
