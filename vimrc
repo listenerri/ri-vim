@@ -294,8 +294,10 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>x :q<CR>
 
 " 保证搜索结果高亮,避免下面取消高亮后再次搜索没有高亮
-nnoremap n :set hlsearch<CR>nzz
-nnoremap N :set hlsearch<CR>Nzz
+nnoremap n :set hlsearch<CR>n
+nnoremap N :set hlsearch<CR>N
+nnoremap * :set hlsearch<CR>*
+nnoremap # :set hlsearch<CR>#
 
 " 取消搜索的高亮
 nnoremap <leader><Space> :set nohlsearch<cr>
@@ -755,6 +757,15 @@ Plug 'listenerri/vim-qt-assistant', { 'for': ['cpp'] }
 " LeaderF
 " 模糊搜索files,mru,buffers,tags,functions, etc.
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+
+
+"##############
+" vim-multiple-cursors
+" Sublime Text style multiple selections for Vim
+" use <c-n> to start selecte, <c-p> to cancel current selection
+" <c-x> to skip next match, <esc> to exit.
+" after select is finished, use I,A,c,s to modify selections
+Plug 'terryma/vim-multiple-cursors'
 
 
 " 结束插件加载
