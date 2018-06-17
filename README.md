@@ -53,8 +53,6 @@ https://github.com/Valloric/YouCompleteMe#installation
 |\<Space\>w	        |保存当前缓冲区                      |
 |\<Space\>x	        |关闭当前窗口                        |
 |\<Space\>\<Space\> |取消搜索高亮                        |
-|\<Space\>/	        |向下搜索光标下的单词                |
-|\<Space\>?	        |向上搜索光标下的单词                |
 |/                  |可视模式-按`/`键向下搜索高亮的部分  |
 |?                  |可视模式-按`?`键向上搜索高亮的部分  |
 |\<C-H\>	        |正常模式-切换到左边的窗口           |

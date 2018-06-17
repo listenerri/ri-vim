@@ -293,20 +293,14 @@ nnoremap <leader>w :w<CR>
 " 关闭窗口
 nnoremap <leader>x :q<CR>
 
-" 保证搜索结果高亮,避免下面取消高亮后在此搜索没有高亮
+" 保证搜索结果高亮,避免下面取消高亮后再次搜索没有高亮
 nnoremap n :set hlsearch<CR>nzz
 nnoremap N :set hlsearch<CR>Nzz
 
 " 取消搜索的高亮
 nnoremap <leader><Space> :set nohlsearch<cr>
 
-" 快速搜索光标下的单词
-" 向下搜索
-nnoremap <leader>/ :set hlsearch<CR>viwy/<C-R>"<CR>
-" 向上搜索
-nnoremap <leader>? :set hlsearch<CR>viwy?<C-R>"<CR>
-
-" 快速可视模式下搜索高亮的内容
+" 可视模式下搜索高亮的内容
 " 向下搜索
 vnoremap / y:set hlsearch<CR>/<C-R>"<CR>
 " 向上搜索
