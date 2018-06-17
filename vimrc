@@ -751,10 +751,16 @@ Plug 'yggdroot/indentline'
 
 
 "##############
-" vim-fswitch
+" vim-qt-assistant
 " c/cpp头文件切换
 Plug 'listenerri/vim-qt-assistant', { 'for': ['cpp'] }
     noremap <f3> :call GetDocFromAssistant()<cr>
+
+
+"##############
+" LeaderF
+" 模糊搜索files,mru,buffers,tags,functions, etc.
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 
 " 结束插件加载
