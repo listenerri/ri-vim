@@ -761,11 +761,26 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 "##############
 " vim-multiple-cursors
-" Sublime Text style multiple selections for Vim
-" use <c-n> to start selecte, <c-p> to cancel current selection
-" <c-x> to skip next match, <esc> to exit.
-" after select is finished, use I,A,c,s to modify selections
+" 实现同时编辑多个位置
+" 使用<c-n>开始选择位置, <c-p>取消当前的选择,返回上一个
+" <c-x>跳过下一个匹配, <esc>终止操作
+" 选择完毕之后可以使用I,A,c,s开始是修改所有选择的位置
 Plug 'terryma/vim-multiple-cursors'
+
+
+"##############
+" vim-easygrep
+Plug 'listenerri/vim-easygrep', { 'branch': 'ag-recursive-switch' }
+    " 使用grepprg选项指定的外部命令搜索
+    "set grepprg=ack
+    set grepprg=ag\ -U\ $*
+    let g:EasyGrepCommand = 1
+    " 哪些文件或目录需要排除
+    let g:EasyGrepFilesToExclude=".svn,.git,build"
+    " 在结果中列出同一行的多个匹配项
+    let g:EasyGrepEveryMatch = 1
+    " 不自动跳转到第一个匹配项
+    let g:EasyGrepJumpToMatch = 0
 
 
 " 结束插件加载
