@@ -754,12 +754,6 @@ Plug 'listenerri/vim-qt-assistant', { 'for': ['cpp'] }
 
 
 "##############
-" LeaderF
-" 模糊搜索files,mru,buffers,tags,functions, etc.
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-
-
-"##############
 " vim-multiple-cursors
 " 实现同时编辑多个位置
 " 使用<c-n>开始选择位置, <c-p>取消当前的选择,返回上一个
@@ -781,6 +775,30 @@ Plug 'listenerri/vim-easygrep', { 'branch': 'ag-recursive-switch' }
     let g:EasyGrepEveryMatch = 1
     " 不自动跳转到第一个匹配项
     let g:EasyGrepJumpToMatch = 0
+    " 快速设置EasyGrep选项的前缀(默认是'<leader>vy')
+    " 按下前缀后再按一个代表对应选项的字母就可以切换该选项(如递归,大小写等)
+    " 具体有哪些字母(选项)可以打开选项列表查看(在选项列表中按?显示更多选项)
+    let g:EasyGrepOptionPrefix = '<leader>fs'
+    " 打开选项列表(options list)
+    nmap <leader>fl <plug>EgMapGrepOptions
+    " 下面的按键含有大写的表示搜索时使用'whole word'模式
+    " vnoremap的表示在可视模式下搜索选择的内容
+    " nnoremap的表示搜索光标下的单词
+    " f: 搜索并将结果展示在列表中
+    " a: 搜索并将结果追加在列表中
+    " r: 搜索并替换(交互模式)
+    nmap <leader>ff <plug>EgMapGrepCurrentWord_v
+    vmap <leader>ff <plug>EgMapGrepSelection_v
+    nmap <leader>fF <plug>EgMapGrepCurrentWord_V
+    vmap <leader>fF <plug>EgMapGrepSelection_V
+    nmap <leader>fa <plug>EgMapGrepCurrentWord_a
+    vmap <leader>fa <plug>EgMapGrepSelection_a
+    nmap <leader>fA <plug>EgMapGrepCurrentWord_A
+    vmap <leader>fA <plug>EgMapGrepSelection_A
+    nmap <leader>fr <plug>EgMapReplaceCurrentWord_r
+    vmap <leader>fr <plug>EgMapReplaceSelection_r
+    nmap <leader>fR <plug>EgMapReplaceCurrentWord_R
+    vmap <leader>fR <plug>EgMapReplaceSelection_R
 
 
 " 结束插件加载
