@@ -726,7 +726,7 @@ Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python'] }
 " tagbar
 " 条件加载
 " 以对象的方式显示当前文件中的类，变量，方法，等
-Plug 'majutsushi/tagbar', { 'for': ['java','c','cpp','python'] }
+Plug 'majutsushi/tagbar', { 'for': ['vim','java','c','cpp','python'] }
     " 按<F8>开关tag窗口
     nnoremap <F8> :TagbarToggle<CR><C-W>b
 
@@ -798,6 +798,11 @@ Plug 'listenerri/vim-easygrep', { 'branch': 'ag-recursive-switch' }
     vmap <leader>fr <plug>EgMapReplaceSelection_r
     nmap <leader>fR <plug>EgMapReplaceCurrentWord_R
     vmap <leader>fR <plug>EgMapReplaceSelection_R
+
+
+" NERD-Commenter
+" 提供注释功能
+Plug 'scrooloose/nerdcommenter', { 'for': ['vim','java','c','cpp','dosbatch','sh','python','html','xhtml'] }
 
 
 " 结束插件加载
