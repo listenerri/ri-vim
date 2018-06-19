@@ -290,8 +290,6 @@ noremap <leader>P "+P
 
 " 保存
 nnoremap <leader>w :w<CR>
-" 关闭窗口
-nnoremap <leader>x :q<CR>
 
 " 保证搜索结果高亮,避免下面取消高亮后再次搜索没有高亮
 nnoremap n :set hlsearch<CR>n
