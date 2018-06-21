@@ -578,6 +578,8 @@ Plug 'scrooloose/nerdtree'
 " easymotion
 " 快速移动到某一位置
 Plug 'easymotion/vim-easymotion'
+    " 智能大小写
+    let g:EasyMotion_smartcase = 1
     map \ <Plug>(easymotion-prefix)
     map f <Plug>(easymotion-prefix)f
     map F <Plug>(easymotion-prefix)F
