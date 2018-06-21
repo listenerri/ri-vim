@@ -355,15 +355,47 @@ function! CloseCurrentBuffer()
 endfunction
 
 " 删除所有buffer
-nnoremap <leader>bc :%bd<cr>
+nnoremap <leader>bc :call CloseListedBuffers()<cr>
 " 删除所有buffer,除了当前的
-nnoremap <leader>bo :%bd \| e#<cr>
+nnoremap <leader>bo :call CloseOtherBuffers()<cr>
 " 切换到上一个buffer
 nnoremap <leader>bp :bp<cr>
 " 切换到下一个buffer
 nnoremap <leader>bn :bn<cr>
 " 切换到之前的buffer
 nnoremap <leader>0 :b#<cr>
+
+function! CloseListedBuffers()
+    let l:bufsInfo = getbufinfo()
+    for l:bufInfo in l:bufsInfo
+        if get(l:bufInfo, "listed") == 1
+            let l:bufNr = get(l:bufInfo, "bufnr")
+            if bufloaded(l:bufNr)
+                bd "l:bufNr"
+            endif
+        endif
+    endfor
+    NERDTreeFocus
+endfunction
+
+function! CloseOtherBuffers()
+    let l:bufsInfo = getbufinfo()
+    for l:bufInfo in l:bufsInfo
+        if get(l:bufInfo, "listed") == 1
+            let l:bufNr = get(l:bufInfo, "bufnr")
+            echo l:bufNr
+            echo bufnr("%")
+            echo "---------------------"
+            if l:bufNr != bufnr("%")
+                echo "+++++++++++++++++++++"
+                if bufloaded(l:bufNr)
+                    echo "!!!!!!!!!!!!!!!!!!!!!"
+                    "bd "l:bufNr"
+                endif
+            endif
+        endif
+    endfor
+endfunction
 
 
 
