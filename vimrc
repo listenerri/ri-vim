@@ -809,7 +809,8 @@ Plug 'listenerri/vim-easygrep', { 'branch': 'ag-recursive-switch' }
     let g:EasyGrepEveryMatch = 1
     " 不自动跳转到第一个匹配项
     let g:EasyGrepJumpToMatch = 0
-    let EasyGrepWindowPosition = "botright"
+    " 结果列表窗口在哪里出现
+    let EasyGrepWindowPosition = "rightbelow"
     " 快速设置EasyGrep选项的前缀(默认是'<leader>vy')
     " 按下前缀后再按一个代表对应选项的字母就可以切换该选项(如递归,大小写等)
     " 具体有哪些字母(选项)可以打开选项列表查看(在选项列表中按?显示更多选项)
