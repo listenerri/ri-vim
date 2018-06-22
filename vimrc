@@ -802,7 +802,9 @@ Plug 'listenerri/vim-easygrep', { 'branch': 'ag-recursive-switch' }
     set grepprg=ag\ -U\ $*
     let g:EasyGrepCommand = 1
     " 哪些文件或目录需要排除
-    let g:EasyGrepFilesToExclude=".svn,.git,build"
+    let g:EasyGrepFilesToExclude = ".svn,.git,build"
+    " 默认递归搜索
+    let g:EasyGrepRecursive = 1
     " 在结果中列出同一行的多个匹配项
     let g:EasyGrepEveryMatch = 1
     " 不自动跳转到第一个匹配项
