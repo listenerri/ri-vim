@@ -344,12 +344,12 @@ function! CloseCurrentBuffer()
     endfor
     let l:bufsNrListedCount = len(l:bufsNrListed)
     if l:bufsNrListedCount <= 1
-        bd
+        execute "bd"
         NERDTreeFocus
     else
         bp
         if bufloaded(bufnr("#"))
-            bd #
+            execute "bd #"
         endif
     endif
 endfunction
@@ -371,7 +371,7 @@ function! CloseListedBuffers()
         if get(l:bufInfo, "listed") == 1
             let l:bufNr = get(l:bufInfo, "bufnr")
             if bufloaded(l:bufNr)
-                bd "l:bufNr"
+                execute "bd" l:bufNr
             endif
         endif
     endfor
@@ -383,14 +383,9 @@ function! CloseOtherBuffers()
     for l:bufInfo in l:bufsInfo
         if get(l:bufInfo, "listed") == 1
             let l:bufNr = get(l:bufInfo, "bufnr")
-            echo l:bufNr
-            echo bufnr("%")
-            echo "---------------------"
             if l:bufNr != bufnr("%")
-                echo "+++++++++++++++++++++"
                 if bufloaded(l:bufNr)
-                    echo "!!!!!!!!!!!!!!!!!!!!!"
-                    "bd "l:bufNr"
+                    execute "bd" l:bufNr
                 endif
             endif
         endif
