@@ -86,13 +86,13 @@ colorscheme molokai
 " 本段主要针对molokai主题(偏向于个人喜好)
 " 设置主题背景为空,就会使用终端的背景色
 " 也就是说如果终端背景色透明,则vim透明
-highlight Normal ctermbg=none
+"highlight Normal ctermbg=none
 " 同上,但设置的是左边的行数背景
-highlight LineNr ctermbg=none
+"highlight LineNr ctermbg=none
 " 修改底部状态栏背景色
-highlight StatusLine ctermfg=0 ctermbg=250
+"highlight StatusLine ctermfg=0 ctermbg=250
 " 当没有文字时的背景色为空,否则不能完全透明
-highlight NonText ctermbg=none
+"highlight NonText ctermbg=none
 
 " 高亮搜索时匹配到的搜过结果
 " hlsearch
