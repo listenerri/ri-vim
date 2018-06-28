@@ -503,7 +503,7 @@ Plug 'vim-airline/vim-airline-themes'
     nmap <leader>- <Plug>AirlineSelectPrevTab
     nmap <leader>= <Plug>AirlineSelectNextTab
     " 主题
-    let g:airline_theme='molokai'
+    let g:airline_theme='minimalist'
     " 自定义符号
     if !exists('g:airline_symbols')
       let g:airline_symbols = {}
