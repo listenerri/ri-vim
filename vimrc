@@ -607,7 +607,6 @@ Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
 
 "##############
 " YouCompleteMe
-" 条件加载
 " 一个多功能的自动补全插件
 " 支持c系列,python,go,TypeScript,JavaScript,rust语言补全,
 " 支持文件目录/文件名补全
@@ -683,7 +682,6 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','do
 
 "#################
 " vim-javacomplete2
-" 条件加载
 " java自动补全,可配合ycm实现自动补全,javacomplete2是javacomplete的增强版
 " 第一次打开比较慢,是因为要在~/.cache下生成缓存文件
 " 提供了一系列:JC开头的命令,更能基本对应下面定义的快捷键,
@@ -723,21 +721,14 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 
 
 "####################
-" vim-instant-markdown
-" 条件加载
-" 在浏览器中实时预览所编写的markdown文件
-" 需要另外安装node.js的一个名叫"instant-markdown-d"模块
-" 而且要求以全局方式安装这个模块,具体命令是:
-" sudo npm -g install instant-markdown-d
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
-    " 取消自动启动预览,需要启动预览时使用命令:InstantMarkdownPreview
-    " 如需自动启动则注销掉下面的配置即可
-    let g:instant_markdown_autostart = 0
+" previm
+" 执行PrevimOpen命令在浏览器中实时预览所编写的markdown文件
+Plug 'kannokanno/previm', { 'for': 'markdown' }
+    let g:previm_open_cmd = 'firefox'
 
 
 "############
 " vim-quickrun
-" 条件加载
 " 快速运行当前文件或选中的行
 Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python'] }
     " 按F5按默认配置快速启动
@@ -753,7 +744,6 @@ Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python'] }
 
 "######
 " tagbar
-" 条件加载
 " 以对象的方式显示当前文件中的类，变量，方法，等
 Plug 'majutsushi/tagbar', { 'for': ['vim','java','c','cpp','python'] }
     " 按<F8>开关tag窗口
