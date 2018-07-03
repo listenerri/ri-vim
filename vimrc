@@ -767,7 +767,7 @@ Plug 'yggdroot/indentline'
 " vim-qt-assistant
 " c/cpp头文件切换
 Plug 'listenerri/vim-qt-assistant', { 'for': ['cpp'] }
-    noremap <f3> :call GetDocFromAssistant()<cr>
+    noremap <f1> :call GetDocFromAssistant()<cr>
 
 
 "##############
