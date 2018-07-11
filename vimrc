@@ -829,21 +829,21 @@ Plug 'scrooloose/nerdcommenter', { 'for': ['vim','java','c','cpp','dosbatch','sh
 
 " cpp语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
-    " 类作用域
+    " Highlighting of class scope
     let g:cpp_class_scope_highlight = 1
-    " 成员变量
+    " Highlighting of member variables
     let g:cpp_member_variable_highlight = 1
-    " 定义类时的类名
+    " Highlighting of class names in declarations
     let g:cpp_class_decl_highlight = 1
-    " 有两种方法高亮模板函数
-        " 在大多数情况下正常运行，但会拖慢速度
-        "let g:cpp_experimental_simple_template_highlight = 1
-        " 速度款但有时会出现问题，不能正常工作
-        let g:cpp_experimental_template_highlight = 1
+    " There are two ways to highlight template functions. Either
+        " works in most cases, but can be a little slow on large files
+        let g:cpp_experimental_simple_template_highlight = 1
+        " faster implementation but has some corner cases where it doesn't work.
+        "let g:cpp_experimental_template_highlight = 1
     " Highlighting of library concepts
     let g:cpp_concepts_highlight = 1
-    " 用户定义的函数
-    " Bug: 只要定义了这个变量，不管值是0还是1，都会禁用高亮用户定义的函数
+    " disabl Highlighting of user defined functions
+    " Bug: once uncomment this line it will disable highlighting user function whether the value is 1 or 0
     "let g:cpp_no_function_highlight = 0
 
 
