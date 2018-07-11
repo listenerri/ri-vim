@@ -761,6 +761,9 @@ Plug 'yggdroot/indentline'
     nnoremap <leader>ilt :IndentLinesToggle<CR>
     " 水平缩进提示开关
     nnoremap <leader>ist :LeadingSpaceToggle<CR>
+    " 编辑markdown文件时不显示
+    " 因为会隐藏markdown的部分关键字(如*)，导致编辑时很不方便
+    au FileType markdown let g:indentLine_conceallevel = 0
 
 
 "##############
