@@ -827,6 +827,15 @@ Plug 'listenerri/vim-easygrep', { 'branch': 'ag-recursive-switch' }
 Plug 'scrooloose/nerdcommenter', { 'for': ['vim','java','c','cpp','dosbatch','sh','python','html','xhtml'] }
 
 
+" qt相关插件
+" qt语法高亮
+Plug 'kosl90/qt-highlight-vim'
+" qmake语法高亮
+Plug 'vim-scripts/qmake--syntax.vim'
+    " 设置类似pro，pri等文件的filetype为qmake，以激活这个语法高亮插件
+    au BufReadPost *.pr? setfiletype qmake
+
+
 " 结束插件加载
 call plug#end()
 
@@ -836,5 +845,10 @@ call plug#end()
 
 " ##########################自动命令设置##########################
 
-"打开文件后自动跳转到上次离开的位置
+" 打开文件后自动跳转到上次离开的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+" 让theme文件使用css的语法高亮(主要针对qt)
+au BufReadPost *.theme setfiletype css
+" 让qrc文件使用xml的语法高亮(主要针对qt)
+au BufReadPost *.qrc setfiletype xml
