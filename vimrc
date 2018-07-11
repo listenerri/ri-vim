@@ -827,6 +827,26 @@ Plug 'listenerri/vim-easygrep', { 'branch': 'ag-recursive-switch' }
 Plug 'scrooloose/nerdcommenter', { 'for': ['vim','java','c','cpp','dosbatch','sh','python','html','xhtml'] }
 
 
+" cpp语法高亮
+Plug 'octol/vim-cpp-enhanced-highlight'
+    " Highlighting of class scope
+    let g:cpp_class_scope_highlight = 1
+    " Highlighting of member variables
+    let g:cpp_member_variable_highlight = 1
+    " Highlighting of class names in declarations
+    let g:cpp_class_decl_highlight = 1
+    " There are two ways to highlight template functions. Either
+        " works in most cases, but can be a little slow on large files
+        let g:cpp_experimental_simple_template_highlight = 1
+        " faster implementation but has some corner cases where it doesn't work.
+        "let g:cpp_experimental_template_highlight = 1
+    " Highlighting of library concepts
+    let g:cpp_concepts_highlight = 1
+    " disabl Highlighting of user defined functions
+    " Bug: once uncomment this line it will disable highlighting user function whether the value is 1 or 0
+    "let g:cpp_no_function_highlight = 0
+
+
 " qt相关插件
 " qt语法高亮
 Plug 'kosl90/qt-highlight-vim'
