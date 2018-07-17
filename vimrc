@@ -615,9 +615,9 @@ Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
 " 支持UltiSnips的snippet补全(一个快速插入整块代码的插件)
 " 异常强大,但需要手动编译,编译的时候可以选择性的编译上述特性
 " 需要注意的是如果vim-plug更新了YCM,那么就有可能需要重新编译
-Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','python','html','xhtml'] }
+Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
 " 为YCM生成ycm_extra_conf文件
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','dosbatch','sh','python','html','xhtml'] }
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
     " 只需要输入一个字符就触发补全
     let g:ycm_min_num_of_chars_for_completion = 1
     " 当没有找到打开的文件或项目的'.ycm_extra_conf.py'时使用哪个作为默认的
