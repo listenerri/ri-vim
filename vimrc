@@ -680,46 +680,6 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','do
 	nnoremap <leader>ge :YcmDiags<CR>
 
 
-"#################
-" vim-javacomplete2
-" java自动补全,可配合ycm实现自动补全,javacomplete2是javacomplete的增强版
-" 第一次打开比较慢,是因为要在~/.cache下生成缓存文件
-" 提供了一系列:JC开头的命令,更能基本对应下面定义的快捷键,
-" 详细介绍可以使用:h javacomplete.txt查看
-" 只有在打开java类型的文件时才加载本插件
-Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-    " 自动设置java类型文件为omnifunc补全
-    autocmd FileType java setlocal omnifunc=javacomplete#Complete
-    " 插件会自动设置一些在插入模式下<c-j>的映射,导致使用<c-j>选择ycm
-    " 的补全菜单有问题,所以禁止插件自动映射按键
-    let g:JavaComplete_EnableDefaultMappings = 0
-    " 当打开java类型文件时设置如下按键映射:
-    " jA   打开一个新窗口,包含了光标所在类的所有变量的setter和getter方法
-    "      手动删除不需要的方法后按s键生成到正在编辑的java文件中,按q退出
-    " js   生成光标所在附近变量的setter方法
-    " jg   生成光标所在附近变量的getter方法
-    " ja   生成光标所在附近变量的setter和getter方法
-    " jc   生成默认的构造方法
-    " jC   同jA但生成的是有参数的构造方法
-    " ji   为光标下或光标前的类名增加import语句
-    " jI   为所有类增加缺失的import语句
-    " jR   移除所有未使用的import语句
-    " jM   从implement的接口来增加需要实现的方法
-    function! s:MyJavaMappings()
-	nmap <buffer> <leader>jA <Plug>(JavaComplete-Generate-Accessors)
-	nmap <buffer> <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-	nmap <buffer> <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-	nmap <buffer> <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-	nmap <buffer> <leader>jc <Plug>(JavaComplete-Generate-DefaultConstructor)
-	nmap <buffer> <leader>jC <Plug>(JavaComplete-Generate-Constructor)
-	nmap <buffer> <leader>ji <Plug>(JavaComplete-Imports-Add)
-	nmap <buffer> <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
-	nmap <buffer> <leader>jr <Plug>(JavaComplete-Imports-RemoveUnused)
-	nmap <buffer> <leader>jm <Plug>(JavaComplete-Generate-AbstractMethods)
-    endfunction
-    autocmd BufEnter *.java call s:MyJavaMappings()
-
-
 "####################
 " previm
 " 执行PrevimOpen命令在浏览器中实时预览所编写的markdown文件
