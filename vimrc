@@ -81,7 +81,10 @@ set t_Co=256
 
 " 颜色主题
 " 主题的设置应在语法高亮和类型检测后面,否则会出现一些问题
-colorscheme molokai
+"colorscheme molokai
+colorscheme zellner
+hi CursorColumn ctermfg=NONE ctermbg=253 cterm=NONE guifg=NONE guibg=gray gui=NONE
+hi CursorLine ctermfg=NONE ctermbg=253 cterm=NONE guifg=NONE guibg=gray gui=NONE
 
 " 本段主要针对molokai主题(偏向于个人喜好)
 " 设置主题背景为空,就会使用终端的背景色
