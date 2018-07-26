@@ -638,8 +638,12 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','do
     let g:ycm_complete_in_comments = 1
     " 从注释和字符串中收集可补全关键字
     let g:ycm_collect_identifiers_from_comments_and_strings = 1
-    " 当离开插入模式后,自动关闭用于显示补全项详细信息的预览窗口
-    let g:ycm_autoclose_preview_window_after_insertion = 1
+    " 将补全项的详细信息放入预览窗口中
+    let g:ycm_add_preview_to_completeopt = 1
+    " 当接受补全项之后关闭预览窗口
+    "let g:ycm_autoclose_preview_window_after_completion = 1
+    " 当离开插入模式后,自动关闭用于显示补全项详细信息的预览窗口(上面的选项启用时这个选项可能无效)
+    "let g:ycm_autoclose_preview_window_after_insertion = 1
     " 当使用下面定义的GoTo*系列快捷键时使用垂直分割打开新窗口显示数据
     let g:ycm_goto_buffer_command = 'vertical-split'
     " 指定ycmd使用的py版本, 必须是编译ycm时所用的以及vim支持的py版本
