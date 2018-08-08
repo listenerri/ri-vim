@@ -822,7 +822,8 @@ call plug#end()
 " 打开文件后自动跳转到上次离开的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-" 让theme文件使用css的语法高亮(主要针对qt)
+" 让theme/qss文件使用css的语法高亮(主要针对qt)
 au BufReadPost *.theme setfiletype css
+au BufReadPost *.qss setfiletype css
 " 让qrc文件使用xml的语法高亮(主要针对qt)
 au BufReadPost *.qrc setfiletype xml
