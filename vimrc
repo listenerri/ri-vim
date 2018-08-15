@@ -295,7 +295,7 @@ noremap <leader>P "+P
 " 保存
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :w !sudo tee % > /dev/null<CR>
-nnoremap <leader>e :exit<CR>
+"nnoremap <leader>e :exit<CR>
 
 " 保证搜索结果高亮,避免下面取消高亮后再次搜索没有高亮
 nnoremap n :set hlsearch<CR>n
