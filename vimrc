@@ -820,10 +820,14 @@ call plug#end()
 " ##########################自动命令设置##########################
 
 " 打开文件后自动跳转到上次离开的位置
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+"autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 " 让theme/qss文件使用css的语法高亮(主要针对qt)
 au BufReadPost *.theme setfiletype css
 au BufReadPost *.qss setfiletype css
 " 让qrc文件使用xml的语法高亮(主要针对qt)
 au BufReadPost *.qrc setfiletype xml
+
+" 自动保存和恢复一些vim的状态, 如光标位置, 折叠状态等待
+au BufWinLeave * mkview
+au BufWinEnter * silent! loadview
