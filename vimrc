@@ -829,5 +829,5 @@ au BufReadPost *.qss setfiletype css
 au BufReadPost *.qrc setfiletype xml
 
 " 自动保存和恢复一些vim的状态, 如光标位置, 折叠状态等待
-au BufWinLeave * mkview
+au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
