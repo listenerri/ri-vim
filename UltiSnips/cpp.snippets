@@ -1,9 +1,23 @@
-snippet qd "qDebug() ..."
-qDebug() << ${0};
+snippet qd "qDebug()..."
+qDebug() << ${1};${2}
 endsnippet
 
-snippet [] "lambda function ..."
+snippet [] "lambda function..."
 [${1:=}](${2}) {
-	${3}
+	${3};
 }
+endsnippet
+
+snippet []) "lambda function end with ');'"
+[${1:=}](${2}) {
+	${3};
+});
+endsnippet
+
+snippet con "connect..."
+connect(${1:Sender}, &${2:Signal}, ${3:Receiver}, &${4:Slot});
+endsnippet
+
+snippet conn "connect... SIGNAL..."
+connect(${1:Sender}, SIGNAL(${2:Signal}), ${3:Receiver}, SLOT(${4:Slot}));
 endsnippet
