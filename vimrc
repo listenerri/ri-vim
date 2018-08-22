@@ -341,6 +341,11 @@ nnoremap <leader>fp :cprevious<cr>
 nnoremap <leader>q :call CloseCurrentBuffer()<CR>
 
 function! CloseCurrentBuffer()
+    " 在处理buffer前先关闭预览，quickfix，位置列表这几个窗口，不然会有些问题
+    pclose
+    cclose
+    lclose
+
     let l:bufsInfo = getbufinfo()
     let l:bufsNrListed = []
     for l:bufInfo in l:bufsInfo
@@ -372,6 +377,11 @@ nnoremap <leader>bn :bn<cr>
 nnoremap <leader>0 :b#<cr>
 
 function! CloseListedBuffers()
+    " 在处理buffer前先关闭预览，quickfix，位置列表这几个窗口，不然会有些问题
+    pclose
+    cclose
+    lclose
+
     let l:bufsInfo = getbufinfo()
     for l:bufInfo in l:bufsInfo
         if get(l:bufInfo, "listed") == 1
@@ -385,6 +395,11 @@ function! CloseListedBuffers()
 endfunction
 
 function! CloseOtherBuffers()
+    " 在处理buffer前先关闭预览，quickfix，位置列表这几个窗口，不然会有些问题
+    pclose
+    cclose
+    lclose
+
     let l:bufsInfo = getbufinfo()
     for l:bufInfo in l:bufsInfo
         if get(l:bufInfo, "listed") == 1
