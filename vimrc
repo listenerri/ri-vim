@@ -733,6 +733,7 @@ Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python'] }
 Plug 'majutsushi/tagbar', { 'for': ['vim','java','c','cpp','python'] }
     " 按<F8>开关tag窗口
     nnoremap <F8> :TagbarToggle<CR><C-W>b
+    nnoremap <leader>t :TagbarShowTag<CR>
 
 
 "############
