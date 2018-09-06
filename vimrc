@@ -336,7 +336,7 @@ nnoremap <leader>fn :cnext<cr>
 nnoremap <leader>fp :cprevious<cr>
 
 " 删除当前buffer
-" 如果有多个buffer则自动编辑上一个buffer
+" 如果有多个buffer则自动编辑之前的buffer或前一个buffer
 " 如果只有当前一个buffer则删除后打开NERDTree
 nnoremap <leader>q :call CloseCurrentBuffer()<CR>
 
@@ -358,10 +358,12 @@ function! CloseCurrentBuffer()
         execute "bw"
         NERDTreeFocus
     else
-        bp
         if bufloaded(bufnr("#"))
-            execute "bw #"
+            execute "b#"
+        else
+            execute "bp"
         endif
+        execute "bw #"
     endif
 endfunction
 
