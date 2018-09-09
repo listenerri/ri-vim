@@ -717,7 +717,7 @@ Plug 'kannokanno/previm', { 'for': 'markdown' }
 "############
 " vim-quickrun
 " 快速运行当前文件或选中的行
-Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python'] }
+Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python','go'] }
     " 按F5按默认配置快速启动
     nmap <F5> <Plug>(quickrun)
     " 为了避免运行时无法进行交互
