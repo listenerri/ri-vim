@@ -837,8 +837,13 @@ call plug#end()
 
 " ##########################自动命令设置##########################
 
-" 打开文件后自动跳转到上次离开的位置
-"autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+" 启动vim后如果当前文件不存在则打开NERDTree
+function! TryToOpenNERDTree()
+    if !filereadable(glob("%"))
+        NERDTree
+    endif
+endfunction
+au VimEnter * call TryToOpenNERDTree()
 
 " 让theme/qss文件使用css的语法高亮(主要针对qt)
 au BufReadPost *.theme,*.qss setfiletype css
