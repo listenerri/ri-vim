@@ -841,10 +841,12 @@ call plug#end()
 "autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 " 让theme/qss文件使用css的语法高亮(主要针对qt)
-au BufReadPost *.theme setfiletype css
-au BufReadPost *.qss setfiletype css
+au BufReadPost *.theme,*.qss setfiletype css
 " 让qrc文件使用xml的语法高亮(主要针对qt)
 au BufReadPost *.qrc setfiletype xml
+
+" 在c和cpp类型的文件中插入模式下按下-即为->, 方便指针调用
+au Filetype c,cpp inoremap - ->
 
 " 自动保存和恢复一些vim的状态, 如光标位置, 折叠状态等待
 au BufWinLeave * silent! mkview
