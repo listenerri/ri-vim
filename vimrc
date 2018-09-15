@@ -455,6 +455,14 @@ if has('unix')
 endif
 
 
+"##########
+" vinfo
+" 在vim中使用linux下info命令
+if has('unix')
+    Plug 'alx741/vinfo'
+endif
+
+
 " smartim
 " 功能和上面的fctix.vim插件相同
 " 但只适用于mac osx系统
