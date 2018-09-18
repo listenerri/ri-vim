@@ -249,11 +249,25 @@ endif
 " noremap:全局的映射,但映射后的按键不可递归(多用于定义一个命令)
 " unmap:删除一个映射
 " mapclear:删除所有映射
+"
 " 映射也区分模式,如果上述命令前有如下字符,则该命令只对该模式生效:
 " n:normal(正常)模式下
 " v:可视模式
 " i:插入模式
 " c:命令行模式
+"
+" map可以增加参数或者说选项，可用如下：
+" <buffer> : 只在当前buffer生效
+" <nowait> : 一旦匹配到可用按键序列立即生效，不等待后续按键，相当于对更长按键映射的一种覆盖
+" <silent> : 静默，不在状态栏显示
+" <special> :
+" <script> :
+" <expr> :
+" <unique> :
+" <nowait>举例：有一个"imap <nowait> ,w week"按键映射，但还有一个"imap ,wl weekly"
+" 前一个imap加入了<nowait>的参数，那么输入",w"后就会理解匹配到第一个imap，
+" 如果没有<nowait>参数，那么输入",w"后就会等待输入"l"，如果输入了"l"那么就会匹配上第二个imap，
+" 如果一直没有输入"l"，那么就会超时，超时后才会匹配第一个imap
 
 " 设置<leader>为空格键
 let mapleader = "\<Space>"
@@ -859,7 +873,7 @@ au BufReadPost *.theme,*.qss setfiletype css
 au BufReadPost *.qrc setfiletype xml
 
 " 在c和cpp类型的文件中插入模式下按下-即为->, 方便指针调用
-au Filetype c,cpp inoremap - ->
+au Filetype c,cpp inoremap <buffer> - ->
 
 " 自动保存和恢复一些vim的状态, 如光标位置, 折叠状态等待
 au BufWinLeave * silent! mkview
