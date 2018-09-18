@@ -875,6 +875,9 @@ au BufReadPost *.qrc setfiletype xml
 " 在c和cpp类型的文件中插入模式下按下-即为->, 方便指针调用
 au Filetype c,cpp inoremap <buffer> - ->
 
+" 启用TermDebug
+au Filetype c,cpp packadd termdebug
+
 " 自动保存和恢复一些vim的状态, 如光标位置, 折叠状态等待
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
