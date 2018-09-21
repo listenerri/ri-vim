@@ -81,21 +81,9 @@ set t_Co=256
 
 " 颜色主题
 " 主题的设置应在语法高亮和类型检测后面,否则会出现一些问题
-"colorscheme molokai
-colorscheme zellner
-hi CursorColumn ctermfg=NONE ctermbg=253 cterm=NONE guifg=NONE guibg=gray gui=NONE
-hi CursorLine ctermfg=NONE ctermbg=253 cterm=NONE guifg=NONE guibg=gray gui=NONE
-
-" 本段主要针对molokai主题(偏向于个人喜好)
-" 设置主题背景为空,就会使用终端的背景色
-" 也就是说如果终端背景色透明,则vim透明
-"highlight Normal ctermbg=none
-" 同上,但设置的是左边的行数背景
-"highlight LineNr ctermbg=none
-" 修改底部状态栏背景色
-"highlight StatusLine ctermfg=0 ctermbg=250
-" 当没有文字时的背景色为空,否则不能完全透明
-"highlight NonText ctermbg=none
+" 执行版本管理之外的配置文件来设置主题，避免因为改完主题而提交代码
+" 主题配置文件的为HOME目录下的".vimrc-colorscheme"文件
+source ~/.vimrc-colorscheme
 
 " 高亮搜索时匹配到的搜过结果
 " hlsearch
@@ -212,6 +200,7 @@ set hidden
 " ##########################GUI##########################
 if has("gui_running")
     "gui窗口宽高
+    set guifont=Source\ Code\ Pro\ 11
     set lines=28
     set columns=120
     " gui选项
