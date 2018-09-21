@@ -193,6 +193,9 @@ set ttimeoutlen=100
 " airline的tabline就不会再显示已经被delete的buffer
 set hidden
 
+" 使用view时不使用options，只加载vimrc中默认的配置
+set viewoptions-=options
+
 
 
 
