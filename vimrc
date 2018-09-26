@@ -842,6 +842,10 @@ Plug 'vim-scripts/qmake--syntax.vim'
     au BufReadPost *.pr? setfiletype qmake
 
 
+" git 插件
+Plug 'tpope/vim-fugitive'
+
+
 " 结束插件加载
 call plug#end()
 
