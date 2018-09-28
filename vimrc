@@ -847,6 +847,37 @@ Plug 'vim-scripts/qmake--syntax.vim'
 " git 插件
 Plug 'tpope/vim-fugitive'
 
+" DoxygenToolkit.vim
+" doxygen文档注释插件
+Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c','cpp','python'] }
+    let g:DoxygenToolkit_briefTag_pre = "\\brief "
+    let g:DoxygenToolkit_templateParamTag_pre = "\\tparam "
+    let g:DoxygenToolkit_paramTag_pre = "\\param "
+    let g:DoxygenToolkit_returnTag = "\\return "
+    let g:DoxygenToolkit_throwTag_pre = "\\throw " " @exception is also valid
+    let g:DoxygenToolkit_fileTag = "\\file "
+    let g:DoxygenToolkit_authorTag = "\\author "
+    let g:DoxygenToolkit_dateTag = "\\date "
+    let g:DoxygenToolkit_versionTag = "\\version "
+    let g:DoxygenToolkit_blockTag = "\\name "
+    let g:DoxygenToolkit_classTag = "\\class "
+
+    " 添加两个命令用于中英文标记
+    command! -nargs=0 Doxe :call DoxygenCommentFuncEnglish()
+    command! -nargs=0 Doxc :call DoxygenCommentFuncChinese()
+
+    function! DoxygenCommentFuncEnglish()
+        let g:DoxygenToolkit_interCommentTag = "* \\~english "
+        let g:DoxygenToolkit_interCommentBlock = "* \\~english "
+        Dox
+    endfunction
+
+    function! DoxygenCommentFuncChinese()
+        let g:DoxygenToolkit_interCommentTag = "* \\~chinese "
+        let g:DoxygenToolkit_interCommentBlock = "* \\~chinese "
+        Dox
+    endfunction
+
 
 " 结束插件加载
 call plug#end()
