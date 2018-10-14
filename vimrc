@@ -865,8 +865,8 @@ Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c','cpp','python'] }
     let g:DoxygenToolkit_classTag = "\\class "
 
     " 添加两个命令用于中英文标记
-    command! -nargs=0 Doxe :call DoxygenCommentFuncEnglish()
-    command! -nargs=0 Doxc :call DoxygenCommentFuncChinese()
+    command! -nargs=0 Doe :call DoxygenCommentFuncEnglish()
+    command! -nargs=0 Doc :call DoxygenCommentFuncChinese()
 
     function! DoxygenCommentFuncEnglish()
         let g:DoxygenToolkit_interCommentTag = "* \\~english "
