@@ -623,10 +623,13 @@ Plug 'easymotion/vim-easymotion'
 "##############
 " ale
 " 异步检查代码插件
-Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','python'] }
+Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','python','go'] }
     " 用于检查python的工具, pylint
     " python2:pylint2, python3:pylint3
     let g:ale_python_pylint_executable = 'pylint3'
+
+    " 启动golang语法检查
+    let g:ale_linters = {'go': ['gometalinter', 'gofmt']}
 
     " 修改默认的提示符颜色
     " 使用:highlight-link查看link子命令的帮助
