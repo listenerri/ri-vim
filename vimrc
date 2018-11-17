@@ -750,7 +750,7 @@ Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python','go'] }
 "######
 " tagbar
 " 以对象的方式显示当前文件中的类，变量，方法，等
-Plug 'majutsushi/tagbar', { 'for': ['vim','java','c','cpp','python'] }
+Plug 'majutsushi/tagbar', { 'for': ['vim','java','c','cpp','python','go'] }
     " 默认按照tag在文件中出现的顺序排序，在tagbar中按s可临时改为使用名字排序
     let g:tagbar_sort = 0
     " 按<F8>开关tag窗口
