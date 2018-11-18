@@ -757,6 +757,51 @@ Plug 'majutsushi/tagbar', { 'for': ['vim','java','c','cpp','python','go'] }
     nnoremap <F8> :TagbarToggle<CR><C-W>b
     nnoremap <leader>t :TagbarShowTag<CR>
 
+    " 增加对于golang的支持(方法1)
+    " 需要安装外部工具: go get -u github.com/jstemmer/gotags
+    " 使用go安装gotags,安装完成之后可执行文件gotags一般在$HOME/go/bin目录下,需将其加入$PATH环境变量中
+    let g:tagbar_type_go = {
+        \ 'ctagstype' : 'go',
+        \ 'kinds'     : [
+            \ 'p:package',
+            \ 'i:imports:1',
+            \ 'c:constants',
+            \ 'v:variables',
+            \ 't:types',
+            \ 'n:interfaces',
+            \ 'w:fields',
+            \ 'e:embedded',
+            \ 'm:methods',
+            \ 'r:constructor',
+            \ 'f:functions'
+        \ ],
+        \ 'sro' : '.',
+        \ 'kind2scope' : {
+            \ 't' : 'ctype',
+            \ 'n' : 'ntype'
+        \ },
+        \ 'scope2kind' : {
+            \ 'ctype' : 't',
+            \ 'ntype' : 'n'
+        \ },
+        \ 'ctagsbin'  : 'gotags',
+        \ 'ctagsargs' : '-sort -silent'
+    \ }
+
+    " 增加对于golang的支持(方法2)
+    " 这种方法依赖debian系列的exuberant-ctags包(已经包含了对于golang的tag支持补丁)
+    " 这种方式虽然简单但是不支持作用于支持, 推荐上一种方式
+"    let g:tagbar_type_go = {
+"        \ 'ctagstype': 'go',
+"        \ 'kinds' : [
+"            \'p:package',
+"            \'f:function',
+"            \'v:variables',
+"            \'t:type',
+"            \'c:const'
+"        \]
+"    \}
+
 
 "############
 " indentline
