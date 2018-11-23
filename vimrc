@@ -814,10 +814,17 @@ Plug 'yggdroot/indentline'
     nnoremap <leader>ilt :IndentLinesToggle<CR>
     " 水平缩进提示开关
     nnoremap <leader>ist :LeadingSpaceToggle<CR>
-    " 编辑markdown文件时不显示
-    " 因为会隐藏markdown的部分关键字(如*)，导致编辑时很不方便
-    au FileType markdown let g:indentLine_conceallevel = 0
-    au FileType json let g:indentLine_conceallevel = 0
+
+    " 在某些情况下需要禁用此插件, 否则会导致一些显示问题
+    au FileType markdown call DisableIndentline()
+    au FileType json call DisableIndentline()
+    au FileType nerdtree call DisableIndentline()
+    au FileType help call DisableIndentline()
+
+    function! DisableIndentline()
+        let g:indentLine_conceallevel = 0
+        IndentLinesDisable
+    endfunction
 
 
 "##############
