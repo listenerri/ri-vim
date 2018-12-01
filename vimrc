@@ -83,7 +83,11 @@ set t_Co=256
 " 主题的设置应在语法高亮和类型检测后面,否则会出现一些问题
 " 执行版本管理之外的配置文件来设置主题，避免因为改完主题而提交代码
 " 主题配置文件的为HOME目录下的".vimrc-colorscheme"文件
-source ~/.vimrc-colorscheme
+if filereadable(glob("~/.vimrc-colorscheme"))
+    source ~/.vimrc-colorscheme
+else
+    colorscheme molokai
+endif
 
 " 高亮搜索时匹配到的搜过结果
 " hlsearch
