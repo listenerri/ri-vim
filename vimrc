@@ -895,6 +895,7 @@ Plug 'listenerri/vim-easygrep', { 'branch': 'ag-recursive-switch' }
 " NERD-Commenter
 " 提供注释功能
 Plug 'scrooloose/nerdcommenter', { 'for': ['vim','java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
+    map <c-_> <plug>NERDCommenterToggle
 
 
 " qt相关插件
