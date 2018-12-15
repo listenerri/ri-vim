@@ -347,7 +347,7 @@ nnoremap <leader>fp :cprevious<cr>
 
 " 删除当前buffer
 " 如果有多个buffer则自动编辑之前的buffer或前一个buffer
-" 如果只有当前一个buffer则删除后打开NERDTree
+" 如果只有当前一个buffer则删除后打开NERDTree(未启用, 如果需要取消下面 "NERDTreeFocus 的注释即可)
 nnoremap <leader>q :call CloseCurrentBuffer()<CR>
 
 function! CloseCurrentBuffer()
@@ -366,7 +366,7 @@ function! CloseCurrentBuffer()
     let l:bufsNrListedCount = len(l:bufsNrListed)
     if l:bufsNrListedCount <= 1
         execute "bw"
-        NERDTreeFocus
+        "NERDTreeFocus
     else
         if bufloaded(bufnr("#"))
             execute "b#"
@@ -957,7 +957,7 @@ function! TryToOpenNERDTree()
         NERDTree
     endif
 endfunction
-au VimEnter * call TryToOpenNERDTree()
+"au VimEnter * call TryToOpenNERDTree()
 
 " 让theme/qss文件使用css的语法高亮(主要针对qt)
 au BufReadPost *.theme,*.qss setfiletype css
