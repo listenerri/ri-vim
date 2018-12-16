@@ -810,30 +810,6 @@ Plug 'majutsushi/tagbar', { 'for': ['vim','java','c','cpp','python','go'] }
 "    \}
 
 
-"############
-" indentline
-" 显示缩进对齐线
-Plug 'yggdroot/indentline'
-    " 启用水平缩进提示
-    let g:indentLine_leadingSpaceEnabled = 1
-    let g:indentLine_leadingSpaceChar = '·'
-    " 总开关
-    nnoremap <leader>ilt :IndentLinesToggle<CR>
-    " 水平缩进提示开关
-    nnoremap <leader>ist :LeadingSpaceToggle<CR>
-
-    " 在某些情况下需要禁用此插件, 否则会导致一些显示问题
-    au FileType markdown call DisableIndentline()
-    au FileType json call DisableIndentline()
-    au FileType nerdtree call DisableIndentline()
-    au FileType help call DisableIndentline()
-
-    function! DisableIndentline()
-        let g:indentLine_conceallevel = 0
-        IndentLinesDisable
-    endfunction
-
-
 "##############
 " vim-qt-assistant
 " c/cpp头文件切换
