@@ -964,9 +964,6 @@ au BufReadPost *.theme,*.qss setfiletype css
 " 让qrc文件使用xml的语法高亮(主要针对qt)
 au BufReadPost *.qrc setfiletype xml
 
-" 在c和cpp类型的文件中插入模式下按下-即为->, 方便指针调用
-au Filetype c,cpp inoremap <buffer> - ->
-
 " 启用TermDebug
 au Filetype c,cpp packadd termdebug
 
