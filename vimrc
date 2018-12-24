@@ -627,13 +627,16 @@ Plug 'easymotion/vim-easymotion'
 "##############
 " ale
 " 异步检查代码插件
-Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','python','go'] }
+Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','zsh','python','go'] }
     " 用于检查python的工具, pylint
     " python2:pylint2, python3:pylint3
     let g:ale_python_pylint_executable = 'pylint3'
 
     " 启动golang语法检查
-    let g:ale_linters = {'go': ['gometalinter', 'gofmt']}
+    let g:ale_linters = {
+        \ 'go' : ['gometalinter', 'gofmt'],
+        \ 'zsh' : ['shellcheck']
+        \ }
 
     " 修改默认的提示符颜色
     " 使用:highlight-link查看link子命令的帮助
@@ -660,7 +663,7 @@ Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
 " 支持UltiSnips的snippet补全(一个快速插入整块代码的插件)
 " 异常强大,但需要手动编译,编译的时候可以选择性的编译上述特性
 " 需要注意的是如果vim-plug更新了YCM,那么就有可能需要重新编译
-Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
+Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','zsh','python','html','xhtml','go'] }
 " 为YCM生成ycm_extra_conf文件
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
     " 只需要输入一个字符就触发补全
