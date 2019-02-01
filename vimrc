@@ -737,7 +737,7 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','do
 " previm
 " 执行PrevimOpen命令在浏览器中实时预览所编写的markdown文件
 Plug 'kannokanno/previm', { 'for': 'markdown' }
-    let g:previm_open_cmd = 'firefox'
+    let g:previm_open_cmd = 'xdg-open'
 
 
 "############
