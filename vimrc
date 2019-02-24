@@ -561,7 +561,8 @@ Plug 'vim-airline/vim-airline-themes'
     let g:airline_symbols.maxlinenr = ''
     " 编辑下列文件类型的文件时显示文字总数
     " 多个文件类型用'|'号隔开
-    let g:airline#extensions#wordcount#filetypes = '\vtext|mail'
+    " 在 centos 6.10 系统下会导致插件启动报错
+    "let g:airline#extensions#wordcount#filetypes = '\vtext|mail'
     " 显示ycm检查到的错误和警告的数量
     let g:airline#extensions#ycm#enabled = 1
     let g:airline#extensions#ycm#error_symbol = 'YCM: Ec:'
