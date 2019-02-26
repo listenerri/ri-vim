@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VimDir=$(dirname $(realpath $0))
+VimDir=$(dirname $(readlink -e $0))
 echo "current vim directory is: $VimDir"
 
 if [[ -e $HOME/.vim  ]]; then
