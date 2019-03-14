@@ -694,44 +694,47 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','do
     let g:ycm_server_python_interpreter = 'python3'
     " 指定ycm client使用的python版本(也是jedi使用的python版本)
     let g:ycm_python_binary_path = 'python2'
-
-    " 以下映射对应命令生效的对象一般是光标下的变量或者方法
-    " 以下'c*'代表c系列语言
-    " 跳转到头文件(c*)
-    nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
-    " 跳转到声明(c*, go, py, rust)
-    nnoremap <leader>gdc :YcmCompleter GoToDeclaration<CR>
-    " 跳转到定义(c* go, js, py, rust, typescript)
-    nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
-    " 跳转到声明或定义(c* go, js, py, rust)
-    nnoremap <leader>gg :YcmCompleter GoTo<CR>
-    " 获取类型信息(c* js, typescript)
-    nnoremap <leader>gt :YcmCompleter GetType<CR>
-    " 获取父类信息(c*)
-    nnoremap <leader>gp :YcmCompleter GetParent<CR>
-    " 获取相关文档(c* py, typescript, js)
-    nnoremap <leader>go :YcmCompleter GetDoc<CR>
-
     " ycm语法检查相关的功能,此功能只支持c系列的语言
     " ycm会禁用syntastic插件关于c系列语言的代码检查
     " 如果要关闭ycm对c*的语法检查, 只使用syntastic,
     " 就取消注释下面这行配置
     "let g:ycm_show_diagnostics_ui = 0
-	" 自动将错误信息放入位置列表
-	let g:ycm_always_populate_location_list = 1
-	" 语法错误或警告时使用的提示字符
-	let g:ycm_error_symbol = ">>"
-	let g:ycm_warning_symbol = "??"
-	" 定义上述提示字符的颜色(默认的看着不舒服)
-	" 此处没有重新定义颜色组,而是使用了已定义好的"ErrorMsg"或"WarningMsg"组
-	highlight link YcmErrorSign ErrorMsg
-	highlight link YcmWarningSign ErrorMsg
-	" 快速修复检测到的语法错误
-	nnoremap <leader>gf :YcmCompleter FixIt<CR>
-	" 强制进行语法检查
-	nnoremap <leader>gc :YcmForceCompileAndDiagnostics<CR>
-	" 打开错误位置列表窗口
-	nnoremap <leader>ge :YcmDiags<CR>
+    " 自动将错误信息放入位置列表
+    let g:ycm_always_populate_location_list = 1
+    " 语法错误或警告时使用的提示字符
+    let g:ycm_error_symbol = ">>"
+    let g:ycm_warning_symbol = "??"
+    " 定义上述提示字符的颜色(默认的看着不舒服)
+    " 此处没有重新定义颜色组,而是使用了已定义好的"ErrorMsg"或"WarningMsg"组
+    highlight link YcmErrorSign ErrorMsg
+    highlight link YcmWarningSign ErrorMsg
+
+    " 以下映射对应命令生效的对象一般是光标下的变量或者方法
+    " 不是所有命令适用于所有语言，具体是否支持应该查阅 YCM 的 README
+    " 跳转到头文件
+    nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
+    " 跳转到声明
+    nnoremap <leader>gdc :YcmCompleter GoToDeclaration<CR>
+    " 跳转到定义
+    nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
+    " 跳转到声明或定义
+    nnoremap <leader>gg :YcmCompleter GoTo<CR>
+    " 跳转到引用
+    nnoremap <leader>grf :YcmCompleter GoToReferences<CR>
+    " 获取类型信息
+    nnoremap <leader>gt :YcmCompleter GetType<CR>
+    " 获取父类信息
+    nnoremap <leader>gp :YcmCompleter GetParent<CR>
+    " 获取相关文档
+    nnoremap <leader>go :YcmCompleter GetDoc<CR>
+    " 快速修复检测到的语法错误
+    nnoremap <leader>gf :YcmCompleter FixIt<CR>
+    " 重构之重命名
+    nnoremap <leader>grr :YcmCompleter RefactorRename 
+    " 强制进行语法检查
+    nnoremap <leader>gc :YcmForceCompileAndDiagnostics<CR>
+    " 打开错误位置列表窗口
+    nnoremap <leader>ge :YcmDiags<CR>
 
 
 "####################
