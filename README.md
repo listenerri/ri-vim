@@ -1,44 +1,35 @@
 # ri-vim
-ri-vim是一份中文注释齐全的vim配置,除了自己使用外,
-也为了能让从未接触过vim的人能快速了解部分常用配置的作用,以便能尽快上手vim
+ri-vim 是一份中文注释齐全的 vim 配置，除了自己使用外，也为了能让从未接触过 vim 的人能快速了解部分常用配置的作用，以便能尽快上手 vim
 
-插件管理器使用的是:[vim-plug](https://github.com/junegunn/vim-plug)
+插件管理器使用的是：[vim-plug](https://github.com/junegunn/vim-plug)
 
 # 使用方法
+
 ``` bash
-#进入家目录
+# 进入家目录
 cd ~
 
-#备份.vim文件夹
-mv .vim .vim.bak
-
-#备份.vimrc文件
-mv .vimrc .vimrc.bak
-
-#下载本配置
+# 下载本配置
 git clone git@github.com:ListenerRi/ri-vim.git
 
-#链接本位置目录到.vim
-ln -s ~/ri-vim ~/.vim
-
-#打开vim并安装插件
-vim -c PlugUpdate
-
-#插件安装完之后除了youcompleteme插件不能直接使用以外，
-#其他插件都可以直接使用，youcompleteme插件需要编译后才能使用，
-#编译方法见youcompleteme插件的README介绍：
-https://github.com/Valloric/YouCompleteMe#installation
+# 进入配置目录并执行安装脚本
+cd ~/ri-vim && ./install.sh
 ```
 
+安装脚本会下载安装相关插件，插件安装完之后除了 youcompleteme 插件不能直接使用以外，其他插件都可以直接使用\
+youcompleteme 插件需要编译后才能使用，编译方法见 youcompleteme 插件的 README 介绍：\
+[https://github.com/Valloric/YouCompleteMe#installation](https://github.com/Valloric/YouCompleteMe#installation)
+
 # 以下介绍部分按键
-这些按键都是本配置相对于vim默认新增的(修改的)按键操作
+这些按键都是本配置相对于 vim 默认新增的（修改的）按键操作
 
 **注意:**
-- 映射`<leader>`为`<Space>`,也就是空格键
-- `<C-J>`是CTRL加j键,`<C-K>`是CTRL加k键,其他类似
+
+- 映射`<leader>`为`<Space>`，也就是空格键
+- `<C-J>`是CTRL加j键,`<C-K>`是CTRL加k键，其他类似
 - 类似这种`<C-J>`时不区分大小写
 - 其他内容注意区分大小写
-- 注意按键在哪种模式(普通/插入/可视)下生效
+- 注意按键在哪种模式（普通/插入/可视）下生效
 
 ## 一般按键
 | 按键 | 功能 |
