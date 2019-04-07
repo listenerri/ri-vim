@@ -693,7 +693,7 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','do
     " 指定ycmd使用的py版本, 必须是编译ycm时所用的以及vim支持的py版本
     let g:ycm_server_python_interpreter = 'python3'
     " 指定ycm client使用的python版本(也是jedi使用的python版本)
-    let g:ycm_python_binary_path = 'python2'
+    let g:ycm_python_binary_path = 'python3'
     " ycm语法检查相关的功能,此功能只支持c系列的语言
     " ycm会禁用syntastic插件关于c系列语言的代码检查
     " 如果要关闭ycm对c*的语法检查, 只使用syntastic,
