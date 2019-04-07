@@ -629,7 +629,7 @@ Plug 'easymotion/vim-easymotion'
 "##############
 " ale
 " 异步检查代码插件
-Plug 'w0rp/ale', { 'for': ['java','dosbatch','sh','zsh','python','go'] }
+Plug 'w0rp/ale', { 'for': ['dosbatch','sh','zsh','python','go'] }
     " 用于检查python的工具, pylint
     " python2:pylint2, python3:pylint3
     let g:ale_python_pylint_executable = 'pylint3'
@@ -665,7 +665,7 @@ Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
 " 支持UltiSnips的snippet补全(一个快速插入整块代码的插件)
 " 异常强大,但需要手动编译,编译的时候可以选择性的编译上述特性
 " 需要注意的是如果vim-plug更新了YCM,那么就有可能需要重新编译
-Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','zsh','python','html','xhtml','go'] }
+Plug 'Valloric/YouCompleteMe', { 'for': ['java','c','cpp','dosbatch','sh','zsh','python','html','xhtml','go','javascript'] }
 " 为YCM生成ycm_extra_conf文件
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
     " 只需要输入一个字符就触发补全
@@ -694,10 +694,10 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'for': ['java','c','cpp','do
     let g:ycm_server_python_interpreter = 'python3'
     " 指定ycm client使用的python版本(也是jedi使用的python版本)
     let g:ycm_python_binary_path = 'python3'
-    " ycm语法检查相关的功能,此功能只支持c系列的语言
-    " ycm会禁用syntastic插件关于c系列语言的代码检查
-    " 如果要关闭ycm对c*的语法检查, 只使用syntastic,
-    " 就取消注释下面这行配置
+    " ycm语法检查相关的功能,此功能目前(2019-04-07)支持以下语言：
+    " C-family, C#, Java, JavaScript, TypeScript
+    " 注意此功能有可能与其他语法检查插件冲突如：syntastic，ale
+    " 如果要关闭ycm的语法检查功能就取消注释下面这行配置
     "let g:ycm_show_diagnostics_ui = 0
     " 自动将错误信息放入位置列表
     let g:ycm_always_populate_location_list = 1
