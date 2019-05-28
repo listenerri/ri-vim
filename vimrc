@@ -60,7 +60,7 @@ set nu
 
 " 显示相对行数
 " relativenumber
-set rnu
+"set rnu
 
 " 检测文件类型,载入文件类型插件,载入文件类型缩进
 " :filetype
