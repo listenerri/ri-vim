@@ -14,6 +14,10 @@ set nocp
 " whichwrap
 set ww=b,s,h,l,<,>,[,]
 
+" 插入模式下回格键，删除键，CTRL-W，CTRL-U 的功能
+" backspace
+set bs=2
+
 " 禁止跳转时光标移动到非空字符
 " 默认当跳转时光标会移动到那一行的非空字符处
 " nostartofline
