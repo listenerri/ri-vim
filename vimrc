@@ -958,3 +958,15 @@ au Filetype c,cpp packadd termdebug
 " 自动保存和恢复一些vim的状态, 如光标位置, 折叠状态等待
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
+
+" 自动高亮当前光标下的单词
+set updatetime=200
+function! HighlightWordUnderCursor()
+    if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
+        exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/'
+    else
+        match none
+    endif
+endfunction
+
+autocmd! CursorHold,CursorHoldI * call HighlightWordUnderCursor()
