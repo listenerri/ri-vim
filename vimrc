@@ -960,7 +960,6 @@ au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 
 " 自动高亮当前光标下的单词
-set updatetime=200
 function! HighlightWordUnderCursor()
     if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
         exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/'
@@ -968,5 +967,5 @@ function! HighlightWordUnderCursor()
         match none
     endif
 endfunction
-
-autocmd! CursorHold,CursorHoldI * call HighlightWordUnderCursor()
+"set updatetime=200
+"autocmd! CursorHold,CursorHoldI * call HighlightWordUnderCursor()
