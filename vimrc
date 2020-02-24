@@ -233,8 +233,8 @@ if has("gui_running")
     "for mac osx
     if has('mac')
         "gui字体
-        set guifont=Monaco:h14
-        set lines=25
+        set guifont=Source\ Code\ Pro:h12
+        set lines=30
         set columns=100
     endif
 
