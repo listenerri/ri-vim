@@ -297,6 +297,7 @@ noremap <leader>y "+y
 
 " 复制行到系统剪切板
 noremap <leader>Y "+yy
+noremap <leader>yy "+yy
 
 " 剪切到系统剪切板
 noremap <leader>d "+d
