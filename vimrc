@@ -466,7 +466,10 @@ call plug#begin('~/.vim/vim-plug')
 " 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
 " 只适用于unix/linux系统
 if has('unix')
-    Plug 'lilydjwg/fcitx.vim'
+    " wsl 下不启用这个插件
+    if strlen($WSL_DISTRO_NAME) == 0
+        Plug 'lilydjwg/fcitx.vim'
+    endif
 endif
 
 
@@ -479,7 +482,7 @@ endif
 
 
 " smartim
-" 功能和上面的fctix.vim插件相同
+" 功能和上面的fcitx.vim插件相同
 " 但只适用于mac osx系统
 if has('mac')
     Plug 'ybian/smartim'
