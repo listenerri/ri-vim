@@ -561,14 +561,14 @@ Plug 'vim-airline/vim-airline-themes'
       let g:airline_symbols = {}
     endif
     " powerline符号
-    let g:airline_left_sep = ''
-    let g:airline_left_alt_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_right_alt_sep = ''
-    let g:airline_symbols.branch = ''
-    let g:airline_symbols.readonly = ''
-    let g:airline_symbols.linenr = '☰'
-    let g:airline_symbols.maxlinenr = ''
+    "let g:airline_left_sep = ''
+    "let g:airline_left_alt_sep = ''
+    "let g:airline_right_sep = ''
+    "let g:airline_right_alt_sep = ''
+    "let g:airline_symbols.branch = ''
+    "let g:airline_symbols.readonly = ''
+    "let g:airline_symbols.linenr = '☰'
+    "let g:airline_symbols.maxlinenr = ''
     " 编辑下列文件类型的文件时显示文字总数
     " 多个文件类型用'|'号隔开
     " 在 centos 6.10 系统下会导致插件启动报错
