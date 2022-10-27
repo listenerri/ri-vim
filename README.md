@@ -16,6 +16,8 @@ git clone git@github.com:ListenerRi/ri-vim.git
 cd ~/ri-vim && ./install.sh
 ```
 
+***注意！安装过程中会询问是否安装编程相关的插件，如果不安装，后续文档中提到的某些功能将不可用***
+
 安装脚本会下载安装相关插件，插件安装完之后除了 youcompleteme 插件不能直接使用以外，其他插件都可以直接使用\
 youcompleteme 插件需要编译后才能使用，编译方法见 youcompleteme 插件的 README 介绍：\
 [https://github.com/Valloric/YouCompleteMe#installation](https://github.com/Valloric/YouCompleteMe#installation)
