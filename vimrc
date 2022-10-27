@@ -436,7 +436,7 @@ endfunction
 "###########################安装/加载插件:plugins##########################
 "
 " 注意！编程相关的插件放在了 vimrc-code-plugs 文件中，默认不安装
-" 可通过是否设置环境变量 InstallCodePlugs=1 来控制是否加载编程相关的配置文件
+" 可通过在执行 install.sh 脚本时，调整选项来控制是否加载编程相关的配置文件
 "
 " 使用vim-plug插件管理器
 " vim-plug的简要使用方法:
@@ -630,7 +630,7 @@ Plug 'terryma/vim-multiple-cursors'
 "##################
 " 选择性加载编程相关插件
 
-if has_key(environ(), 'InstallCodePlugs')
+if filereadable("./vim-plug/enable-coding-plugs")
     source vimrc-code-plugs
 endif
 

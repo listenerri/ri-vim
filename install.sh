@@ -32,15 +32,16 @@ echo "create link from $VimDir to $HOME/.vim"
 ln -s -f $VimDir $HOME/.vim
 
 echo "install plugins..."
-echo -n "install code plugins? [y:N] "
+echo -n "enable plugins for coding? [y:N] "
 read answ
 if [[ "$answ" != "y" ]]; then
-    echo "will NOT intsall code plugins"
-    vim -c PlugUpdate -c qa
+    echo "will NOT intsall plugins for coding"
 else
-    echo "will intsall code plugins"
-    env InstallCodePlugs=1 vim -c PlugUpdate -c qa
+    echo "will intsall plugins for coding"
+    mkdir -p vim-plug
+    touch vim-plug/enable-coding-plugs
 fi
+vim -c PlugUpdate -c qa
 
 
 echo "install done!"
