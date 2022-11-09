@@ -210,7 +210,7 @@ set viewoptions-=options
 " ##########################GUI:gui##########################
 if has("gui_running")
     "gui窗口宽高
-    set guifont=Source\ Code\ Pro\ 11
+    set guifont=WenQuanYi\ Micro\ Hei\ Mono\ 11
     set lines=28
     set columns=120
     " gui选项
