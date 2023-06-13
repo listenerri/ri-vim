@@ -99,8 +99,8 @@ set hls
 " 高亮光标所在列和行
 " cursorcolumn
 " cursorline
-set cuc
-set cul
+"set cuc
+"set cul
 
 " 何时有底部的状态行:0,永不;1,至少两个窗口;2,总是显示
 " laststatus
