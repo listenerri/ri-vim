@@ -317,8 +317,8 @@ nnoremap N :set hlsearch<CR>N
 nnoremap * :set hlsearch<CR>*
 nnoremap # :set hlsearch<CR>#
 
-" 取消搜索的高亮
-nnoremap <leader><Space> :set nohlsearch<cr>
+" 切换搜索高亮的设置
+nnoremap <leader><Space> :set hlsearch!<cr>
 
 " 可视模式下搜索高亮的内容
 " 向下搜索
