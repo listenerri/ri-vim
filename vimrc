@@ -311,20 +311,8 @@ nnoremap <leader>W :w !sudo tee % > /dev/null<CR>
 " :exit 类似于 :wq
 nnoremap <leader>e :exit<CR>
 
-" 保证搜索结果高亮,避免下面取消高亮后再次搜索没有高亮
-nnoremap n :set hlsearch<CR>n
-nnoremap N :set hlsearch<CR>N
-nnoremap * :set hlsearch<CR>*
-nnoremap # :set hlsearch<CR>#
-
 " 切换搜索高亮的设置
 nnoremap <leader><Space> :set hlsearch!<cr>
-
-" 可视模式下搜索高亮的内容
-" 向下搜索
-vnoremap / y:set hlsearch<CR>/<C-R>"<CR>
-" 向上搜索
-vnoremap ? y:set hlsearch<CR>?<C-R>"<CR>
 
 " 窗口切换
 nnoremap <C-H> <C-W>h
