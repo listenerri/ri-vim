@@ -314,6 +314,13 @@ nnoremap <leader>e :exit<CR>
 " 切换搜索高亮的设置
 nnoremap <leader><Space> :set hlsearch!<cr>
 
+" 可视模式下搜索选中的内容
+" 向下搜索
+vnoremap / y/<C-R>"<CR>
+" 向上搜索
+vnoremap ? y?<C-R>"<CR>
+
+
 " 窗口切换
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
