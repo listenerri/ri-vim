@@ -47,17 +47,6 @@ else
 fi
 vim -c PlugUpdate
 
-if [[ -f vim-plug/enable-coc-plugin ]]; then
-    echo -n "install coc plugins(nodejs plugins of coc) right now? [y:N] "
-    read answ
-    if [[ "$answ" != "y" ]]; then
-        echo "coc plugins will be installed when the next time vim is started"
-    else
-        echo "intsalling coc plugins"
-        vim
-    fi
-fi
-
 unset answ
 
 echo "install done!"

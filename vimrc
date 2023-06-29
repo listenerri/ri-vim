@@ -731,6 +731,10 @@ if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
         endif
         " 打开 CocList
         nnoremap <F1> :CocList<CR>
+        nnoremap <leader>cc :CocCommand<CR>
+        nnoremap <leader>cd :CocDiagnostics<CR>
+        nnoremap <leader>co :CocOutline<CR>
+        nnoremap <leader>cs :CocSearch<CR>
 endif
 
 
