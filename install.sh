@@ -32,16 +32,32 @@ echo "create link from $VimDir to $HOME/.vim"
 ln -s -f $VimDir $HOME/.vim
 
 echo "install plugins..."
-echo -n "enable plugins for coding? [y:N] "
+echo ""
+echo "enable coc plugin?"
+echo "NOTE: you should install node (ver > v8) and vim (ver > v8) before enable coc plugin!"
+echo "you can manually enable coc plugin later by creating file vim-plug/enable-coc-plugin"
+echo "so enable coc plugin right now? [y:N] "
 read answ
 if [[ "$answ" != "y" ]]; then
-    echo "will NOT intsall plugins for coding"
+    echo "will NOT intsall/load coc plugin and all nodejs plugins of coc"
 else
-    echo "will intsall plugins for coding"
+    echo "will intsall coc plugin"
     mkdir -p vim-plug
-    touch vim-plug/enable-coding-plugs
+    touch vim-plug/enable-coc-plugin
 fi
-vim -c PlugUpdate -c qa
+vim -c PlugUpdate
 
+if [[ -f vim-plug/enable-coc-plugin ]]; then
+    echo -n "install coc plugins(nodejs plugins of coc) right now? [y:N] "
+    read answ
+    if [[ "$answ" != "y" ]]; then
+        echo "coc plugins will be installed when the next time vim is started"
+    else
+        echo "intsalling coc plugins"
+        vim
+    fi
+fi
+
+unset answ
 
 echo "install done!"

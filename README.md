@@ -16,11 +16,7 @@ git clone git@github.com:ListenerRi/ri-vim.git
 cd ~/ri-vim && ./install.sh
 ```
 
-***注意！安装过程中会询问是否安装编程相关的插件，如果不安装，后续文档中提到的某些功能将不可用***
-
-安装脚本会下载安装相关插件，插件安装完之后除了 youcompleteme 插件不能直接使用以外，其他插件都可以直接使用\
-youcompleteme 插件需要编译后才能使用，编译方法见 youcompleteme 插件的 README 介绍：\
-[https://github.com/Valloric/YouCompleteMe#installation](https://github.com/Valloric/YouCompleteMe#installation)
+***注意！安装过程中会询问是否安装某些插件，如果不安装，后续文档中提到的某些功能将不可用***
 
 # 以下介绍部分按键
 这些按键都是本配置相对于 vim 默认新增的（修改的）按键操作
@@ -79,9 +75,10 @@ youcompleteme 插件需要编译后才能使用，编译方法见 youcompleteme 
 | :- | :- |
 | \<F2\> | 运行nerdtree |
 | \<F5\> | 运行quickrun |
-| \<F8\> | 切换tagbar |
+| \<F8\> | 切换tagbar TODO: coc? |
 | \\ | 调用easymotion |
 
+TODO: coc?
 ## YouCompleteMe插件相关
 | 按键 | 功能 |
 | :- | :- |
@@ -95,25 +92,6 @@ youcompleteme 插件需要编译后才能使用，编译方法见 youcompleteme 
 | \<Space\>gf | 快速修复功能 |
 | \<Space\>gc | 强制检查c系列语言语法错误 |
 | \<Space\>ge | c系列语言语法错误的位置列表窗口 |
-
-## JavaComplete2插件相关
-| 按键 | 功能 |
-| :- | :- |
-| \<Space\>jA | 为所有变量生成setter和getter |
-| \<Space\>js | 为光标下变量生成setter |
-| \<Space\>jg | 为光标下变量生成getter |
-| \<Space\>ja | 为光标下变量生成setter和getter |
-| \<Space\>jc | 生成默认构造方法 |
-| \<Space\>jC | 同jA但生成有参数的构造方法 |
-| \<Space\>ji | 为光标下的类名增加import |
-| \<Space\>jI | 增加所有缺失的import |
-| \<Space\>jr | 移除所有未使用的import |
-| \<Space\>jm | 增加未实现的接口的方法 |
-
-## ALE插件相关
-| 按键 | 功能 |
-| :- | :- |
-| \<Space\>ac | ale强制检查语法错误 |
 
 ## Airline插件相关
 | 按键 | 功能 |

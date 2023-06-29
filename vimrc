@@ -432,6 +432,7 @@ endfunction
 "
 " 注意！编程相关的插件放在了 vimrc-code-plugs 文件中，默认不安装
 " 可通过在执行 install.sh 脚本时，调整选项来控制是否加载编程相关的配置文件
+" 也可以通过在创建 ./vim-plug/enable-coding-plugs 文件手动启用
 "
 " 使用vim-plug插件管理器
 " vim-plug的简要使用方法:
@@ -529,11 +530,6 @@ Plug 'vim-airline/vim-airline-themes'
     let g:airline#extensions#tabline#enabled = 1
     " 显示标签栏序号以及标签内有多少窗口
     let g:airline#extensions#tabline#tab_nr_type = 2
-    " 标签栏符号
-    let g:airline#extensions#tabline#left_sep = ''
-    let g:airline#extensions#tabline#left_alt_sep = ''
-    let g:airline#extensions#tabline#right_sep = ''
-    let g:airline#extensions#tabline#right_alt_sep = ''
     " 只显示文件名,不显示路径(:h :p查看相关帮助)
     let g:airline#extensions#tabline#fnamemod = ':t'
     " 标签栏切换按键(当只有buffer时也可用于切换buffer)
@@ -551,27 +547,6 @@ Plug 'vim-airline/vim-airline-themes'
     nmap <leader>= <Plug>AirlineSelectNextTab
     " 主题
     let g:airline_theme='minimalist'
-    " 自定义符号
-    if !exists('g:airline_symbols')
-      let g:airline_symbols = {}
-    endif
-    " powerline符号
-    "let g:airline_left_sep = ''
-    "let g:airline_left_alt_sep = ''
-    "let g:airline_right_sep = ''
-    "let g:airline_right_alt_sep = ''
-    "let g:airline_symbols.branch = ''
-    "let g:airline_symbols.readonly = ''
-    "let g:airline_symbols.linenr = '☰'
-    "let g:airline_symbols.maxlinenr = ''
-    " 编辑下列文件类型的文件时显示文字总数
-    " 多个文件类型用'|'号隔开
-    " 在 centos 6.10 系统下会导致插件启动报错
-    "let g:airline#extensions#wordcount#filetypes = '\vtext|mail'
-    " 显示ycm检查到的错误和警告的数量
-    let g:airline#extensions#ycm#enabled = 1
-    let g:airline#extensions#ycm#error_symbol = 'YCM: Ec:'
-    let g:airline#extensions#ycm#warning_symbol = 'YCM: Wc:'
     " 开关airline
     nnoremap <leader>at :AirlineToggle<cr>
     " 重新加载airline
@@ -622,12 +597,150 @@ Plug 'kannokanno/previm', { 'for': 'markdown' }
 Plug 'terryma/vim-multiple-cursors'
 
 
-"##################
-" 选择性加载编程相关插件
 
-if filereadable("./vim-plug/enable-coding-plugs")
-    source vimrc-code-plugs
+"##############
+" vim-fswitch
+" c/cpp头文件切换
+Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
+    map <f4> :FSHere<cr>
+
+
+
+"############
+" vim-quickrun
+" 快速运行当前文件或选中的行
+Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python','go'] }
+    " 按F5按默认配置快速启动
+    nmap <F5> <Plug>(quickrun)
+    " 为了避免运行时无法进行交互
+    " 所以设置runner为shell, 默认为system
+    let g:quickrun_config = {
+    \   "_" : {
+    \       "runner" : "shell",
+    \   },
+    \}
+
+
+
+"##############
+" vim-qt-assistant
+" 打开 qt assistant
+Plug 'listenerri/vim-qt-assistant', { 'for': ['cpp'] }
+    noremap <f1> :call GetDocFromAssistant()<cr>
+
+
+
+" NERD-Commenter
+" 提供注释功能
+Plug 'scrooloose/nerdcommenter', { 'for': ['vim','java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
+    map <c-_> <plug>NERDCommenterToggle
+
+
+" qt相关插件
+" qt语法高亮
+Plug 'kosl90/qt-highlight-vim'
+" qmake语法高亮
+Plug 'vim-scripts/qmake--syntax.vim'
+    " 设置类似pro，pri等文件的filetype为qmake，以激活这个语法高亮插件
+    au BufReadPost *.pr? setfiletype qmake
+
+
+" git 插件
+Plug 'tpope/vim-fugitive'
+
+
+" DoxygenToolkit.vim
+" doxygen文档注释插件
+Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c','cpp','python'] }
+    let g:DoxygenToolkit_briefTag_pre = "\\brief "
+    let g:DoxygenToolkit_templateParamTag_pre = "\\tparam "
+    let g:DoxygenToolkit_paramTag_pre = "\\param "
+    let g:DoxygenToolkit_returnTag = "\\return "
+    let g:DoxygenToolkit_throwTag_pre = "\\throw " " @exception is also valid
+    let g:DoxygenToolkit_fileTag = "\\file "
+    let g:DoxygenToolkit_authorTag = "\\author "
+    let g:DoxygenToolkit_dateTag = "\\date "
+    let g:DoxygenToolkit_versionTag = "\\version "
+    let g:DoxygenToolkit_blockTag = "\\name "
+    let g:DoxygenToolkit_classTag = "\\class "
+
+    " 添加两个命令用于中英文标记
+    command! -nargs=0 Doe :call DoxygenCommentFuncEnglish()
+    command! -nargs=0 Doc :call DoxygenCommentFuncChinese()
+
+    function! DoxygenCommentFuncEnglish()
+        let g:DoxygenToolkit_interCommentTag = "* \\~english "
+        let g:DoxygenToolkit_interCommentBlock = "* \\~english "
+        Dox
+    endfunction
+
+    function! DoxygenCommentFuncChinese()
+        let g:DoxygenToolkit_interCommentTag = "* \\~chinese "
+        let g:DoxygenToolkit_interCommentBlock = "* \\~chinese "
+        Dox
+    endfunction
+
+
+
+"    " 以下映射对应命令生效的对象一般是光标下的变量或者方法
+"    " 不是所有命令适用于所有语言，具体是否支持应该查阅 YCM 的 README
+"    " 跳转到头文件
+"    nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
+"    " 跳转到声明
+"    nnoremap <leader>gdc :YcmCompleter GoToDeclaration<CR>
+"    " 跳转到定义
+"    nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
+"    " 跳转到声明或定义
+"    nnoremap <leader>gg :YcmCompleter GoTo<CR>
+"    " 跳转到引用
+"    nnoremap <leader>grf :YcmCompleter GoToReferences<CR>
+"    " 获取类型信息
+"    nnoremap <leader>gt :YcmCompleter GetType<CR>
+"    " 获取父类信息
+"    nnoremap <leader>gp :YcmCompleter GetParent<CR>
+"    " 获取相关文档
+"    nnoremap <leader>go :YcmCompleter GetDoc<CR>
+"    " 快速修复检测到的语法错误
+"    nnoremap <leader>gf :YcmCompleter FixIt<CR>
+"    " 重构之重命名
+"    nnoremap <leader>grr :YcmCompleter RefactorRename 
+"    " 强制进行语法检查
+"    nnoremap <leader>gc :YcmForceCompileAndDiagnostics<CR>
+"    " 打开错误位置列表窗口
+"    nnoremap <leader>ge :YcmDiags<CR>
+
+
+
+"############
+" 选择性加载 coc.nvim
+" https://github.com/neoclide/coc.nvim
+" 强大的 nodejs 扩展引擎，为 vim 带来与 vscode 类似的扩展机制
+" 但其依赖 node 和版本较新的 vim
+" 在首次部署本项目时，会提示是否启用 coc
+" 也可以手动创建 vim-plug/enable-coc-plugin 文件来启用（文件内容可为空）
+if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+        " coc 内部插件，coc 服务启动后将会自动安装此处已定义，但本地缺少的插件
+        let g:coc_global_extensions =<< trim eval END
+            coc-marketplace
+            coc-json
+            coc-go
+            coc-snippets
+            coc-sh
+            coc-markdownlint
+        END
+        " Tab 键在 snippet placeholder 间跳转
+        let g:coc_snippet_next = '<TAB>'
+        let g:coc_snippet_prev = '<S-TAB>'
+        " Ctrl+Space 触发补全菜单
+        "inoremap <silent><expr> <c-space> coc#refresh()
+        " vim 中 <C-@> 是 Ctrl+Space
+        inoremap <silent><expr> <C-@> coc#refresh()
+        " 回车键接受补全
+        "inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+        inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 endif
+
 
 
 " 结束插件加载
