@@ -622,27 +622,13 @@ Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python','go'] }
 
 
 
-"##############
-" vim-qt-assistant
-" 打开 qt assistant
-Plug 'listenerri/vim-qt-assistant', { 'for': ['cpp'] }
-    noremap <f1> :call GetDocFromAssistant()<cr>
-
-
-
 " NERD-Commenter
 " 提供注释功能
 Plug 'scrooloose/nerdcommenter', { 'for': ['vim','java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
+    " 禁止其默认绑定 <leader>c*
+    let NERDCreateDefaultMappings = 0
     map <c-_> <plug>NERDCommenterToggle
 
-
-" qt相关插件
-" qt语法高亮
-Plug 'kosl90/qt-highlight-vim'
-" qmake语法高亮
-Plug 'vim-scripts/qmake--syntax.vim'
-    " 设置类似pro，pri等文件的filetype为qmake，以激活这个语法高亮插件
-    au BufReadPost *.pr? setfiletype qmake
 
 
 " git 插件
@@ -729,16 +715,22 @@ if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
             coc-sh
             coc-markdownlint
         END
-        " Tab 键在 snippet placeholder 间跳转
-        let g:coc_snippet_next = '<TAB>'
-        let g:coc_snippet_prev = '<S-TAB>'
-        " Ctrl+Space 触发补全菜单
-        "inoremap <silent><expr> <c-space> coc#refresh()
-        " vim 中 <C-@> 是 Ctrl+Space
+        " Ctrl+Space 触发补全菜单， vim 中 <C-@> 是 Ctrl+Space
         inoremap <silent><expr> <C-@> coc#refresh()
         " 回车键接受补全
-        "inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-        inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+        inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+        " inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+        " 显示文档
+        nnoremap <silent> <leader>o :call CocActionAsync('doHover')<cr>
+        " 滚动浮动窗口，整屏向下、向上，单行向下向上
+        if has('nvim-0.4.0') || has('patch-8.2.0750')
+            nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
+            nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
+            nnoremap <silent><nowait><expr> <C-e> coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-e>"
+            nnoremap <silent><nowait><expr> <C-y> coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-y>"
+        endif
+        " 打开 CocList
+        nnoremap <F1> :CocList<CR>
 endif
 
 
@@ -759,11 +751,6 @@ function! TryToOpenNERDTree()
     endif
 endfunction
 "au VimEnter * call TryToOpenNERDTree()
-
-" 让theme/qss文件使用css的语法高亮(主要针对qt)
-au BufReadPost *.theme,*.qss setfiletype css
-" 让qrc文件使用xml的语法高亮(主要针对qt)
-au BufReadPost *.qrc setfiletype xml
 
 " 启用TermDebug
 au Filetype c,cpp packadd termdebug
