@@ -259,14 +259,35 @@ endif
 " <buffer> : 只在当前buffer生效
 " <nowait> : 一旦匹配到可用按键序列立即生效，不等待后续按键，相当于对更长按键映射的一种覆盖
 " <silent> : 静默，不在状态栏显示
-" <special> :
-" <script> :
-" <expr> :
-" <unique> :
+" <special> : 与 cpoptions 选项有关
+" <script> : 只用在脚本中定义映射，不是全局映射，多在编写插件时使用
+" <expr> : 映射的值将被作为表达式进行解析执行，并将计算结果作为最终映射的值
+" <unique> : 映射键已存在时报错
 " <nowait>举例：有一个"imap <nowait> ,w week"按键映射，但还有一个"imap ,wl weekly"
 " 前一个imap加入了<nowait>的参数，那么输入",w"后就会理解匹配到第一个imap，
 " 如果没有<nowait>参数，那么输入",w"后就会等待输入"l"，如果输入了"l"那么就会匹配上第二个imap，
 " 如果一直没有输入"l"，那么就会超时，超时后才会匹配第一个imap
+"
+" 特殊的映射值前缀
+" <Cmd>
+"   在不真正进入命令行模式的情况下执行命令，这在非 normal
+"   模式时很有用，不必先返回到 normal 模式
+"   noremap x <Cmd>echo mode(1)<CR>
+" <SID>
+"   （先说明一个概念，map 不仅可以定义映射，还可以定义别名）
+"   <SID> 可以理解为一个变量，会被替换为当前脚本自己的脚本 ID，
+"   不同脚本中 <SID> 将被替换为不同的内容，
+"   多用在插件脚本中，为一个表达式创建别名，这个表达式通常调用脚本内的函数，
+"   表达式调用函数时，也要在函数名前加上 <SID>，同时创建的别名也要加上 <SID>，
+"   由于 SID 是动态生成的，被替换 SID 后的具体内容不可预知，
+"   所以如果想让其他脚本（其他插件/用户脚本）中想要使用这个 <SID> 别名，
+"   还要将 <SID> 别名再次导出为全局的一个别名，这个别名需要带有 <Plug> 前缀。
+"   另外，如果要在插件脚本中指定定义按键映射，而不是将别名导出供外部使用的话，
+"   可以不写 <Plug> 而是直接定义映射键到带有 <SID> 的函数调用表达式上
+" <Plug>
+"   <Plug> 可用于在插件脚本中定义一个别名，带有 <Plug> 前缀的别名对于脚本外是可见的，
+"   所以可以使用 <Plug> 别名将插件脚本中定义的 <SID> 别名导出到全局范围，
+"   <Plug> 别名使用驼峰式命名，驼峰式命名是有意义的，一般为 <Plug>ScriptDest
 
 " 设置<leader>为空格键
 let mapleader = "\<Space>"
@@ -308,8 +329,15 @@ noremap <leader>P "+P
 " 保存
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :w !sudo tee % > /dev/null<CR>
-" :exit 类似于 :wq
+" 写入改动并关闭窗口 :exit 类似于 :wq
+" 如果当前 tab 只剩下一个窗口，但还存在其他 tab，则关闭当前 tab
+" 如果当前只剩下一个窗口，则退出 vim
 nnoremap <leader>e :exit<CR>
+" 关闭窗口，不退出 vim
+" 如果当前 tab 只剩下一个窗口，但还存在其他 tab，则关闭当前 tab
+" 如果当前只剩下一个窗口，则提示不允许关闭最后一个窗口
+" 防止习惯了多窗口编辑的人，连续使用此快捷键退出窗口时，不小心整个退出了 vim
+nnoremap <leader>q :close<CR>
 
 " 切换搜索高亮的设置
 nnoremap <leader><Space> :set hlsearch!<cr>
@@ -344,85 +372,30 @@ nnoremap <leader>fc :cclose<cr>
 nnoremap <leader>fn :cnext<cr>
 nnoremap <leader>fp :cprevious<cr>
 
-" 删除当前buffer
-" 如果有多个buffer则自动编辑之前的buffer或前一个buffer
-" 如果只有当前一个buffer则删除后打开NERDTree(未启用, 如果需要取消下面 "NERDTreeFocus 的注释即可)
-nnoremap <leader>q :call CloseCurrentBuffer()<CR>
-
-function! CloseCurrentBuffer()
-    " 在处理buffer前先关闭预览，quickfix，位置列表这几个窗口，不然会有些问题
-    pclose
-    cclose
-    lclose
-
-    let l:bufsInfo = getbufinfo()
-    let l:bufsNrListed = []
-    for l:bufInfo in l:bufsInfo
-        if get(l:bufInfo, "listed") == 1
-            call add(l:bufsNrListed, get(l:bufInfo, "bufnr"))
-        endif
-    endfor
-    let l:bufsNrListedCount = len(l:bufsNrListed)
-    if l:bufsNrListedCount <= 1
-        execute "bw"
-        "NERDTreeFocus
-    else
-        if bufloaded(bufnr("#"))
-            execute "b#"
-        else
-            execute "bp"
-        endif
-        execute "bw #"
-    endif
-endfunction
-
-" 删除所有buffer
-nnoremap <leader>bc :call CloseListedBuffers()<cr>
-" 删除所有buffer,除了当前的
-nnoremap <leader>bo :call CloseOtherBuffers()<cr>
-" 切换到上一个buffer
-nnoremap <leader>bp :bp<cr>
-" 切换到下一个buffer
-nnoremap <leader>bn :bn<cr>
-" 切换到之前的buffer
-nnoremap <leader>0 :b#<cr>
-
-function! CloseListedBuffers()
-    " 在处理buffer前先关闭预览，quickfix，位置列表这几个窗口，不然会有些问题
-    pclose
-    cclose
-    lclose
-
-    let l:bufsInfo = getbufinfo()
-    for l:bufInfo in l:bufsInfo
-        if get(l:bufInfo, "listed") == 1
-            let l:bufNr = get(l:bufInfo, "bufnr")
-            if bufloaded(l:bufNr)
-                execute "bw" l:bufNr
-            endif
-        endif
-    endfor
-    NERDTreeFocus
-endfunction
-
-function! CloseOtherBuffers()
-    " 在处理buffer前先关闭预览，quickfix，位置列表这几个窗口，不然会有些问题
-    pclose
-    cclose
-    lclose
-
-    let l:bufsInfo = getbufinfo()
-    for l:bufInfo in l:bufsInfo
-        if get(l:bufInfo, "listed") == 1
-            let l:bufNr = get(l:bufInfo, "bufnr")
-            if l:bufNr != bufnr("%")
-                if bufloaded(l:bufNr)
-                    execute "bw" l:bufNr
-                endif
-            endif
-        endif
-    endfor
-endfunction
+" buffers 相关按键映射
+" 进入 buffer 列表，等待后续操作，比如：
+" - 选择加载指定 buffer ":b 2"
+" - 执行多个 buffer 的删除操作 ":bd 1 2" 或 "2,4bd"
+nnoremap <leader>bb :ls<cr>:b
+" [Open] 进入 buffer 列表，等待指定 buffer，然后在当前窗口打开/加载它
+nnoremap <leader>bo :ls<cr>:b
+" [Create Horizontal] 创建新的 buffer 并横向分屏后加载
+nnoremap <leader>bcs :new<cr>
+" [Create Vertical] 创建新的 buffer 并垂直分屏后加载
+nnoremap <leader>bcv :vnew<cr>
+" [Delete] 删除当前 buffer
+nnoremap <leader>bd :bd<cr>
+" [next] 切换到下一个 buffer
+nnoremap <leader>bn :bnext<cr>
+" [Previous] 切换到上一个 buffer
+nnoremap <leader>bN :bNext<cr>
+nnoremap <leader>bp :bprevious<cr>
+" [First] 切换到第一个 buffer
+nnoremap <leader>bf :bfirst<cr>
+" [Last] 切换到最后一个 buffer
+nnoremap <leader>bl :blast<cr>
+" [Split] 进入 buffer 列表，等待指定 buffer，然后分屏一个新窗口打开/加载它
+nnoremap <leader>bs :ls<cr>:sbuffer
 
 
 
@@ -466,18 +439,12 @@ call plug#begin('~/.vim/vim-plug')
 " 只适用于unix/linux系统
 if has('unix')
     " wsl 下不启用这个插件
+    " TODO: WSL 下自动切换输入法
     if strlen($WSL_DISTRO_NAME) == 0
         Plug 'lilydjwg/fcitx.vim'
     endif
 endif
 
-
-"##########
-" vinfo
-" 在vim中使用linux下info命令
-if has('unix')
-    Plug 'alx741/vinfo'
-endif
 
 
 " smartim
@@ -526,13 +493,39 @@ Plug 'kshenoy/vim-signature'
 " 高度可定制的状态栏
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+    " 主题
+    let g:airline_theme='molokai'
+    "
     " 标签栏
+    " 注意！airline 的标签栏插件默认有两种显示模式：buffers/tabs
+    " buffers 模式下将显示 buffers
+    " tabs 模式下将显示 tabs，此模式下将没有地方完整显示 buffers
+    " 默认情况下当有超过 1 个 tab 时，会进入 tabs 模式
+    " 后面将修改这个行为，使其始终处于 buffers 模式，显示所有 buffers
+    " 我觉得 buffers 比 tabs 更重要，看不到 buffers 不知道已经打开了哪些文件
+    "
+    " 启用标签栏插件
     let g:airline#extensions#tabline#enabled = 1
-    " 显示标签栏序号以及标签内有多少窗口
+    " 显示标签序号以及标签内有多少窗口
+    " 标签序号将以较小的数字显示在标签的左上角
     let g:airline#extensions#tabline#tab_nr_type = 2
+    " 显示 buffer/tab 序号，此序号是 vim 中的序号
+    " buffer/tab 序号将以普通大小的数字显示在标签中文件名左边以方括号包裹
+    let g:airline#extensions#tabline#buffer_nr_format = '[b%s]'
+    let g:airline#extensions#tabline#buffer_nr_show = 1
     " 只显示文件名,不显示路径(:h :p查看相关帮助)
     let g:airline#extensions#tabline#fnamemod = ':t'
-    " 标签栏切换按键(当只有buffer时也可用于切换buffer)
+    " 值为 0 时，始终以 tabs 模式运行，不展示 buffers
+    " 值为 1 时（默认值），当只有 1 个 tab 时以 buffers 模式运行，否则以 tabs 模式运行
+    " 下面的 show_tabs 选项为 0 时，此选项被强制设置为 1
+    let g:airline#extensions#tabline#show_buffers = 1
+    " 始终在标签栏上显示 buffers，即始终处于 buffers 模式
+    let g:airline#extensions#tabline#show_tabs = 0
+    " 标签切换按键映射
+    " 注意！这个标签序号与真实的 buffer/tab 序号没有关联对应关系
+    " 值为 1 时，映射 1-10 个标签，
+    " 值为 2 时，规则有点反脑回路，就不写了
+    " 值为 3 时，映射 01-99 个标签
     let g:airline#extensions#tabline#buffer_idx_mode = 1
     nmap <leader>1 <Plug>AirlineSelectTab1
     nmap <leader>2 <Plug>AirlineSelectTab2
@@ -545,16 +538,13 @@ Plug 'vim-airline/vim-airline-themes'
     nmap <leader>9 <Plug>AirlineSelectTab9
     nmap <leader>- <Plug>AirlineSelectPrevTab
     nmap <leader>= <Plug>AirlineSelectNextTab
-    " 主题
-    let g:airline_theme='minimalist'
-    " 开关airline
+    " 开关 airline
     nnoremap <leader>at :AirlineToggle<cr>
-    " 重新加载airline
+    " 重新加载 airline
     nnoremap <leader>ar :AirlineRefresh<cr>
-    " 开关whitespace检查(默认关闭该检查功能)
+    " 开关 whitespace 检查(默认关闭该检查功能)
     let g:airline#extensions#whitespace#enabled = 0
     nnoremap <leader>aw :AirlineToggleWhitespace<cr>
-
 
 "###########
 " nerdtree
@@ -668,35 +658,6 @@ Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c','cpp','python'] }
 
 
 
-"    " 以下映射对应命令生效的对象一般是光标下的变量或者方法
-"    " 不是所有命令适用于所有语言，具体是否支持应该查阅 YCM 的 README
-"    " 跳转到头文件
-"    nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
-"    " 跳转到声明
-"    nnoremap <leader>gdc :YcmCompleter GoToDeclaration<CR>
-"    " 跳转到定义
-"    nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
-"    " 跳转到声明或定义
-"    nnoremap <leader>gg :YcmCompleter GoTo<CR>
-"    " 跳转到引用
-"    nnoremap <leader>grf :YcmCompleter GoToReferences<CR>
-"    " 获取类型信息
-"    nnoremap <leader>gt :YcmCompleter GetType<CR>
-"    " 获取父类信息
-"    nnoremap <leader>gp :YcmCompleter GetParent<CR>
-"    " 获取相关文档
-"    nnoremap <leader>go :YcmCompleter GetDoc<CR>
-"    " 快速修复检测到的语法错误
-"    nnoremap <leader>gf :YcmCompleter FixIt<CR>
-"    " 重构之重命名
-"    nnoremap <leader>grr :YcmCompleter RefactorRename 
-"    " 强制进行语法检查
-"    nnoremap <leader>gc :YcmForceCompileAndDiagnostics<CR>
-"    " 打开错误位置列表窗口
-"    nnoremap <leader>ge :YcmDiags<CR>
-
-
-
 "############
 " 选择性加载 coc.nvim
 " https://github.com/neoclide/coc.nvim
@@ -715,26 +676,70 @@ if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
             coc-sh
             coc-markdownlint
         END
-        " Ctrl+Space 触发补全菜单， vim 中 <C-@> 是 Ctrl+Space
-        inoremap <silent><expr> <C-@> coc#refresh()
+
+        " Ctrl+Space 触发补全菜单， vim 插入模式下 <C-@> 是 Ctrl+Space
+        inoremap <expr> <C-@> coc#refresh()
         " 回车键接受补全
-        inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-        " inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+        " 另外默认的 Ctrl-y 也是接受补全
+        " 默认的 Ctrl-e 取消补全
+        inoremap <expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+
+        " Tab 键触发、接受补全（前面如果有字符的话）
+        " 同时也支持 snippets 的 placeholder 跳转
+        inoremap <silent><expr> <TAB>
+            \ coc#pum#visible() ? coc#_select_confirm() :
+            \ coc#expandableOrJumpable() ?
+            \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+            \ CheckBackspace() ? "\<TAB>" :
+            \ coc#refresh()
+        function! CheckBackspace() abort
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~# '\s'
+        endfunction
+        let g:coc_snippet_next = '<tab>'
+
         " 显示文档
-        nnoremap <silent> <leader>o :call CocActionAsync('doHover')<cr>
+        nnoremap <leader>h :call CocActionAsync('doHover')<cr>
         " 滚动浮动窗口，整屏向下、向上，单行向下向上
         if has('nvim-0.4.0') || has('patch-8.2.0750')
-            nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
-            nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
-            nnoremap <silent><nowait><expr> <C-e> coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-e>"
-            nnoremap <silent><nowait><expr> <C-y> coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-y>"
+            nnoremap <expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
+            nnoremap <expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
+            nnoremap <expr> <C-e> coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-e>"
+            nnoremap <expr> <C-y> coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-y>"
         endif
-        " 打开 CocList
-        nnoremap <F1> :CocList<CR>
+        " 恢复上一次使用的那个 CocList
+        nnoremap <F1> :CocListResume<CR>
+        " 打开顶层 CocList
+        nnoremap <leader>c<space> :CocList<CR>
+        " 打开命令列表
         nnoremap <leader>cc :CocCommand<CR>
+        " 打开诊断（报错）列表
         nnoremap <leader>cd :CocDiagnostics<CR>
+        " 打开大纲
         nnoremap <leader>co :CocOutline<CR>
-        nnoremap <leader>cs :CocSearch<CR>
+        " 打开搜索列表
+        nnoremap <leader>cs :CocList symbols<CR>
+        " 打开重构/重命名列表
+        nnoremap <leader>cr :call CocAction('refactor')<CR>
+        " 显示调用和类型层级 coc tree
+        " 在新窗口中可以使用 Tab 键显示更多菜单，比如显示子类型层级
+        nnoremap <leader>chc :call CocAction('showIncomingCalls')<CR>
+        nnoremap <leader>cht :call CocAction('showSuperTypes')<CR>
+        " 选择 CodeAction
+        nnoremap <leader>cf <Plug>(coc-codeaction-cursor)
+        " 打开引用列表（下面的所有都属于引用，比较常用，所以重复定义了 gg 映射
+        nnoremap <leader>gr <Plug>(coc-references)
+        nnoremap <leader>gg <Plug>(coc-references)
+        " 跳转定义
+        nnoremap <leader>gdf <Plug>(coc-definition)
+        " 跳转声明
+        nnoremap <leader>gdc <Plug>(coc-declaration)
+        " 跳转实现
+        nnoremap <leader>gi <Plug>(coc-implementation)
+        " 跳转类型定义
+        nnoremap <leader>gt <Plug>(coc-type-definition)
+        " 打开引用列表（不包含声明和定义，仅展示调用）
+        nnoremap <leader>gu <Plug>(coc-references-used)
 endif
 
 
