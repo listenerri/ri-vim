@@ -34,7 +34,7 @@ ln -s -f $VimDir $HOME/.vim
 echo "install plugins..."
 echo ""
 echo "enable coc plugin?"
-echo "NOTE: you should install node (ver > v8) and vim (ver > v8) before enable coc plugin!"
+echo "NOTE: you should install node (version > v8) and vim (version > v8) before enable coc plugin!"
 echo "you can manually enable coc plugin later by creating file vim-plug/enable-coc-plugin"
 echo "so enable coc plugin right now? [y:N] "
 read answ
@@ -49,4 +49,4 @@ vim -c PlugUpdate
 
 unset answ
 
-echo "install done!"
+echo "install finished!"

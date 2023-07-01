@@ -328,16 +328,22 @@ noremap <leader>P "+P
 
 " 保存
 nnoremap <leader>w :w<CR>
+" 调用 sudo 以 root 权限报错（当普通保存提示没有权限时这很有用）
 nnoremap <leader>W :w !sudo tee % > /dev/null<CR>
 " 写入改动并关闭窗口 :exit 类似于 :wq
-" 如果当前 tab 只剩下一个窗口，但还存在其他 tab，则关闭当前 tab
-" 如果当前只剩下一个窗口，则退出 vim
+" 当只剩下最后一个窗口时，将退出 vim
 nnoremap <leader>e :exit<CR>
-" 关闭窗口，不退出 vim
-" 如果当前 tab 只剩下一个窗口，但还存在其他 tab，则关闭当前 tab
-" 如果当前只剩下一个窗口，则提示不允许关闭最后一个窗口
-" 防止习惯了多窗口编辑的人，连续使用此快捷键退出窗口时，不小心整个退出了 vim
+" 仅关闭窗口，不退出 vim
+" 当只剩下最后一个窗口时，执行此操作将提示不允许关闭最后一个窗口
+" 防止习惯了多窗口编辑的人，连续使用此快捷键退出窗口时，不小心w要退出 vim 请使用 <leader>e 或 :q
 nnoremap <leader>q :close<CR>
+    " 注意：只是关闭窗口，窗口所展示的 buffer/file 并不会同步关闭，
+    " 仍然显示在 airline 的标签栏上，airline 的标签栏被配置为显示 buffers，
+    " 这也是 vim 本身的理念：
+    " buffer 是一切的基础，window 只是 buffer 的视窗，tab 是 windows 的容器，
+    " 一个 window 可以用于观察不同的 buffer（同一时刻只观察一个 buffer），
+    " 一个 buffer 可以同时显示在一个或多个不同的 windows 中（即使 windows 不在同一个 tab）
+    " 总之，tabs 在 vim 中与常规编辑器的标签栏不同
 
 " 切换搜索高亮的设置
 nnoremap <leader><Space> :set hlsearch!<cr>
@@ -376,7 +382,7 @@ nnoremap <leader>fp :cprevious<cr>
 " 进入 buffer 列表，等待后续操作，比如：
 " - 选择加载指定 buffer ":b 2"
 " - 执行多个 buffer 的删除操作 ":bd 1 2" 或 "2,4bd"
-nnoremap <leader>bb :ls<cr>:b
+nnoremap <leader>bb :ls<cr>:
 " [Open] 进入 buffer 列表，等待指定 buffer，然后在当前窗口打开/加载它
 nnoremap <leader>bo :ls<cr>:b
 " [Create Horizontal] 创建新的 buffer 并横向分屏后加载
@@ -433,26 +439,28 @@ nnoremap <leader>bs :ls<cr>:sbuffer
 call plug#begin('~/.vim/vim-plug')
 
 "##########
-" fcitx.vim
-" 记住fcitx在插入模式的中英状态
-" 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
-" 只适用于unix/linux系统
-if has('unix')
-    " wsl 下不启用这个插件
-    " TODO: WSL 下自动切换输入法
-    if strlen($WSL_DISTRO_NAME) == 0
+" 自动切换输入法
+" ssh 会话中不使用此模块
+if !exists("$SSH_CLIENT")
+    if has('mac') || has('win32') || has('win32unix') || strlen($WSL_DISTRO_NAME) != 0
+        Plug 'listenerri/smartim', { 'branch': 'imselect-path' }
+        " debug log file: ~/vim_smartim_debug_output
+        "let g:smartim_debug = 1
+        if has('mac')
+            let g:smartim_default = 'com.apple.keylayout.US'
+        else
+            let g:smartim_default = '1033'
+            if executable('im-select')
+                let g:smartim_imselect_path = 'im-select'
+            endif
+        endif
+    elseif has('linux') || has('unix')
         Plug 'lilydjwg/fcitx.vim'
     endif
 endif
 
 
 
-" smartim
-" 功能和上面的fcitx.vim插件相同
-" 但只适用于mac osx系统
-if has('mac')
-    Plug 'ybian/smartim'
-endif
 
 
 "##############
@@ -460,32 +468,32 @@ endif
 " 实现并扩展了vim自身所有的mark功能,每行可以放置多个标记
 " 在最左边显示当前行的标记,超过两个标记只显示后两个
 Plug 'kshenoy/vim-signature'
-" 下面是这个插件的一些按键:
-" mx           切换当前行的'x'标记,'x'属于a-zA-Z
-" dmx          不管当前光标在哪儿,删除'x'这个标记
-" m,           放置下一个可用的标记在当前行
-" m.           同上,但如果当前行已存在标记就删除它,如果存在多个就删除第一个
-" m-           删除当前行的所有标记
-" m<Space>     删除当前buffer的所有标记
-" ]`           跳转到下一个标记
-" ]'           跳转到下一个标记的行首
-" [`           跳转到上一个标记
-" ['           跳转到上一个标记的行首
-" `]           按标记的字母顺序跳转到下一个标记
-" ']           按标记的字母顺序跳转到下一个标记的行首
-" `[           按标记的字母顺序跳转到上一个标记
-" '[           按标记的字母顺序跳转到上一个标记的行首
-" m/           打开一个本地列表窗口来显示当前buffer的所有标记
-" 以下为类型标记按键,不同行可以是同一种类型标记,同一行可以既有类型标记又有字母标记
-" 其中的数字分别对应:'!@#$%^&*()',每一个符号都是一种类型
-" m[0-9]       切换当前行的类型标记
-" m<S-[0-9]>   不管光标在哪儿,删除对应的所有此类标记
-" ]-           跳转到下一个同类型的标记
-" [-           跳转到上一个同类型的标记
-" ]=           跳转到下一个类型标记,不管哪种类型
-" [=           跳转到上一个类型标记,不管哪种类型
-" m?           打开一个本地列表窗口来显示当前buffer的所有类型标记
-" m<BS>        删除当前buffer的所有类型标记
+    " 下面是这个插件的一些按键:
+    " mx           切换当前行的'x'标记,'x'属于a-zA-Z
+    " dmx          不管当前光标在哪儿,删除'x'这个标记
+    " m,           放置下一个可用的标记在当前行
+    " m.           同上,但如果当前行已存在标记就删除它,如果存在多个就删除第一个
+    " m-           删除当前行的所有标记
+    " m<Space>     删除当前buffer的所有标记
+    " ]`           跳转到下一个标记
+    " ]'           跳转到下一个标记的行首
+    " [`           跳转到上一个标记
+    " ['           跳转到上一个标记的行首
+    " `]           按标记的字母顺序跳转到下一个标记
+    " ']           按标记的字母顺序跳转到下一个标记的行首
+    " `[           按标记的字母顺序跳转到上一个标记
+    " '[           按标记的字母顺序跳转到上一个标记的行首
+    " m/           打开一个本地列表窗口来显示当前buffer的所有标记
+    " 以下为类型标记按键,不同行可以是同一种类型标记,同一行可以既有类型标记又有字母标记
+    " 其中的数字分别对应:'!@#$%^&*()',每一个符号都是一种类型
+    " m[0-9]       切换当前行的类型标记
+    " m<S-[0-9]>   不管光标在哪儿,删除对应的所有此类标记
+    " ]-           跳转到下一个同类型的标记
+    " [-           跳转到上一个同类型的标记
+    " ]=           跳转到下一个类型标记,不管哪种类型
+    " [=           跳转到上一个类型标记,不管哪种类型
+    " m?           打开一个本地列表窗口来显示当前buffer的所有类型标记
+    " m<BS>        删除当前buffer的所有类型标记
 
 
 "############
@@ -498,11 +506,11 @@ Plug 'vim-airline/vim-airline-themes'
     "
     " 标签栏
     " 注意！airline 的标签栏插件默认有两种显示模式：buffers/tabs
-    " buffers 模式下将显示 buffers
-    " tabs 模式下将显示 tabs，此模式下将没有地方完整显示 buffers
+    " - buffers 模式下将显示 buffers
+    " - tabs 模式下将显示 tabs，此模式下将没有地方完整显示 buffers
     " 默认情况下当有超过 1 个 tab 时，会进入 tabs 模式
     " 后面将修改这个行为，使其始终处于 buffers 模式，显示所有 buffers
-    " 我觉得 buffers 比 tabs 更重要，看不到 buffers 不知道已经打开了哪些文件
+    " 我觉得 buffers 比 tabs 更重要，如果看不到 buffers 就不知道已经打开了哪些文件
     "
     " 启用标签栏插件
     let g:airline#extensions#tabline#enabled = 1
@@ -516,15 +524,15 @@ Plug 'vim-airline/vim-airline-themes'
     " 只显示文件名,不显示路径(:h :p查看相关帮助)
     let g:airline#extensions#tabline#fnamemod = ':t'
     " 值为 0 时，始终以 tabs 模式运行，不展示 buffers
-    " 值为 1 时（默认值），当只有 1 个 tab 时以 buffers 模式运行，否则以 tabs 模式运行
-    " 下面的 show_tabs 选项为 0 时，此选项被强制设置为 1
+    " 值为 1 时（插件默认值），当只有 1 个 tab 时以 buffers 模式运行，否则进入 tabs 模式
+    " 下面的 show_tabs 选项为 0 时，此选项等同于被强制设置为 1
     let g:airline#extensions#tabline#show_buffers = 1
     " 始终在标签栏上显示 buffers，即始终处于 buffers 模式
     let g:airline#extensions#tabline#show_tabs = 0
     " 标签切换按键映射
     " 注意！这个标签序号与真实的 buffer/tab 序号没有关联对应关系
     " 值为 1 时，映射 1-10 个标签，
-    " 值为 2 时，规则有点反脑回路，就不写了
+    " 值为 2 时，规则有点反脑回路，就不用了
     " 值为 3 时，映射 01-99 个标签
     let g:airline#extensions#tabline#buffer_idx_mode = 1
     nmap <leader>1 <Plug>AirlineSelectTab1
@@ -536,11 +544,12 @@ Plug 'vim-airline/vim-airline-themes'
     nmap <leader>7 <Plug>AirlineSelectTab7
     nmap <leader>8 <Plug>AirlineSelectTab8
     nmap <leader>9 <Plug>AirlineSelectTab9
+    nmap <leader>0 <Plug>AirlineSelectTab0
     nmap <leader>- <Plug>AirlineSelectPrevTab
     nmap <leader>= <Plug>AirlineSelectNextTab
     " 开关 airline
     nnoremap <leader>at :AirlineToggle<cr>
-    " 重新加载 airline
+    " 重新加载 airline，这在测试主题样式时很有用
     nnoremap <leader>ar :AirlineRefresh<cr>
     " 开关 whitespace 检查(默认关闭该检查功能)
     let g:airline#extensions#whitespace#enabled = 0
@@ -565,6 +574,7 @@ Plug 'easymotion/vim-easymotion'
     let g:EasyMotion_smartcase = 1
     map \ <Plug>(easymotion-prefix)
     map <leader>s <Plug>(easymotion-prefix)s
+    " 替换默认的 f F t T 功能到此插件
     map f <Plug>(easymotion-prefix)f
     map F <Plug>(easymotion-prefix)F
     map t <Plug>(easymotion-prefix)t
@@ -616,7 +626,9 @@ Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python','go'] }
 " 提供注释功能
 Plug 'scrooloose/nerdcommenter', { 'for': ['vim','java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
     " 禁止其默认绑定 <leader>c*
+    " 默认绑定了一堆 <leader>c 开头的按键映射，太复杂用不到
     let NERDCreateDefaultMappings = 0
+     "使用 Ctrl+_ 或 Ctrl+/ 执行注释操作
     map <c-_> <plug>NERDCommenterToggle
 
 
@@ -660,14 +672,13 @@ Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c','cpp','python'] }
 
 "############
 " 选择性加载 coc.nvim
-" https://github.com/neoclide/coc.nvim
 " 强大的 nodejs 扩展引擎，为 vim 带来与 vscode 类似的扩展机制
 " 但其依赖 node 和版本较新的 vim
 " 在首次部署本项目时，会提示是否启用 coc
 " 也可以手动创建 vim-plug/enable-coc-plugin 文件来启用（文件内容可为空）
 if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-        " coc 内部插件，coc 服务启动后将会自动安装此处已定义，但本地缺少的插件
+        " coc 内部插件，coc 服务启动后将会自动安装此处已定义，但本地未安装的插件
         let g:coc_global_extensions =<< trim eval END
             coc-marketplace
             coc-json
@@ -680,11 +691,10 @@ if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
         " Ctrl+Space 触发补全菜单， vim 插入模式下 <C-@> 是 Ctrl+Space
         inoremap <expr> <C-@> coc#refresh()
         " 回车键接受补全
-        " 另外默认的 Ctrl-y 也是接受补全
-        " 默认的 Ctrl-e 取消补全
+        " 另外默认的 Ctrl-y 也是接受补全，使用 Ctrl-e 取消并关闭补全弹窗
         inoremap <expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 
-        " Tab 键触发、接受补全（前面如果有字符的话）
+        " Tab 键触发（前面如果有字符的话）、接受补全
         " 同时也支持 snippets 的 placeholder 跳转
         inoremap <silent><expr> <TAB>
             \ coc#pum#visible() ? coc#_select_confirm() :
