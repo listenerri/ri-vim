@@ -16,113 +16,137 @@ git clone git@github.com:ListenerRi/ri-vim.git
 cd ~/ri-vim && ./install.sh
 ```
 
-***注意！安装过程中会询问是否安装编程相关的插件，如果不安装，后续文档中提到的某些功能将不可用***
+***注意！安装过程中会询问是否安装某些插件，如果不安装，后续文档中提到的某些功能将不可用***
 
-安装脚本会下载安装相关插件，插件安装完之后除了 youcompleteme 插件不能直接使用以外，其他插件都可以直接使用\
-youcompleteme 插件需要编译后才能使用，编译方法见 youcompleteme 插件的 README 介绍：\
-[https://github.com/Valloric/YouCompleteMe#installation](https://github.com/Valloric/YouCompleteMe#installation)
-
-# 以下介绍部分按键
+# 以下介绍部分按键映射配置
 这些按键都是本配置相对于 vim 默认新增的（修改的）按键操作
 
 **注意:**
 
-- 映射`<leader>`为`<Space>`，也就是空格键
-- `<C-J>`是CTRL加j键,`<C-K>`是CTRL加k键，其他类似
-- 类似这种`<C-J>`时不区分大小写
+- 映射 `<leader>` 为 `<Space>`，也就是空格键
+- `<C-J>` 是 Ctrl 加 j 键，`<C-K>` 是 Ctrl 加 k 键，其他类似
+- 类似这种 `<C-J>` 时不区分大小写
 - 其他内容注意区分大小写
 - 注意按键在哪种模式（普通/插入/可视）下生效
 
 ## 一般按键
 | 按键 | 功能 |
 | :- | :- |
-| H | 移动到行首 |
-| L | 移动到行尾 |
-| \<Space\>y | 将高亮部分复制到系统剪贴板 |
-| \<Space\>Y | 复制整行到系统剪贴板 |
-| \<Space\>d | 删除并复制到系统剪贴板 |
-| \<Space\>x | 删除并复制到系统剪贴板 |
-| \<Space\>p | 从系统剪贴板粘贴到光标之后 |
-| \<Space\>P | 从系统剪贴板粘贴到光标之前 |
-| \<Space\>q | 删除当前缓冲区(并开始编辑上一个) |
-| \<Space\>e | 关闭当前窗口 |
-| \<Space\>w | 保存当前缓冲区 |
-| \<Space\>W | 使用root权限保存当前缓冲区 |
-| \<Space\>\<Space\> | 切换搜索高亮模式 |
-| / | 可视模式-按`/`键向下搜索高亮的部分 |
-| ? | 可视模式-按`?`键向上搜索高亮的部分 |
-| \<C-H\> | 正常模式-切换到左边的窗口 |
-| \<C-J\> | 正常模式-切换到下边的窗口 |
-| \<C-K\> | 正常模式-切换到上边的窗口 |
-| \<C-L\> | 正常模式-切换到右边的窗口 |
 | \<C-H\> | 插入模式-向左移动光标 |
 | \<C-J\> | 插入模式-向下移动光标 |
 | \<C-K\> | 插入模式-向上移动光标 |
 | \<C-L\> | 插入模式-向右移动光标 |
 | \<Insert\> | 插入模式-输入二合字符 |
-| \<Space\>lo | 打开位置列表窗口(一般包含错误信息) |
-| \<Space\>lc | 关闭位置列表窗口 |
-| \<Space\>ln | 跳转到位置列表窗口中的下一个错误 |
-| \<Space\>lp | 跳转到位置列表窗口中的上一个错误 |
-| \<Space\>fo | 打开quickfix列表窗口 |
-| \<Space\>fc | 关闭quickfix列表窗口 |
-| \<Space\>fn | 跳转到quickfix列表窗口中的下一个错误 |
-| \<Space\>fp | 跳转到quickfix列表窗口中的上一个错误 |
-| \<Space\>bc | 删除所有buffer |
-| \<Space\>bo | 删除所有buffer,除了当前的 |
-| \<Space\>bp | 切换到上一个buffer |
-| \<Space\>bn | 切换到下一个buffer |
-| \<Space\>b0 | 切换到之前的buffer |
+| H | 插入模式或可视模式模式-移动光标到最左侧 |
+| L | 任意模式或可视模式模式-移动光标到最右侧 |
+| \<Space\>y | 可视模式-将已选择部分复制到系统剪贴板 |
+| \<Space\>y | 正常模式-等待后续选择文本对象命令，比如 `iw`，执行后将选择的文本复制到系统剪切板 |
+| \<Space\>Y | 正常模式-复制整行到系统剪贴板 |
+| \<Space\>d | 可视模式-复制已选择部分到系统剪贴板并删除它 |
+| \<Space\>d | 正常模式-等待后续选择文本对象命令，比如 `iw`，执行后将选择的文本复制到系统剪切板并删除它 |
+| \<Space\>x | 可视模式-复制已选择部分到系统剪贴板并删除它 |
+| \<Space\>x | 正常模式-复制光标下的文本到系统剪贴板并删除它 |
+| \<Space\>p | 正常模式-从系统剪贴板粘贴到光标之后 |
+| \<Space\>P | 正常模式-从系统剪贴板粘贴到光标之前 |
+| \<Space\>p | 可视模式-从系统剪贴板粘贴替换已选择部分 |
+| \<Space\>P | 可视模式-从系统剪贴板粘贴替换已选择部分 |
+| \<Space\>w | 保存当前缓冲区 |
+| \<Space\>W | 使用 root 权限保存当前缓冲区 |
+| \<Space\>e | 关闭当前窗口，如果已编辑则自动写入，只剩下最后一个窗口时，再次执行将退出 vim |
+| \<Space\>q | 关闭当前窗口，并确保至少保留一个窗口，避免不小心完全退出 vim |
+| \<Space\>\<Space\> | 开关搜索高亮模式 |
+| / | 可视模式-按 `/` 键向下搜索已选择文本 |
+| ? | 可视模式-按 `?` 键向上搜索已选择文本 |
+| \<C-H\> | 正常模式-切换到左边的窗口 |
+| \<C-J\> | 正常模式-切换到下边的窗口 |
+| \<C-K\> | 正常模式-切换到上边的窗口 |
+| \<C-L\> | 正常模式-切换到右边的窗口 |
+| \<Space\>lo | 正常模式-打开位置列表窗口(一般包含错误信息) |
+| \<Space\>lc | 正常模式-关闭位置列表窗口 |
+| \<Space\>ln | 正常模式-跳转到位置列表窗口中的下一个错误 |
+| \<Space\>lp | 正常模式-跳转到位置列表窗口中的上一个错误 |
+| \<Space\>fo | 正常模式-打开 quickfix 列表窗口 |
+| \<Space\>fc | 正常模式-关闭 quickfix 列表窗口 |
+| \<Space\>fn | 正常模式-跳转到 quickfix 列表窗口中的下一个错误 |
+| \<Space\>fp | 正常模式-跳转到 quickfix 列表窗口中的上一个错误 |
+| \<Space\>bb | 正常模式-进入 buffer 列表，等待后续操作 |
+| \<Space\>bo | 正常模式-进入 buffer 列表，等待指定 buffer，然后在当前窗口打开/加载它 |
+| \<Space\>bcs | 正常模式-创建新的 buffer 并横向分屏后加载它 |
+| \<Space\>bcv | 正常模式-创建新的 buffer 并垂直分屏后加载它 |
+| \<Space\>bd | 正常模式-删除当前 buffer |
+| \<Space\>bn | 正常模式-切换到下一个 buffer |
+| \<Space\>bN | 正常模式-切换到上一个 buffer |
+| \<Space\>bp | 正常模式-切换到上一个 buffer |
+| \<Space\>bf | 正常模式-切换到第一个 buffer |
+| \<Space\>bl | 正常模式-切换到最后一个 buffer |
+| \<Space\>bs | 正常模式-进入 buffer 列表，等待指定 buffer，然后分屏一个新窗口打开/加载它 |
 
-## 简单插件相关
+
+
+## 普通插件相关按键
 | 按键 | 功能 |
 | :- | :- |
-| \<F2\> | 运行nerdtree |
-| \<F5\> | 运行quickrun |
-| \<F8\> | 切换tagbar |
-| \\ | 调用easymotion |
+| m | 正常模式-调用 vim-signature 插件，扩展标记功能 |
+| \<Space\>at | 正常模式-开关 airline |
+| \<Space\>ar | 正常模式-重新加载 airline |
+| \<Space\>aw | 正常模式-开关 whitespace 检查 |
+| \<Space\>1 | 正常模式-切换到 airline 顶部标签 1 |
+| \<Space\>2 | 正常模式-切换到 airline 顶部标签 2 |
+| \<Space\>3 | 正常模式-切换到 airline 顶部标签 3 |
+| \<Space\>4 | 正常模式-切换到 airline 顶部标签 4 |
+| \<Space\>5 | 正常模式-切换到 airline 顶部标签 5 |
+| \<Space\>6 | 正常模式-切换到 airline 顶部标签 6 |
+| \<Space\>7 | 正常模式-切换到 airline 顶部标签 7 |
+| \<Space\>8 | 正常模式-切换到 airline 顶部标签 8 |
+| \<Space\>9 | 正常模式-切换到 airline 顶部标签 9 |
+| \<Space\>0 | 正常模式-切换到 airline 顶部标签 10 |
+| \<Space\>- | 正常模式-向前切换 airline 顶部标签 |
+| \<Space\>= | 正常模式-向后切换 airline 顶部标签 |
+| \<F2\> | 正常模式或插入模式-开关 nerdtree |
+| \\ | 正常模式-调用 easymotion |
+| \<Space\>s | 正常模式-调用 easymotion 全文搜索 |
+| f,F,t,T | 正常模式-调用 easymotion，增强默认的这些vim功能 |
+| :PrevimOpen | 命令模式-调用 previm 实时预览 markdown 文件 |
+| \<C-n\> | 正常模式或可视模式-调用 vim-multiple-cursors 进入多光标操作模式，继续按 \<C-n\> 选择更多位置 |
+| \<C-p\> | 正常模式或可视模式-取消 vim-multiple-cursors 当前选择位置并返回上一个选择位置 |
+| \<C-x\> | 正常模式或可视模式-跳过 vim-multiple-cursors 下一个选择位置 |
+| \<F4\> | 任意模式-切换 c/cpp 头文件与源文件 |
+| \<F5\> | 正常模式-调用 quickrun |
+| \<C-/\> | 正常模式或可视模式-调用 nerdcommenter 注释文本 |
+| \<C-_\> | 同 \<C-/\> |
+| :Doc | 命令模式-调用 DoxygenToolkit 生成中文注释 |
+| :Doe | 命令模式-调用 DoxygenToolkit 生成英文注释 |
 
-## YouCompleteMe插件相关
+
+
+## coc 插件相关
+
+补全、代码检查、代码跳转、代码重构、代码搜索 等等功能
+
 | 按键 | 功能 |
 | :- | :- |
-| \<Space\>gi | 跳转到头文件 |
-| \<Space\>gdc | 跳转到声明 |
-| \<Space\>gdf | 跳转到定义 |
-| \<Space\>gg | 跳转到声明或定义 |
-| \<Space\>gt | 获取类型信息 |
-| \<Space\>gp | 获取父类信息 |
-| \<Space\>go | 获取相关文档 |
-| \<Space\>gf | 快速修复功能 |
-| \<Space\>gc | 强制检查c系列语言语法错误 |
-| \<Space\>ge | c系列语言语法错误的位置列表窗口 |
-
-## JavaComplete2插件相关
-| 按键 | 功能 |
-| :- | :- |
-| \<Space\>jA | 为所有变量生成setter和getter |
-| \<Space\>js | 为光标下变量生成setter |
-| \<Space\>jg | 为光标下变量生成getter |
-| \<Space\>ja | 为光标下变量生成setter和getter |
-| \<Space\>jc | 生成默认构造方法 |
-| \<Space\>jC | 同jA但生成有参数的构造方法 |
-| \<Space\>ji | 为光标下的类名增加import |
-| \<Space\>jI | 增加所有缺失的import |
-| \<Space\>jr | 移除所有未使用的import |
-| \<Space\>jm | 增加未实现的接口的方法 |
-
-## ALE插件相关
-| 按键 | 功能 |
-| :- | :- |
-| \<Space\>ac | ale强制检查语法错误 |
-
-## Airline插件相关
-| 按键 | 功能 |
-| :- | :- |
-| \<Space\>at | 开关airline |
-| \<Space\>ar | 重新加载airline |
-| \<Space\>aw | 开关whitespace检查 |
-
-## EasyMotion插件相关
-| 按键 | 功能 |
-| :- | :- |
-| f,F,t,T | 增强默认的这些vim功能 |
+| \<C-Space\> | 插入模式-Ctrl+Space 触发补全菜单 |
+| \<CR\> | 插入模式-回车键接受补全 |
+| \<Tab\> | 插入模式-Tab 键触发、接受补全，snippets placeholder 跳转 |
+| \<C-d\> | 正常模式-整屏向下滚动浮动窗口 |
+| \<C-u\> | 正常模式-整屏向上滚动浮动窗口 |
+| \<C-e\> | 正常模式-向下滚动浮动窗口 |
+| \<C-y\> | 正常模式-向上滚动浮动窗口 |
+| \<Space\>h | 正常模式-显示文档（触发鼠标的 hover 操作） |
+| \<F1\> | 正常模式-恢复上一次使用的那个 CocList |
+| \<Space\>c\<Space\> | 正常模式-打开顶层 CocList |
+| \<Space\>cc | 正常模式-打开命令列表 |
+| \<Space\>cd | 正常模式-打开诊断（报错）列表 |
+| \<Space\>co | 正常模式-打开大纲 |
+| \<Space\>cs | 正常模式-打开搜索列表 |
+| \<Space\>cr | 正常模式-打开重构/重命名列表 |
+| \<Space\>chc | 正常模式-显示调用层级 coc tree |
+| \<Space\>cht | 正常模式-显示类型层级 coc tree |
+| \<Space\>cf | 正常模式-选择 CodeAction |
+| \<Space\>gr | 正常模式-打开引用列表 |
+| \<Space\>gg | 正常模式-打开引用列表 |
+| \<Space\>gdf | 正常模式-跳转到定义 |
+| \<Space\>gdc | 正常模式-跳转到声明 |
+| \<Space\>gi | 正常模式-跳转到实现 |
+| \<Space\>gt | 正常模式-跳转到类型定义 |
+| \<Space\>gu | 正常模式-打开引用列表（不包含声明和定义，仅展示调用） |

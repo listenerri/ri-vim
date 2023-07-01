@@ -259,14 +259,35 @@ endif
 " <buffer> : 只在当前buffer生效
 " <nowait> : 一旦匹配到可用按键序列立即生效，不等待后续按键，相当于对更长按键映射的一种覆盖
 " <silent> : 静默，不在状态栏显示
-" <special> :
-" <script> :
-" <expr> :
-" <unique> :
+" <special> : 与 cpoptions 选项有关
+" <script> : 只用在脚本中定义映射，不是全局映射，多在编写插件时使用
+" <expr> : 映射的值将被作为表达式进行解析执行，并将计算结果作为最终映射的值
+" <unique> : 映射键已存在时报错
 " <nowait>举例：有一个"imap <nowait> ,w week"按键映射，但还有一个"imap ,wl weekly"
 " 前一个imap加入了<nowait>的参数，那么输入",w"后就会理解匹配到第一个imap，
 " 如果没有<nowait>参数，那么输入",w"后就会等待输入"l"，如果输入了"l"那么就会匹配上第二个imap，
 " 如果一直没有输入"l"，那么就会超时，超时后才会匹配第一个imap
+"
+" 特殊的映射值前缀
+" <Cmd>
+"   在不真正进入命令行模式的情况下执行命令，这在非 normal
+"   模式时很有用，不必先返回到 normal 模式
+"   noremap x <Cmd>echo mode(1)<CR>
+" <SID>
+"   （先说明一个概念，map 不仅可以定义映射，还可以定义别名）
+"   <SID> 可以理解为一个变量，会被替换为当前脚本自己的脚本 ID，
+"   不同脚本中 <SID> 将被替换为不同的内容，
+"   多用在插件脚本中，为一个表达式创建别名，这个表达式通常调用脚本内的函数，
+"   表达式调用函数时，也要在函数名前加上 <SID>，同时创建的别名也要加上 <SID>，
+"   由于 SID 是动态生成的，被替换 SID 后的具体内容不可预知，
+"   所以如果想让其他脚本（其他插件/用户脚本）中想要使用这个 <SID> 别名，
+"   还要将 <SID> 别名再次导出为全局的一个别名，这个别名需要带有 <Plug> 前缀。
+"   另外，如果要在插件脚本中指定定义按键映射，而不是将别名导出供外部使用的话，
+"   可以不写 <Plug> 而是直接定义映射键到带有 <SID> 的函数调用表达式上
+" <Plug>
+"   <Plug> 可用于在插件脚本中定义一个别名，带有 <Plug> 前缀的别名对于脚本外是可见的，
+"   所以可以使用 <Plug> 别名将插件脚本中定义的 <SID> 别名导出到全局范围，
+"   <Plug> 别名使用驼峰式命名，驼峰式命名是有意义的，一般为 <Plug>ScriptDest
 
 " 设置<leader>为空格键
 let mapleader = "\<Space>"
@@ -307,9 +328,22 @@ noremap <leader>P "+P
 
 " 保存
 nnoremap <leader>w :w<CR>
+" 调用 sudo 以 root 权限报错（当普通保存提示没有权限时这很有用）
 nnoremap <leader>W :w !sudo tee % > /dev/null<CR>
-" :exit 类似于 :wq
+" 写入改动并关闭窗口 :exit 类似于 :wq
+" 当只剩下最后一个窗口时，将退出 vim
 nnoremap <leader>e :exit<CR>
+" 仅关闭窗口，不退出 vim
+" 当只剩下最后一个窗口时，执行此操作将提示不允许关闭最后一个窗口
+" 防止习惯了多窗口编辑的人，连续使用此快捷键退出窗口时，不小心w要退出 vim 请使用 <leader>e 或 :q
+nnoremap <leader>q :close<CR>
+    " 注意：只是关闭窗口，窗口所展示的 buffer/file 并不会同步关闭，
+    " 仍然显示在 airline 的标签栏上，airline 的标签栏被配置为显示 buffers，
+    " 这也是 vim 本身的理念：
+    " buffer 是一切的基础，window 只是 buffer 的视窗，tab 是 windows 的容器，
+    " 一个 window 可以用于观察不同的 buffer（同一时刻只观察一个 buffer），
+    " 一个 buffer 可以同时显示在一个或多个不同的 windows 中（即使 windows 不在同一个 tab）
+    " 总之，tabs 在 vim 中与常规编辑器的标签栏不同
 
 " 切换搜索高亮的设置
 nnoremap <leader><Space> :set hlsearch!<cr>
@@ -344,85 +378,30 @@ nnoremap <leader>fc :cclose<cr>
 nnoremap <leader>fn :cnext<cr>
 nnoremap <leader>fp :cprevious<cr>
 
-" 删除当前buffer
-" 如果有多个buffer则自动编辑之前的buffer或前一个buffer
-" 如果只有当前一个buffer则删除后打开NERDTree(未启用, 如果需要取消下面 "NERDTreeFocus 的注释即可)
-nnoremap <leader>q :call CloseCurrentBuffer()<CR>
-
-function! CloseCurrentBuffer()
-    " 在处理buffer前先关闭预览，quickfix，位置列表这几个窗口，不然会有些问题
-    pclose
-    cclose
-    lclose
-
-    let l:bufsInfo = getbufinfo()
-    let l:bufsNrListed = []
-    for l:bufInfo in l:bufsInfo
-        if get(l:bufInfo, "listed") == 1
-            call add(l:bufsNrListed, get(l:bufInfo, "bufnr"))
-        endif
-    endfor
-    let l:bufsNrListedCount = len(l:bufsNrListed)
-    if l:bufsNrListedCount <= 1
-        execute "bw"
-        "NERDTreeFocus
-    else
-        if bufloaded(bufnr("#"))
-            execute "b#"
-        else
-            execute "bp"
-        endif
-        execute "bw #"
-    endif
-endfunction
-
-" 删除所有buffer
-nnoremap <leader>bc :call CloseListedBuffers()<cr>
-" 删除所有buffer,除了当前的
-nnoremap <leader>bo :call CloseOtherBuffers()<cr>
-" 切换到上一个buffer
-nnoremap <leader>bp :bp<cr>
-" 切换到下一个buffer
-nnoremap <leader>bn :bn<cr>
-" 切换到之前的buffer
-nnoremap <leader>0 :b#<cr>
-
-function! CloseListedBuffers()
-    " 在处理buffer前先关闭预览，quickfix，位置列表这几个窗口，不然会有些问题
-    pclose
-    cclose
-    lclose
-
-    let l:bufsInfo = getbufinfo()
-    for l:bufInfo in l:bufsInfo
-        if get(l:bufInfo, "listed") == 1
-            let l:bufNr = get(l:bufInfo, "bufnr")
-            if bufloaded(l:bufNr)
-                execute "bw" l:bufNr
-            endif
-        endif
-    endfor
-    NERDTreeFocus
-endfunction
-
-function! CloseOtherBuffers()
-    " 在处理buffer前先关闭预览，quickfix，位置列表这几个窗口，不然会有些问题
-    pclose
-    cclose
-    lclose
-
-    let l:bufsInfo = getbufinfo()
-    for l:bufInfo in l:bufsInfo
-        if get(l:bufInfo, "listed") == 1
-            let l:bufNr = get(l:bufInfo, "bufnr")
-            if l:bufNr != bufnr("%")
-                if bufloaded(l:bufNr)
-                    execute "bw" l:bufNr
-                endif
-            endif
-        endif
-    endfor
-endfunction
+" buffers 相关按键映射
+" 进入 buffer 列表，等待后续操作，比如：
+" - 选择加载指定 buffer ":b 2"
+" - 执行多个 buffer 的删除操作 ":bd 1 2" 或 "2,4bd"
+nnoremap <leader>bb :ls<cr>:
+" [Open] 进入 buffer 列表，等待指定 buffer，然后在当前窗口打开/加载它
+nnoremap <leader>bo :ls<cr>:b
+" [Create Horizontal] 创建新的 buffer 并横向分屏后加载
+nnoremap <leader>bcs :new<cr>
+" [Create Vertical] 创建新的 buffer 并垂直分屏后加载
+nnoremap <leader>bcv :vnew<cr>
+" [Delete] 删除当前 buffer
+nnoremap <leader>bd :bd<cr>
+" [next] 切换到下一个 buffer
+nnoremap <leader>bn :bnext<cr>
+" [Previous] 切换到上一个 buffer
+nnoremap <leader>bN :bNext<cr>
+nnoremap <leader>bp :bprevious<cr>
+" [First] 切换到第一个 buffer
+nnoremap <leader>bf :bfirst<cr>
+" [Last] 切换到最后一个 buffer
+nnoremap <leader>bl :blast<cr>
+" [Split] 进入 buffer 列表，等待指定 buffer，然后分屏一个新窗口打开/加载它
+nnoremap <leader>bs :ls<cr>:sbuffer
 
 
 
@@ -432,6 +411,7 @@ endfunction
 "
 " 注意！编程相关的插件放在了 vimrc-code-plugs 文件中，默认不安装
 " 可通过在执行 install.sh 脚本时，调整选项来控制是否加载编程相关的配置文件
+" 也可以通过在创建 ./vim-plug/enable-coding-plugs 文件手动启用
 "
 " 使用vim-plug插件管理器
 " vim-plug的简要使用方法:
@@ -459,32 +439,28 @@ endfunction
 call plug#begin('~/.vim/vim-plug')
 
 "##########
-" fcitx.vim
-" 记住fcitx在插入模式的中英状态
-" 按ESC键后设置fcitx为英文,进入插入模式后设置为上次离开是的中英状态
-" 只适用于unix/linux系统
-if has('unix')
-    " wsl 下不启用这个插件
-    if strlen($WSL_DISTRO_NAME) == 0
+" 自动切换输入法
+" ssh 会话中不使用此模块
+if !exists("$SSH_CLIENT")
+    if has('mac') || has('win32') || has('win32unix') || strlen($WSL_DISTRO_NAME) != 0
+        Plug 'listenerri/smartim', { 'branch': 'imselect-path' }
+        " debug log file: ~/vim_smartim_debug_output
+        "let g:smartim_debug = 1
+        if has('mac')
+            let g:smartim_default = 'com.apple.keylayout.US'
+        else
+            let g:smartim_default = '1033'
+            if executable('im-select')
+                let g:smartim_imselect_path = 'im-select'
+            endif
+        endif
+    elseif has('linux') || has('unix')
         Plug 'lilydjwg/fcitx.vim'
     endif
 endif
 
 
-"##########
-" vinfo
-" 在vim中使用linux下info命令
-if has('unix')
-    Plug 'alx741/vinfo'
-endif
 
-
-" smartim
-" 功能和上面的fcitx.vim插件相同
-" 但只适用于mac osx系统
-if has('mac')
-    Plug 'ybian/smartim'
-endif
 
 
 "##############
@@ -492,32 +468,32 @@ endif
 " 实现并扩展了vim自身所有的mark功能,每行可以放置多个标记
 " 在最左边显示当前行的标记,超过两个标记只显示后两个
 Plug 'kshenoy/vim-signature'
-" 下面是这个插件的一些按键:
-" mx           切换当前行的'x'标记,'x'属于a-zA-Z
-" dmx          不管当前光标在哪儿,删除'x'这个标记
-" m,           放置下一个可用的标记在当前行
-" m.           同上,但如果当前行已存在标记就删除它,如果存在多个就删除第一个
-" m-           删除当前行的所有标记
-" m<Space>     删除当前buffer的所有标记
-" ]`           跳转到下一个标记
-" ]'           跳转到下一个标记的行首
-" [`           跳转到上一个标记
-" ['           跳转到上一个标记的行首
-" `]           按标记的字母顺序跳转到下一个标记
-" ']           按标记的字母顺序跳转到下一个标记的行首
-" `[           按标记的字母顺序跳转到上一个标记
-" '[           按标记的字母顺序跳转到上一个标记的行首
-" m/           打开一个本地列表窗口来显示当前buffer的所有标记
-" 以下为类型标记按键,不同行可以是同一种类型标记,同一行可以既有类型标记又有字母标记
-" 其中的数字分别对应:'!@#$%^&*()',每一个符号都是一种类型
-" m[0-9]       切换当前行的类型标记
-" m<S-[0-9]>   不管光标在哪儿,删除对应的所有此类标记
-" ]-           跳转到下一个同类型的标记
-" [-           跳转到上一个同类型的标记
-" ]=           跳转到下一个类型标记,不管哪种类型
-" [=           跳转到上一个类型标记,不管哪种类型
-" m?           打开一个本地列表窗口来显示当前buffer的所有类型标记
-" m<BS>        删除当前buffer的所有类型标记
+    " 下面是这个插件的一些按键:
+    " mx           切换当前行的'x'标记,'x'属于a-zA-Z
+    " dmx          不管当前光标在哪儿,删除'x'这个标记
+    " m,           放置下一个可用的标记在当前行
+    " m.           同上,但如果当前行已存在标记就删除它,如果存在多个就删除第一个
+    " m-           删除当前行的所有标记
+    " m<Space>     删除当前buffer的所有标记
+    " ]`           跳转到下一个标记
+    " ]'           跳转到下一个标记的行首
+    " [`           跳转到上一个标记
+    " ['           跳转到上一个标记的行首
+    " `]           按标记的字母顺序跳转到下一个标记
+    " ']           按标记的字母顺序跳转到下一个标记的行首
+    " `[           按标记的字母顺序跳转到上一个标记
+    " '[           按标记的字母顺序跳转到上一个标记的行首
+    " m/           打开一个本地列表窗口来显示当前buffer的所有标记
+    " 以下为类型标记按键,不同行可以是同一种类型标记,同一行可以既有类型标记又有字母标记
+    " 其中的数字分别对应:'!@#$%^&*()',每一个符号都是一种类型
+    " m[0-9]       切换当前行的类型标记
+    " m<S-[0-9]>   不管光标在哪儿,删除对应的所有此类标记
+    " ]-           跳转到下一个同类型的标记
+    " [-           跳转到上一个同类型的标记
+    " ]=           跳转到下一个类型标记,不管哪种类型
+    " [=           跳转到上一个类型标记,不管哪种类型
+    " m?           打开一个本地列表窗口来显示当前buffer的所有类型标记
+    " m<BS>        删除当前buffer的所有类型标记
 
 
 "############
@@ -525,18 +501,39 @@ Plug 'kshenoy/vim-signature'
 " 高度可定制的状态栏
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+    " 主题
+    let g:airline_theme='molokai'
+    "
     " 标签栏
+    " 注意！airline 的标签栏插件默认有两种显示模式：buffers/tabs
+    " - buffers 模式下将显示 buffers
+    " - tabs 模式下将显示 tabs，此模式下将没有地方完整显示 buffers
+    " 默认情况下当有超过 1 个 tab 时，会进入 tabs 模式
+    " 后面将修改这个行为，使其始终处于 buffers 模式，显示所有 buffers
+    " 我觉得 buffers 比 tabs 更重要，如果看不到 buffers 就不知道已经打开了哪些文件
+    "
+    " 启用标签栏插件
     let g:airline#extensions#tabline#enabled = 1
-    " 显示标签栏序号以及标签内有多少窗口
+    " 显示标签序号以及标签内有多少窗口
+    " 标签序号将以较小的数字显示在标签的左上角
     let g:airline#extensions#tabline#tab_nr_type = 2
-    " 标签栏符号
-    let g:airline#extensions#tabline#left_sep = ''
-    let g:airline#extensions#tabline#left_alt_sep = ''
-    let g:airline#extensions#tabline#right_sep = ''
-    let g:airline#extensions#tabline#right_alt_sep = ''
+    " 显示 buffer/tab 序号，此序号是 vim 中的序号
+    " buffer/tab 序号将以普通大小的数字显示在标签中文件名左边以方括号包裹
+    let g:airline#extensions#tabline#buffer_nr_format = '[b%s]'
+    let g:airline#extensions#tabline#buffer_nr_show = 1
     " 只显示文件名,不显示路径(:h :p查看相关帮助)
     let g:airline#extensions#tabline#fnamemod = ':t'
-    " 标签栏切换按键(当只有buffer时也可用于切换buffer)
+    " 值为 0 时，始终以 tabs 模式运行，不展示 buffers
+    " 值为 1 时（插件默认值），当只有 1 个 tab 时以 buffers 模式运行，否则进入 tabs 模式
+    " 下面的 show_tabs 选项为 0 时，此选项等同于被强制设置为 1
+    let g:airline#extensions#tabline#show_buffers = 1
+    " 始终在标签栏上显示 buffers，即始终处于 buffers 模式
+    let g:airline#extensions#tabline#show_tabs = 0
+    " 标签切换按键映射
+    " 注意！这个标签序号与真实的 buffer/tab 序号没有关联对应关系
+    " 值为 1 时，映射 1-10 个标签，
+    " 值为 2 时，规则有点反脑回路，就不用了
+    " 值为 3 时，映射 01-99 个标签
     let g:airline#extensions#tabline#buffer_idx_mode = 1
     nmap <leader>1 <Plug>AirlineSelectTab1
     nmap <leader>2 <Plug>AirlineSelectTab2
@@ -547,39 +544,16 @@ Plug 'vim-airline/vim-airline-themes'
     nmap <leader>7 <Plug>AirlineSelectTab7
     nmap <leader>8 <Plug>AirlineSelectTab8
     nmap <leader>9 <Plug>AirlineSelectTab9
+    nmap <leader>0 <Plug>AirlineSelectTab0
     nmap <leader>- <Plug>AirlineSelectPrevTab
     nmap <leader>= <Plug>AirlineSelectNextTab
-    " 主题
-    let g:airline_theme='minimalist'
-    " 自定义符号
-    if !exists('g:airline_symbols')
-      let g:airline_symbols = {}
-    endif
-    " powerline符号
-    "let g:airline_left_sep = ''
-    "let g:airline_left_alt_sep = ''
-    "let g:airline_right_sep = ''
-    "let g:airline_right_alt_sep = ''
-    "let g:airline_symbols.branch = ''
-    "let g:airline_symbols.readonly = ''
-    "let g:airline_symbols.linenr = '☰'
-    "let g:airline_symbols.maxlinenr = ''
-    " 编辑下列文件类型的文件时显示文字总数
-    " 多个文件类型用'|'号隔开
-    " 在 centos 6.10 系统下会导致插件启动报错
-    "let g:airline#extensions#wordcount#filetypes = '\vtext|mail'
-    " 显示ycm检查到的错误和警告的数量
-    let g:airline#extensions#ycm#enabled = 1
-    let g:airline#extensions#ycm#error_symbol = 'YCM: Ec:'
-    let g:airline#extensions#ycm#warning_symbol = 'YCM: Wc:'
-    " 开关airline
+    " 开关 airline
     nnoremap <leader>at :AirlineToggle<cr>
-    " 重新加载airline
+    " 重新加载 airline，这在测试主题样式时很有用
     nnoremap <leader>ar :AirlineRefresh<cr>
-    " 开关whitespace检查(默认关闭该检查功能)
+    " 开关 whitespace 检查(默认关闭该检查功能)
     let g:airline#extensions#whitespace#enabled = 0
     nnoremap <leader>aw :AirlineToggleWhitespace<cr>
-
 
 "###########
 " nerdtree
@@ -600,6 +574,7 @@ Plug 'easymotion/vim-easymotion'
     let g:EasyMotion_smartcase = 1
     map \ <Plug>(easymotion-prefix)
     map <leader>s <Plug>(easymotion-prefix)s
+    " 替换默认的 f F t T 功能到此插件
     map f <Plug>(easymotion-prefix)f
     map F <Plug>(easymotion-prefix)F
     map t <Plug>(easymotion-prefix)t
@@ -622,12 +597,161 @@ Plug 'kannokanno/previm', { 'for': 'markdown' }
 Plug 'terryma/vim-multiple-cursors'
 
 
-"##################
-" 选择性加载编程相关插件
 
-if filereadable("./vim-plug/enable-coding-plugs")
-    source vimrc-code-plugs
+"##############
+" vim-fswitch
+" c/cpp头文件切换
+Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
+    map <f4> :FSHere<cr>
+
+
+
+"############
+" vim-quickrun
+" 快速运行当前文件或选中的行
+Plug 'thinca/vim-quickrun', { 'for': ['sh','java','c','cpp','python','go'] }
+    " 按F5按默认配置快速启动
+    nmap <F5> <Plug>(quickrun)
+    " 为了避免运行时无法进行交互
+    " 所以设置runner为shell, 默认为system
+    let g:quickrun_config = {
+    \   "_" : {
+    \       "runner" : "shell",
+    \   },
+    \}
+
+
+
+" NERD-Commenter
+" 提供注释功能
+Plug 'scrooloose/nerdcommenter', { 'for': ['vim','java','c','cpp','dosbatch','sh','python','html','xhtml','go'] }
+    " 禁止其默认绑定 <leader>c*
+    " 默认绑定了一堆 <leader>c 开头的按键映射，太复杂用不到
+    let NERDCreateDefaultMappings = 0
+     "使用 Ctrl+_ 或 Ctrl+/ 执行注释操作
+    map <c-_> <plug>NERDCommenterToggle
+
+
+
+" git 插件
+Plug 'tpope/vim-fugitive'
+
+
+" DoxygenToolkit.vim
+" doxygen文档注释插件
+Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c','cpp','python'] }
+    let g:DoxygenToolkit_briefTag_pre = "\\brief "
+    let g:DoxygenToolkit_templateParamTag_pre = "\\tparam "
+    let g:DoxygenToolkit_paramTag_pre = "\\param "
+    let g:DoxygenToolkit_returnTag = "\\return "
+    let g:DoxygenToolkit_throwTag_pre = "\\throw " " @exception is also valid
+    let g:DoxygenToolkit_fileTag = "\\file "
+    let g:DoxygenToolkit_authorTag = "\\author "
+    let g:DoxygenToolkit_dateTag = "\\date "
+    let g:DoxygenToolkit_versionTag = "\\version "
+    let g:DoxygenToolkit_blockTag = "\\name "
+    let g:DoxygenToolkit_classTag = "\\class "
+
+    " 添加两个命令用于中英文标记
+    command! -nargs=0 Doe :call DoxygenCommentFuncEnglish()
+    command! -nargs=0 Doc :call DoxygenCommentFuncChinese()
+
+    function! DoxygenCommentFuncEnglish()
+        let g:DoxygenToolkit_interCommentTag = "* \\~english "
+        let g:DoxygenToolkit_interCommentBlock = "* \\~english "
+        Dox
+    endfunction
+
+    function! DoxygenCommentFuncChinese()
+        let g:DoxygenToolkit_interCommentTag = "* \\~chinese "
+        let g:DoxygenToolkit_interCommentBlock = "* \\~chinese "
+        Dox
+    endfunction
+
+
+
+"############
+" 选择性加载 coc.nvim
+" 强大的 nodejs 扩展引擎，为 vim 带来与 vscode 类似的扩展机制
+" 但其依赖 node 和版本较新的 vim
+" 在首次部署本项目时，会提示是否启用 coc
+" 也可以手动创建 vim-plug/enable-coc-plugin 文件来启用（文件内容可为空）
+if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+        " coc 内部插件，coc 服务启动后将会自动安装此处已定义，但本地未安装的插件
+        let g:coc_global_extensions =<< trim eval END
+            coc-marketplace
+            coc-json
+            coc-go
+            coc-snippets
+            coc-sh
+            coc-markdownlint
+        END
+
+        " Ctrl+Space 触发补全菜单， vim 插入模式下 <C-@> 是 Ctrl+Space
+        inoremap <expr> <C-@> coc#refresh()
+        " 回车键接受补全
+        " 另外默认的 Ctrl-y 也是接受补全，使用 Ctrl-e 取消并关闭补全弹窗
+        inoremap <expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+
+        " Tab 键触发（前面如果有字符的话）、接受补全
+        " 同时也支持 snippets 的 placeholder 跳转
+        inoremap <silent><expr> <TAB>
+            \ coc#pum#visible() ? coc#_select_confirm() :
+            \ coc#expandableOrJumpable() ?
+            \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+            \ CheckBackspace() ? "\<TAB>" :
+            \ coc#refresh()
+        function! CheckBackspace() abort
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~# '\s'
+        endfunction
+        let g:coc_snippet_next = '<tab>'
+
+        " 显示文档
+        nnoremap <leader>h :call CocActionAsync('doHover')<cr>
+        " 滚动浮动窗口，整屏向下、向上，单行向下向上
+        if has('nvim-0.4.0') || has('patch-8.2.0750')
+            nnoremap <expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
+            nnoremap <expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
+            nnoremap <expr> <C-e> coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-e>"
+            nnoremap <expr> <C-y> coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-y>"
+        endif
+        " 恢复上一次使用的那个 CocList
+        nnoremap <F1> :CocListResume<CR>
+        " 打开顶层 CocList
+        nnoremap <leader>c<space> :CocList<CR>
+        " 打开命令列表
+        nnoremap <leader>cc :CocCommand<CR>
+        " 打开诊断（报错）列表
+        nnoremap <leader>cd :CocDiagnostics<CR>
+        " 打开大纲
+        nnoremap <leader>co :CocOutline<CR>
+        " 打开搜索列表
+        nnoremap <leader>cs :CocList symbols<CR>
+        " 打开重构/重命名列表
+        nnoremap <leader>cr :call CocAction('refactor')<CR>
+        " 显示调用和类型层级 coc tree
+        " 在新窗口中可以使用 Tab 键显示更多菜单，比如显示子类型层级
+        nnoremap <leader>chc :call CocAction('showIncomingCalls')<CR>
+        nnoremap <leader>cht :call CocAction('showSuperTypes')<CR>
+        " 选择 CodeAction
+        nnoremap <leader>cf <Plug>(coc-codeaction-cursor)
+        " 打开引用列表（下面的所有都属于引用，比较常用，所以重复定义了 gg 映射
+        nnoremap <leader>gr <Plug>(coc-references)
+        nnoremap <leader>gg <Plug>(coc-references)
+        " 跳转定义
+        nnoremap <leader>gdf <Plug>(coc-definition)
+        " 跳转声明
+        nnoremap <leader>gdc <Plug>(coc-declaration)
+        " 跳转实现
+        nnoremap <leader>gi <Plug>(coc-implementation)
+        " 跳转类型定义
+        nnoremap <leader>gt <Plug>(coc-type-definition)
+        " 打开引用列表（不包含声明和定义，仅展示调用）
+        nnoremap <leader>gu <Plug>(coc-references-used)
 endif
+
 
 
 " 结束插件加载
@@ -646,11 +770,6 @@ function! TryToOpenNERDTree()
     endif
 endfunction
 "au VimEnter * call TryToOpenNERDTree()
-
-" 让theme/qss文件使用css的语法高亮(主要针对qt)
-au BufReadPost *.theme,*.qss setfiletype css
-" 让qrc文件使用xml的语法高亮(主要针对qt)
-au BufReadPost *.qrc setfiletype xml
 
 " 启用TermDebug
 au Filetype c,cpp packadd termdebug
