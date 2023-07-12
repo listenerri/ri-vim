@@ -681,7 +681,7 @@ if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
     Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
         "let $NVIM_COC_LOG_LEVEL = 'trace'
         " coc 内部插件，coc 服务启动后将会自动安装此处已定义，但本地未安装的插件
-        let g:coc_global_extensions =<< trim eval END
+        let g:coc_global_extensions =<< trim END
             coc-marketplace
             coc-json
             coc-go
