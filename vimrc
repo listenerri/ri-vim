@@ -688,6 +688,7 @@ if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
             coc-snippets
             coc-sh
             coc-markdownlint
+            coc-pyright
         END
 
         " Ctrl+Space 触发补全菜单， vim 插入模式下 <C-@> 是 Ctrl+Space
