@@ -1,5 +1,5 @@
 # vim-plug插件管理器安装插件的目录
-vim-plug/
+plugged/
 # netrw缓存目录
 .netrwhist
 # mkview 和 loadview的缓存目录

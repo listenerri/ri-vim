@@ -409,9 +409,9 @@ nnoremap <leader>bs :ls<cr>:sbuffer
 
 "###########################安装/加载插件:plugins##########################
 "
-" 注意！编程相关的插件放在了 vimrc-code-plugs 文件中，默认不安装
+" 注意！编程相关的插件默认不安装
 " 可通过在执行 install.sh 脚本时，调整选项来控制是否加载编程相关的配置文件
-" 也可以通过在创建 ./vim-plug/enable-coding-plugs 文件手动启用
+" 也可以通过在创建 ./plugged/enable-coding-plugs 文件手动启用
 "
 " 使用vim-plug插件管理器
 " vim-plug的简要使用方法:
@@ -436,7 +436,7 @@ nnoremap <leader>bs :ls<cr>:sbuffer
 
 " 开始插件加载,括号中的是插件的安装和加载目录
 " 每个插件下面的是对这个插件的设置
-call plug#begin('~/.vim/vim-plug')
+call plug#begin()
 
 "##########
 " 自动切换输入法
@@ -675,8 +675,8 @@ Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c','cpp','python'] }
 " 强大的 nodejs 扩展引擎，为 vim 带来与 vscode 类似的扩展机制
 " 但其依赖 node 和版本较新的 vim
 " 在首次部署本项目时，会提示是否启用 coc
-" 也可以手动创建 vim-plug/enable-coc-plugin 文件来启用（文件内容可为空）
-if filereadable(globpath(&rtp, "vim-plug/enable-coc-plugin"))
+" 也可以手动创建 plugged/enable-coc-plugin 文件来启用（文件内容可为空）
+if filereadable(globpath(&rtp, "plugged/enable-coc-plugin"))
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
     "Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
         "let $NVIM_COC_LOG_LEVEL = 'trace'
