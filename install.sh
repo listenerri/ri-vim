@@ -35,7 +35,7 @@ echo "install plugins..."
 echo ""
 echo "enable coc plugin?"
 echo "NOTE: you should install node (version > v8) and vim (version > v8) before enable coc plugin!"
-echo "you can manually enable coc plugin later by creating file vim-plug/enable-coc-plugin"
+echo "you can manually enable coc plugin later by creating file pluged/enable-coc-plugin"
 echo -n "so enable coc plugin right now? [y:N] "
 read answ
 if [[ "$answ" != "y" ]]; then
