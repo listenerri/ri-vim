@@ -42,8 +42,8 @@ if [[ "$answ" != "y" ]]; then
     echo "will NOT intsall/load coc plugin and all nodejs plugins of coc"
 else
     echo "will intsall coc plugin"
-    mkdir -p vim-plug
-    touch vim-plug/enable-coc-plugin
+    mkdir -p pluged
+    touch pluged/enable-coc-plugin
 fi
 vim -c PlugUpdate
 
