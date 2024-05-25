@@ -35,15 +35,15 @@ echo "install plugins..."
 echo ""
 echo "enable coc plugin?"
 echo "NOTE: you should install node (version > v8) and vim (version > v8) before enable coc plugin!"
-echo "you can manually enable coc plugin later by creating file pluged/enable-coc-plugin"
+echo "you can manually enable coc plugin later by creating file plugged/enable-coc-plugin"
 echo -n "so enable coc plugin right now? [y:N] "
 read answ
 if [[ "$answ" != "y" ]]; then
     echo "will NOT intsall/load coc plugin and all nodejs plugins of coc"
 else
     echo "will intsall coc plugin"
-    mkdir -p pluged
-    touch pluged/enable-coc-plugin
+    mkdir -p plugged
+    touch plugged/enable-coc-plugin
 fi
 vim -c PlugUpdate
 
