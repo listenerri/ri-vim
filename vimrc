@@ -345,8 +345,9 @@ nnoremap <leader>q :close<CR>
     " 一个 buffer 可以同时显示在一个或多个不同的 windows 中（即使 windows 不在同一个 tab）
     " 总之，tabs 在 vim 中与常规编辑器的标签栏不同
 
-" 切换搜索高亮的设置
-nnoremap <leader><Space> :set hlsearch!<cr>
+" 暂时关闭搜索高亮
+" 不会修改 hlsearch 选项，在下次执行搜索时仍会高亮搜索结果
+nnoremap <leader><Space> :nohlsearch<cr>
 
 " 可视模式下搜索选中的内容
 " 向下搜索
