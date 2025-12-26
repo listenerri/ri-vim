@@ -443,7 +443,9 @@ call plug#begin()
 " 自动切换输入法
 " ssh 会话中不使用此模块
 if !exists("$SSH_CLIENT")
-    if has('mac') || has('win32') || has('win32unix') || strlen($WSL_DISTRO_NAME) != 0
+    if executable('fcitx') || executable('fctix5')
+        Plug 'lilydjwg/fcitx.vim'
+    else
         Plug 'listenerri/smartim', { 'branch': 'imselect-path' }
         " debug log file: ~/vim_smartim_debug_output
         "let g:smartim_debug = 1
@@ -455,8 +457,6 @@ if !exists("$SSH_CLIENT")
                 let g:smartim_imselect_path = 'im-select'
             endif
         endif
-    elseif has('linux') || has('unix')
-        Plug 'lilydjwg/fcitx.vim'
     endif
 endif
 
